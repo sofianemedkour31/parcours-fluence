@@ -34,24 +34,26 @@ export function monterMotsMeles(zone, { texte, parcours, finir }) {
   const emplacement = document.createComment('emplacement de la grille');
   let agrandie = false;
   let ancienDebordement = '';
-  let zoom = 1.2;
+  let zoom = 1;
   const boutonTaille = el('button', {
     class: 'btn-px', 'aria-pressed': 'false',
     onclick: () => changerTaille(),
   }, '⛶ Agrandir la grille');
   const valeurZoom = el('span', { class: 'mm-zoom-valeur' });
+  const boutonMoins = el('button', { class: 'btn-px btn-carre', 'aria-label': 'Réduire la grille', onclick: () => reglerZoom(-0.1) }, '−');
+  const boutonPlus = el('button', { class: 'btn-px btn-carre', 'aria-label': 'Agrandir la grille', onclick: () => reglerZoom(0.1) }, '+');
   const outilsZoom = el('div', { class: 'mm-zoom' },
-    el('button', { class: 'btn-px btn-carre', 'aria-label': 'Réduire les lettres', onclick: () => reglerZoom(-0.2) }, '−'),
-    valeurZoom,
-    el('button', { class: 'btn-px btn-carre', 'aria-label': 'Agrandir les lettres', onclick: () => reglerZoom(0.2) }, '+'));
-  const zoneGrille = el('div', { class: 'mm-zone' },
-    el('div', { class: 'plateau-cadre' }, plateau),
-    el('aside', { class: 'mm-cote' },
+    boutonMoins, valeurZoom, boutonPlus);
+  const cadre = el('div', { class: 'plateau-cadre' }, plateau);
+  const cote = el('aside', { class: 'mm-cote' },
+    el('div', { class: 'mm-commandes' },
       compteur,
-      liste,
       boutonTaille,
       outilsZoom,
-      el('button', { class: 'btn-px', onclick: indice }, '💡 Un indice')));
+      el('button', { class: 'btn-px', onclick: indice }, '💡 Un indice')),
+    liste);
+  const zoneGrille = el('div', { class: 'mm-zone' },
+    cadre, cote);
 
   ajouter(zone, 
     el('div', { class: 'activite-entete' },
@@ -61,19 +63,21 @@ export function monterMotsMeles(zone, { texte, parcours, finir }) {
     zoneGrille,
   );
   majListe();
+  ajusterPlateau();
 
-  function majZoom() {
-    const mobile = window.innerWidth <= 900;
-    const base = mobile
-      ? Math.min(window.innerWidth - 32, window.innerHeight - 210)
-      : Math.min(window.innerWidth - 380, window.innerHeight - 64, 1050);
-    plateau.style.setProperty('--cote', `${Math.max(240, Math.round(base * zoom))}px`);
+  function ajusterPlateau() {
+    const largeur = Math.max(1, cadre.clientWidth - 8);
+    const hauteur = agrandie ? Math.max(1, cadre.clientHeight - 8) : Infinity;
+    const cote = Math.min(largeur, hauteur, agrandie ? 820 : 760);
+    plateau.style.setProperty('--cote', `${Math.floor(cote * (agrandie ? zoom : 1))}px`);
     valeurZoom.textContent = `${Math.round(zoom * 100)} %`;
+    boutonMoins.disabled = zoom <= 0.7;
+    boutonPlus.disabled = zoom >= 1;
   }
 
   function reglerZoom(delta) {
-    zoom = Math.max(1, Math.min(2.2, Math.round((zoom + delta) * 10) / 10));
-    majZoom();
+    zoom = Math.max(0.7, Math.min(1, Math.round((zoom + delta) * 10) / 10));
+    ajusterPlateau();
   }
 
   function changerTaille(forcerFermeture = false) {
@@ -83,15 +87,16 @@ export function monterMotsMeles(zone, { texte, parcours, finir }) {
       document.body.append(zoneGrille);
       ancienDebordement = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
-      majZoom();
+      agrandie = true;
+      zoneGrille.classList.add('agrandie');
     } else {
+      agrandie = false;
+      zoneGrille.classList.remove('agrandie');
       if (emplacement.isConnected) emplacement.replaceWith(zoneGrille);
       else zoneGrille.remove();
       document.body.style.overflow = ancienDebordement;
-      plateau.style.removeProperty('--cote');
     }
-    agrandie = ouvrir;
-    zoneGrille.classList.toggle('agrandie', ouvrir);
+    ajusterPlateau();
     boutonTaille.setAttribute('aria-pressed', String(ouvrir));
     boutonTaille.textContent = ouvrir ? '↙ Réduire la grille' : '⛶ Agrandir la grille';
     if (!ouvrir && !forcerFermeture) boutonTaille.focus();
@@ -106,8 +111,11 @@ export function monterMotsMeles(zone, { texte, parcours, finir }) {
     }
   };
   document.addEventListener('keydown', fermerAvecEchap, true);
-  const surRedim = () => { if (agrandie) majZoom(); };
+  const surRedim = () => ajusterPlateau();
   window.addEventListener('resize', surRedim);
+  window.visualViewport?.addEventListener('resize', surRedim);
+  const observateur = typeof ResizeObserver === 'function' ? new ResizeObserver(surRedim) : null;
+  observateur?.observe(cadre);
 
   // --- Sélection -----------------------------------------------------------
   function caseDepuis(e) {
@@ -233,6 +241,8 @@ export function monterMotsMeles(zone, { texte, parcours, finir }) {
   return () => {
     document.removeEventListener('keydown', fermerAvecEchap, true);
     window.removeEventListener('resize', surRedim);
+    window.visualViewport?.removeEventListener('resize', surRedim);
+    observateur?.disconnect();
     if (agrandie) changerTaille(true);
   };
 }
