@@ -434,17 +434,14 @@
           "id": "p1-texte-03",
           "titre": "Le Petit Poucet",
           "texte": "Le Bûcheron se mit à couper du bois et ses enfants à ramasser les broutilles pour faire des fagots. Le père et la mère, les voyant occupés à travailler, s'éloignèrent d'eux insensiblement, puis s'enfuirent tout à coup par un petit sentier détourné. Lorsque ces enfants se virent seuls, ils se mirent à crier.",
-          "valide": true,
+          "valide": false,
           "activites": {
             "lecture": {
               "actif": true,
               "vitesse": 60,
               "groupes": [
-                "Le Bûcheron",
-                "se mit",
-                "à couper du bois",
-                "et ses enfants",
-                "à ramasser les broutilles",
+                "Le Bûcheron se mit à couper du bois",
+                "et ses enfants à ramasser les broutilles",
                 "pour faire des fagots.",
                 "Le père et la mère,",
                 "les voyant occupés à travailler,",
@@ -473,19 +470,15 @@
                 },
                 {
                   "mot": "s'enfuirent",
-                  "phrase": "s'enfuirent tout à coup par un petit sentier."
+                  "phrase": "puis s'enfuirent tout à coup."
+                },
+                {
+                  "mot": "un petit sentier",
+                  "phrase": "par un petit sentier détourné."
                 },
                 {
                   "mot": "seuls",
-                  "phrase": "Lorsque ces enfants se virent seuls."
-                },
-                {
-                  "mot": "se mirent",
-                  "phrase": "ils se mirent à crier."
-                },
-                {
-                  "mot": "crier",
-                  "phrase": "ils se mirent à crier."
+                  "phrase": "lorsque ces enfants se virent seuls."
                 }
               ]
             },
@@ -515,14 +508,14 @@
                   ]
                 },
                 {
-                  "question": "Que sont les broutilles ?",
-                  "indice": "Pense à ce qu'on ramasse pour faire un fagot.",
+                  "question": "Que sont les 'broutilles' ?",
+                  "indice": "Pense à ce que l'on ramasse pour faire un fagot.",
                   "extrait": "ses enfants à ramasser les broutilles pour faire des fagots.",
                   "bonne": 0,
                   "choix": [
                     "De petites branches",
-                    "De grosses bûches",
-                    "Des feuilles mortes"
+                    "De gros troncs",
+                    "Des feuilles sèches"
                   ]
                 },
                 {
@@ -537,7 +530,7 @@
                   ]
                 },
                 {
-                  "question": "Par où s'enfuient les parents ?",
+                  "question": "Comment les parents partent-ils ?",
                   "indice": "Relis la fin de la deuxième phrase.",
                   "extrait": "puis s'enfuirent tout à coup par un petit sentier détourné.",
                   "bonne": 0,
@@ -567,9 +560,9 @@
                 "enfants",
                 "bois",
                 "travailler",
+                "sentier",
                 "seuls",
-                "crier",
-                "sentier"
+                "crier"
               ],
               "directions": "simple"
             },
@@ -627,7 +620,7 @@
                   "choix": [
                     "détourné",
                     "large",
-                    "propre"
+                    "neuf"
                   ]
                 },
                 {
@@ -636,7 +629,7 @@
                   "choix": [
                     "seuls",
                     "grands",
-                    "prêts"
+                    "tristes"
                   ]
                 }
               ]
@@ -4157,7 +4150,7 @@
           "activites": {
             "lecture": {
               "actif": true,
-              "vitesse": 90,
+              "vitesse": 60,
               "groupes": [
                 "Un chien et un coq,",
                 "ayant fait amitié,",
@@ -4166,17 +4159,15 @@
                 "le coq grimpa sur un arbre",
                 "pour y dormir ;",
                 "le chien se couche au pied,",
-                "dans une cavité",
-                "formée par les racines.",
+                "dans une cavité formée par les racines.",
                 "La nuit,",
                 "le coq chanta,",
                 "selon son habitude.",
                 "Un renard l'entend",
                 "et accourt.",
-                "Il s'arrête au pied",
-                "de l'arbre",
-                "et demande au coq",
-                "de descendre auprès de lui",
+                "Il s'arrête au pied de l'arbre",
+                "et demande au coq de descendre",
+                "auprès de lui",
                 "et de contenter son envie",
                 "d'embrasser un animal",
                 "qui a une si belle voix.",
@@ -4203,24 +4194,24 @@
                   "phrase": "cheminaient de compagnie."
                 },
                 {
-                  "mot": "le soir",
-                  "phrase": "Le soir les surprit :"
-                },
-                {
                   "mot": "un arbre",
                   "phrase": "le coq grimpa sur un arbre pour y dormir ;"
                 },
                 {
-                  "mot": "dormir",
-                  "phrase": "le coq grimpa sur un arbre pour y dormir ;"
+                  "mot": "les racines",
+                  "phrase": "le chien se couche au pied, dans une cavité formée par les racines."
                 },
                 {
                   "mot": "chanta",
                   "phrase": "La nuit, le coq chanta, selon son habitude."
                 },
                 {
-                  "mot": "accourt",
+                  "mot": "un renard",
                   "phrase": "Un renard l'entend et accourt."
+                },
+                {
+                  "mot": "belle",
+                  "phrase": "embrasser un animal qui a une si belle voix."
                 }
               ]
             },
@@ -4229,58 +4220,58 @@
               "questions": [
                 {
                   "question": "Que font le chien et le coq au début de l'histoire ?",
+                  "indice": "Regarde le premier verbe de la première phrase.",
+                  "extrait": "Un chien et un coq, ayant fait amitié, cheminaient de compagnie.",
+                  "bonne": 0,
                   "choix": [
                     "Ils marchent ensemble",
                     "Ils se battent",
                     "Ils cherchent à manger"
-                  ],
-                  "bonne": 0,
-                  "indice": "Regarde le premier verbe de la première phrase.",
-                  "extrait": "Un chien et un coq, ayant fait amitié, cheminaient de compagnie."
+                  ]
                 },
                 {
                   "question": "Où le chien s'installe-t-il pour dormir ?",
+                  "indice": "Cherche le mot 'pied' et 'racines'.",
+                  "extrait": "le chien se couche au pied, dans une cavité formée par les racines.",
+                  "bonne": 0,
                   "choix": [
                     "Sous les racines",
-                    "Dans un arbre",
-                    "Sur un rocher"
-                  ],
-                  "bonne": 0,
-                  "indice": "Cherche le mot 'chien' et le mot 'pied'.",
-                  "extrait": "le chien se couche au pied, dans une cavité formée par les racines."
+                    "Dans un nid",
+                    "Sur une branche"
+                  ]
                 },
                 {
                   "question": "Pourquoi le renard arrive-t-il ?",
+                  "indice": "Relis le passage où le coq chante.",
+                  "extrait": "La nuit, le coq chanta, selon son habitude. Un renard l'entend et accourt.",
+                  "bonne": 0,
                   "choix": [
                     "Il a entendu le coq",
-                    "Il cherche son ami",
-                    "Il a faim de chien"
-                  ],
-                  "bonne": 0,
-                  "indice": "Relis le passage où le coq chante.",
-                  "extrait": "La nuit, le coq chanta, selon son habitude. Un renard l'entend et accourt."
+                    "Il a vu le chien",
+                    "Il cherche son chemin"
+                  ]
                 },
                 {
-                  "question": "Que veut vraiment le renard en demandant d'embrasser le coq ?",
+                  "question": "Que veut vraiment le renard en réalité ?",
+                  "indice": "Le renard est un prédateur, réfléchis à son envie d'embrasser le coq.",
+                  "extrait": "Il s'arrête au pied de l'arbre et demande au coq de descendre auprès de lui et de contenter son envie d'embrasser un animal qui a une si belle voix.",
+                  "bonne": 0,
                   "choix": [
                     "Manger le coq",
                     "Devenir son ami",
-                    "L'aider à dormir"
-                  ],
-                  "bonne": 0,
-                  "indice": "Réfléchis à ce qu'un renard fait d'habitude avec un coq.",
-                  "extrait": "Il s'arrête au pied de l'arbre et demande au coq de descendre auprès de lui et de contenter son envie d'embrasser un animal qui a une si belle voix."
+                    "Dormir dans l'arbre"
+                  ]
                 },
                 {
                   "question": "Dans ce texte, qui est le 'portier' ?",
+                  "indice": "Regarde qui est couché sous les racines.",
+                  "extrait": "Le coq lui dit de réveiller d'abord le portier, couché sous les racines",
+                  "bonne": 0,
                   "choix": [
                     "C'est le chien",
                     "C'est le renard",
-                    "C'est un humain"
-                  ],
-                  "bonne": 0,
-                  "indice": "Regarde qui est couché sous les racines.",
-                  "extrait": "Le coq lui dit de réveiller d'abord le portier, couché sous les racines"
+                    "C'est l'arbre"
+                  ]
                 }
               ]
             },
@@ -4289,13 +4280,13 @@
               "mots": [
                 "chien",
                 "coq",
-                "amitié",
-                "soir",
                 "arbre",
-                "dormir",
+                "racines",
                 "chanta",
                 "renard",
-                "accourt"
+                "belle",
+                "descendre",
+                "portier"
               ],
               "directions": "diagonales"
             },
@@ -4304,129 +4295,129 @@
               "trous": [
                 {
                   "index": 6,
+                  "bonne": 0,
                   "choix": [
                     "fait",
                     "pris",
                     "mis"
-                  ],
-                  "bonne": 0
+                  ]
                 },
                 {
                   "index": 14,
+                  "bonne": 0,
                   "choix": [
                     "surprit",
-                    "aida",
-                    "prit"
-                  ],
-                  "bonne": 0
+                    "appela",
+                    "suivit"
+                  ]
                 },
                 {
                   "index": 20,
+                  "bonne": 0,
                   "choix": [
                     "arbre",
-                    "pont",
-                    "mur"
-                  ],
-                  "bonne": 0
+                    "mur",
+                    "toit"
+                  ]
                 },
                 {
                   "index": 27,
+                  "bonne": 0,
                   "choix": [
                     "couche",
                     "monte",
                     "saute"
-                  ],
-                  "bonne": 0
+                  ]
                 },
                 {
                   "index": 33,
+                  "bonne": 0,
                   "choix": [
                     "formée",
                     "cassée",
                     "perdue"
-                  ],
-                  "bonne": 0
+                  ]
                 },
                 {
                   "index": 41,
+                  "bonne": 0,
                   "choix": [
                     "chanta",
                     "dormit",
                     "mangea"
-                  ],
-                  "bonne": 0
+                  ]
                 },
                 {
                   "index": 49,
+                  "bonne": 0,
                   "choix": [
                     "accourt",
                     "part",
-                    "rit"
-                  ],
-                  "bonne": 0
+                    "tombe"
+                  ]
                 },
                 {
                   "index": 57,
+                  "bonne": 0,
                   "choix": [
                     "demande",
-                    "donne",
-                    "offre"
-                  ],
-                  "bonne": 0
+                    "offre",
+                    "donne"
+                  ]
                 },
                 {
                   "index": 62,
+                  "bonne": 0,
                   "choix": [
                     "auprès",
                     "loin",
                     "dessus"
-                  ],
-                  "bonne": 0
+                  ]
                 },
                 {
                   "index": 69,
+                  "bonne": 0,
                   "choix": [
                     "envie",
                     "peur",
                     "force"
-                  ],
-                  "bonne": 0
+                  ]
                 },
                 {
                   "index": 77,
+                  "bonne": 0,
                   "choix": [
                     "belle",
-                    "grande",
-                    "forte"
-                  ],
-                  "bonne": 0
+                    "forte",
+                    "grande"
+                  ]
                 },
                 {
                   "index": 84,
+                  "bonne": 0,
                   "choix": [
                     "réveiller",
                     "chercher",
-                    "appeler"
-                  ],
-                  "bonne": 0
+                    "regarder"
+                  ]
                 },
                 {
                   "index": 91,
+                  "bonne": 0,
                   "choix": [
                     "racines",
                     "feuilles",
                     "pierres"
-                  ],
-                  "bonne": 0
+                  ]
                 },
                 {
                   "index": 97,
+                  "bonne": 0,
                   "choix": [
                     "ouvert",
                     "mangé",
                     "parti"
-                  ],
-                  "bonne": 0
+                  ]
                 }
               ]
             }
@@ -5350,5 +5341,5 @@
     }
   ],
   "corpusVersion": 1,
-  "publieLe": "2026-11-16T12:37:31.715Z"
+  "publieLe": "2026-11-16T12:38:13.212Z"
 }
