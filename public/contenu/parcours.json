@@ -4876,30 +4876,305 @@
           "id": "p4-texte-01",
           "titre": "Casse-Noisette",
           "texte": "La noix krakatuk avait une si dure coquille, qu'un boulet de canon d'une pièce de quarante-huit pouvait l'atteindre sans la briser. Cette noix devait être cassée en présence de la princesse par un homme qui n'aurait pas été rasé et n'aurait jamais porté de bottes, et l'amande devait lui en être présentée les yeux fermés par ce même homme ; et lorsque celui-ci aurait fait sans broncher sept pas en arrière, il lui était permis d'ouvrir les yeux. Drossel avait travaillé avec l'astronome trois jours ; au moment où le roi s'occupait de son dîner, Drossel annonça au monarque le moyen trouvé pour rendre à la princesse Pirlipat sa beauté perdue.",
-          "valide": false,
+          "valide": true,
           "activites": {
             "lecture": {
               "actif": true,
-              "vitesse": null,
-              "groupes": [],
-              "groupesDemandes": false
+              "vitesse": 80,
+              "groupes": [
+                "La noix krakatuk avait une si dure coquille,",
+                "qu'un boulet de canon d'une",
+                "pièce de quarante-huit pouvait",
+                "l'atteindre sans la briser.",
+                "Cette noix devait être cassée en",
+                "présence de la princesse par un",
+                "homme qui n'aurait pas été rasé",
+                "et n'aurait jamais porté de bottes,",
+                "et l'amande devait lui en",
+                "être présentée les yeux fermés",
+                "par ce même homme ;",
+                "et lorsque celui-ci aurait fait sans",
+                "broncher sept pas en arrière,",
+                "il lui était permis d'ouvrir les yeux.",
+                "Drossel avait travaillé avec l'astronome trois jours ;",
+                "au moment où le roi",
+                "s'occupait de son dîner,",
+                "Drossel annonça au monarque le moyen",
+                "trouvé pour rendre à la",
+                "princesse Pirlipat sa beauté perdue."
+              ],
+              "groupesDemandes": true
             },
             "dictee": {
               "actif": true,
-              "mots": []
+              "mots": [
+                {
+                  "mot": "la noix",
+                  "phrase": "La noix krakatuk avait une si dure coquille"
+                },
+                {
+                  "mot": "dure",
+                  "phrase": "La noix krakatuk avait une si dure coquille"
+                },
+                {
+                  "mot": "briser",
+                  "phrase": "un boulet de canon d'une pièce de quarante-huit pouvait l'atteindre sans la briser"
+                },
+                {
+                  "mot": "cassée",
+                  "phrase": "Cette noix devait être cassée en présence de la princesse"
+                },
+                {
+                  "mot": "un homme",
+                  "phrase": "par un homme qui n'aurait pas été rasé"
+                },
+                {
+                  "mot": "porté",
+                  "phrase": "et n'aurait jamais porté de bottes"
+                },
+                {
+                  "mot": "présentée",
+                  "phrase": "l'amande devait lui en être présentée les yeux fermés"
+                },
+                {
+                  "mot": "fait",
+                  "phrase": "lorsque celui-ci aurait fait sans broncher sept pas en arrière"
+                },
+                {
+                  "mot": "permis",
+                  "phrase": "il lui était permis d'ouvrir les yeux"
+                },
+                {
+                  "mot": "annonça",
+                  "phrase": "Drossel annonça au monarque le moyen trouvé"
+                }
+              ]
             },
             "comprehension": {
               "actif": true,
-              "questions": []
+              "questions": [
+                {
+                  "question": "Comment est la coquille de la noix krakatuk ?",
+                  "choix": [
+                    "Elle est très dure",
+                    "Elle est très fine",
+                    "Elle est très lisse"
+                  ],
+                  "bonne": 0,
+                  "indice": "Regarde le début du texte.",
+                  "extrait": "La noix krakatuk avait une si dure coquille, qu'un boulet de canon d'une pièce de quarante-huit pouvait l'atteindre sans la briser."
+                },
+                {
+                  "question": "Que se passe-t-il si on tire un boulet de canon sur la noix ?",
+                  "choix": [
+                    "La noix reste entière",
+                    "La noix explose",
+                    "La noix s'écrase"
+                  ],
+                  "bonne": 0,
+                  "indice": "Cherche le mot 'briser'.",
+                  "extrait": "qu'un boulet de canon d'une pièce de quarante-huit pouvait l'atteindre sans la briser."
+                },
+                {
+                  "question": "À quoi doit ressembler l'homme qui casse la noix ?",
+                  "choix": [
+                    "Il ne doit pas être rasé",
+                    "Il doit porter des bottes",
+                    "Il doit être très vieux"
+                  ],
+                  "bonne": 0,
+                  "indice": "Relis le passage sur l'homme.",
+                  "extrait": "Cette noix devait être cassée en présence de la princesse par un homme qui n'aurait pas été rasé et n'aurait jamais porté de bottes"
+                },
+                {
+                  "question": "Que doit faire la princesse quand on lui donne l'amande ?",
+                  "choix": [
+                    "Elle doit fermer les yeux",
+                    "Elle doit chanter",
+                    "Elle doit dormir"
+                  ],
+                  "bonne": 0,
+                  "indice": "Cherche le mot 'yeux'.",
+                  "extrait": "et l'amande devait lui en être présentée les yeux fermés par ce même homme"
+                },
+                {
+                  "question": "Que signifie le mot 'monarque' dans le texte ?",
+                  "choix": [
+                    "C'est le roi",
+                    "C'est un savant",
+                    "C'est un soldat"
+                  ],
+                  "bonne": 0,
+                  "indice": "Regarde qui s'occupe de son dîner.",
+                  "extrait": "au moment où le roi s'occupait de son dîner, Drossel annonça au monarque le moyen trouvé"
+                },
+                {
+                  "question": "Pourquoi Drossel a-t-il cherché un moyen pour la princesse ?",
+                  "choix": [
+                    "Elle a perdu sa beauté",
+                    "Elle est tombée malade",
+                    "Elle a perdu sa couronne"
+                  ],
+                  "bonne": 0,
+                  "indice": "Lis la toute dernière phrase.",
+                  "extrait": "Drossel annonça au monarque le moyen trouvé pour rendre à la princesse Pirlipat sa beauté perdue."
+                }
+              ]
             },
             "motsMeles": {
               "actif": true,
-              "mots": [],
-              "directions": null
+              "mots": [
+                "noix",
+                "coquille",
+                "briser",
+                "homme",
+                "bottes",
+                "amande",
+                "yeux",
+                "pas",
+                "permis"
+              ],
+              "directions": "diagonales"
             },
             "maze": {
               "actif": true,
-              "trous": []
+              "trous": [
+                {
+                  "index": 6,
+                  "choix": [
+                    "dure",
+                    "molle",
+                    "petite"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 13,
+                  "choix": [
+                    "pièce",
+                    "boîte",
+                    "page"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 20,
+                  "choix": [
+                    "briser",
+                    "ouvrir",
+                    "peindre"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 27,
+                  "choix": [
+                    "présence",
+                    "absence",
+                    "ombre"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 33,
+                  "choix": [
+                    "homme",
+                    "chien",
+                    "livre"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 41,
+                  "choix": [
+                    "jamais",
+                    "souvent",
+                    "tard"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 47,
+                  "choix": [
+                    "devait",
+                    "pouvait",
+                    "voulait"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 54,
+                  "choix": [
+                    "fermés",
+                    "ouverts",
+                    "bleus"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 62,
+                  "choix": [
+                    "aurait",
+                    "serait",
+                    "mangerait"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 69,
+                  "choix": [
+                    "arrière",
+                    "haut",
+                    "côté"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 76,
+                  "choix": [
+                    "yeux",
+                    "mains",
+                    "pieds"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 83,
+                  "choix": [
+                    "jours",
+                    "heures",
+                    "mois"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 92,
+                  "choix": [
+                    "dîner",
+                    "sommeil",
+                    "voyage"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 98,
+                  "choix": [
+                    "moyen",
+                    "chemin",
+                    "objet"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 104,
+                  "choix": [
+                    "princesse",
+                    "maison",
+                    "ville"
+                  ],
+                  "bonne": 0
+                }
+              ]
             }
           }
         },
@@ -4907,30 +5182,307 @@
           "id": "p4-texte-02",
           "titre": "Tristesse d'Olympio",
           "texte": "Les feuilles qui gisaient dans le bois solitaire,\nS'efforçant sous ses pas de s'élever de terre,\nCouraient dans le jardin ;\nAinsi, parfois, quand l'âme est triste, nos pensées\nS'envolent un moment sur leurs ailes blessées,\nPuis retombent soudain.\nIl contempla longtemps les formes magnifiques\nQue la nature prend dans les champs pacifiques ;\nIl rêva jusqu'au soir ;\nTout le jour il erra le long de la ravine,\nAdmirant tour à tour le ciel, face divine,\nLe lac, divin miroir !\nHélas ! se rappelant ses douces aventures,\nRegardant, sans entrer, par-dessus les clôtures,\nAinsi qu'un paria,\nIl erra tout le jour, vers l'heure où la nuit tombe,\nIl sentit le coeur triste comme une tombe,\nAlors il s'écria...",
-          "valide": false,
+          "valide": true,
           "activites": {
             "lecture": {
               "actif": true,
-              "vitesse": null,
-              "groupes": [],
-              "groupesDemandes": false
+              "vitesse": 60,
+              "groupes": [
+                "Les feuilles qui gisaient dans le bois solitaire,",
+                "S'efforçant sous ses pas de s'élever de terre,",
+                "Couraient dans le jardin ;",
+                "Ainsi, parfois, quand l'âme est triste, nos pensées",
+                "S'envolent un moment sur leurs ailes blessées,",
+                "Puis retombent soudain.",
+                "Il contempla longtemps les formes magnifiques",
+                "Que la nature prend dans les champs pacifiques ;",
+                "Il rêva jusqu'au soir ;",
+                "Tout le jour il erra",
+                "le long de la ravine,",
+                "Admirant tour à tour le ciel, face divine,",
+                "Le lac, divin miroir !",
+                "Hélas ! se rappelant ses douces aventures,",
+                "Regardant, sans entrer, par-dessus les clôtures,",
+                "Ainsi qu'un paria,",
+                "Il erra tout le jour, vers",
+                "l'heure où la nuit tombe,",
+                "Il sentit le coeur triste comme une tombe,",
+                "Alors il s'écria..."
+              ],
+              "groupesDemandes": true
             },
             "dictee": {
               "actif": true,
-              "mots": []
+              "mots": [
+                {
+                  "mot": "les feuilles",
+                  "phrase": "Les feuilles qui gisaient dans le bois solitaire,"
+                },
+                {
+                  "mot": "s'efforçant",
+                  "phrase": "S'efforçant sous ses pas de s'élever de terre,"
+                },
+                {
+                  "mot": "nos pensées",
+                  "phrase": "Ainsi, parfois, quand l'âme est triste, nos pensées"
+                },
+                {
+                  "mot": "s'envolent",
+                  "phrase": "S'envolent un moment sur leurs ailes blessées,"
+                },
+                {
+                  "mot": "retombent",
+                  "phrase": "Puis retombent soudain."
+                },
+                {
+                  "mot": "longtemps",
+                  "phrase": "Il contempla longtemps les formes magnifiques"
+                },
+                {
+                  "mot": "magnifiques",
+                  "phrase": "Il contempla longtemps les formes magnifiques"
+                },
+                {
+                  "mot": "erra",
+                  "phrase": "Tout le jour il erra le long de la ravine,"
+                },
+                {
+                  "mot": "admirant",
+                  "phrase": "Admirant tour à tour le ciel, face divine,"
+                }
+              ]
             },
             "comprehension": {
               "actif": true,
-              "questions": []
+              "questions": [
+                {
+                  "question": "Où se trouvent les feuilles au début du texte ?",
+                  "choix": [
+                    "Dans le bois",
+                    "Dans la ville",
+                    "Sur un toit"
+                  ],
+                  "bonne": 0,
+                  "indice": "Regarde la première phrase du texte.",
+                  "extrait": "Les feuilles qui gisaient dans le bois solitaire,"
+                },
+                {
+                  "question": "Comment se sent le personnage ?",
+                  "choix": [
+                    "Il est triste",
+                    "Il est en colère",
+                    "Il est joyeux"
+                  ],
+                  "bonne": 0,
+                  "indice": "Cherche le mot qui décrit son âme ou son cœur.",
+                  "extrait": "Ainsi, parfois, quand l'âme est triste, nos pensées"
+                },
+                {
+                  "question": "Que fait-il pendant toute la journée ?",
+                  "choix": [
+                    "Il marche sans but",
+                    "Il dort longtemps",
+                    "Il court vite"
+                  ],
+                  "bonne": 0,
+                  "indice": "Le texte dit qu'il 'erra'. Que signifie errer ?",
+                  "extrait": "Tout le jour il erra le long de la ravine,"
+                },
+                {
+                  "question": "Que regarde-t-il comme un miroir ?",
+                  "choix": [
+                    "Le lac",
+                    "Le ciel",
+                    "La ravine"
+                  ],
+                  "bonne": 0,
+                  "indice": "Relis la phrase qui parle d'un miroir.",
+                  "extrait": "Le lac, divin miroir !"
+                },
+                {
+                  "question": "Que signifie le mot 'paria' dans le texte ?",
+                  "choix": [
+                    "Quelqu'un d'exclu",
+                    "Un grand voyageur",
+                    "Un homme riche"
+                  ],
+                  "bonne": 0,
+                  "indice": "Il regarde par-dessus les clôtures sans entrer.",
+                  "extrait": "Regardant, sans entrer, par-dessus les clôtures, Ainsi qu'un paria,"
+                },
+                {
+                  "question": "À quel moment le personnage s'écrie-t-il ?",
+                  "choix": [
+                    "Quand la nuit tombe",
+                    "Dès le matin",
+                    "À midi pile"
+                  ],
+                  "bonne": 0,
+                  "indice": "Lis la fin du texte pour voir l'heure.",
+                  "extrait": "Il erra tout le jour, vers l'heure où la nuit tombe,"
+                }
+              ]
             },
             "motsMeles": {
               "actif": true,
-              "mots": [],
-              "directions": null
+              "mots": [
+                "feuilles",
+                "pensées",
+                "retombent",
+                "longtemps",
+                "erra",
+                "admirant"
+              ],
+              "directions": "diagonales"
             },
             "maze": {
               "actif": true,
-              "trous": []
+              "trous": [
+                {
+                  "index": 6,
+                  "choix": [
+                    "bois",
+                    "pont",
+                    "mur"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 15,
+                  "choix": [
+                    "terre",
+                    "vent",
+                    "feu"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 21,
+                  "choix": [
+                    "parfois",
+                    "jamais",
+                    "toujours"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 27,
+                  "choix": [
+                    "pensées",
+                    "mains",
+                    "habits"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 34,
+                  "choix": [
+                    "blessées",
+                    "grandes",
+                    "neuves"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 42,
+                  "choix": [
+                    "formes",
+                    "couleurs",
+                    "odeurs"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 47,
+                  "choix": [
+                    "prend",
+                    "donne",
+                    "voit"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 55,
+                  "choix": [
+                    "soir",
+                    "midi",
+                    "matin"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 62,
+                  "choix": [
+                    "long",
+                    "haut",
+                    "bas"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 69,
+                  "choix": [
+                    "tour",
+                    "fois",
+                    "jour"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 76,
+                  "choix": [
+                    "divin",
+                    "petit",
+                    "sale"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 83,
+                  "choix": [
+                    "aventures",
+                    "leçons",
+                    "erreurs"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 89,
+                  "choix": [
+                    "clôtures",
+                    "portes",
+                    "fenêtres"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 97,
+                  "choix": [
+                    "jour",
+                    "mois",
+                    "an"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 105,
+                  "choix": [
+                    "sentit",
+                    "prit",
+                    "mit"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 111,
+                  "choix": [
+                    "tombe",
+                    "maison",
+                    "montagne"
+                  ],
+                  "bonne": 0
+                }
+              ]
             }
           }
         },
@@ -4938,30 +5490,311 @@
           "id": "p4-texte-03",
           "titre": "La petite sirène",
           "texte": "Debout dans la forêt la petite sirène s'arrêta tout effrayée, son coeur battait d'angoisse et elle fut sur le point de s'en retourner, mais elle pensa au prince, à l'âme humaine et elle reprit courage. Elle enroula, bien serrés autour de sa tête, ses longs cheveux flottants pour ne pas donner prise aux polypes, croisa ses mains sur sa poitrine et s'élança comme le poisson peut voler à travers l'eau, au milieu des hideux polypes qui étendaient vers elle leurs bras et leurs doigts. Elle arriva dans la forêt à un espace visqueux où s'ébattaient de grandes couleuvres d'eau montrant des ventres jaunâtres, affreux et gras. Au milieu de cette place s'élevait une maison construite en ossements humain.",
-          "valide": false,
+          "valide": true,
           "activites": {
             "lecture": {
               "actif": true,
-              "vitesse": null,
-              "groupes": [],
-              "groupesDemandes": false
+              "vitesse": 90,
+              "groupes": [
+                "Debout dans la forêt",
+                "la petite sirène s'arrêta tout effrayée,",
+                "son coeur battait d'angoisse et",
+                "elle fut",
+                "sur le point",
+                "de s'en retourner,",
+                "mais elle pensa au prince,",
+                "à l'âme humaine",
+                "et elle reprit courage.",
+                "Elle enroula,",
+                "bien serrés autour",
+                "de sa tête,",
+                "ses longs cheveux flottants",
+                "pour ne pas",
+                "donner prise aux polypes,",
+                "croisa ses mains sur sa poitrine",
+                "et s'élança comme le poisson",
+                "peut voler à travers l'eau,",
+                "au milieu des hideux polypes",
+                "qui étendaient vers elle",
+                "leurs bras et leurs doigts.",
+                "Elle arriva dans la forêt",
+                "à un espace visqueux où",
+                "s'ébattaient de grandes couleuvres d'eau",
+                "montrant des ventres jaunâtres,",
+                "affreux et gras.",
+                "Au milieu de cette place",
+                "s'élevait une maison construite en ossements humain."
+              ],
+              "groupesDemandes": true
             },
             "dictee": {
               "actif": true,
-              "mots": []
+              "mots": [
+                {
+                  "mot": "la petite sirène",
+                  "phrase": "Debout dans la forêt la petite sirène s'arrêta tout effrayée"
+                },
+                {
+                  "mot": "son coeur",
+                  "phrase": "son coeur battait d'angoisse"
+                },
+                {
+                  "mot": "l'âme",
+                  "phrase": "elle pensa au prince, à l'âme humaine"
+                },
+                {
+                  "mot": "ses longs cheveux",
+                  "phrase": "Elle enroula, bien serrés autour de sa tête, ses longs cheveux flottants"
+                },
+                {
+                  "mot": "des ventres",
+                  "phrase": "montrant des ventres jaunâtres"
+                },
+                {
+                  "mot": "une maison",
+                  "phrase": "s'élevait une maison construite"
+                },
+                {
+                  "mot": "humain",
+                  "phrase": "construite en ossements humain"
+                }
+              ]
             },
             "comprehension": {
               "actif": true,
-              "questions": []
+              "questions": [
+                {
+                  "question": "Comment se sent la petite sirène au début du texte ?",
+                  "choix": [
+                    "Elle a très peur",
+                    "Elle est joyeuse",
+                    "Elle est fatiguée"
+                  ],
+                  "bonne": 0,
+                  "indice": "Regarde l'adjectif juste après le verbe s'arrêta.",
+                  "extrait": "Debout dans la forêt la petite sirène s'arrêta tout effrayée"
+                },
+                {
+                  "question": "Pourquoi la sirène décide-t-elle de continuer son chemin ?",
+                  "choix": [
+                    "Elle pense au prince",
+                    "Elle cherche sa maison",
+                    "Elle veut voir des poissons"
+                  ],
+                  "bonne": 0,
+                  "indice": "Cherche le mot 'pensa' dans le texte.",
+                  "extrait": "mais elle pensa au prince, à l'âme humaine et elle reprit courage."
+                },
+                {
+                  "question": "Que fait-elle avec ses cheveux ?",
+                  "choix": [
+                    "Elle les enroule",
+                    "Elle les coupe",
+                    "Elle les brosse"
+                  ],
+                  "bonne": 0,
+                  "indice": "Relis le passage où elle parle de sa tête.",
+                  "extrait": "Elle enroula, bien serrés autour de sa tête, ses longs cheveux flottants"
+                },
+                {
+                  "question": "Où se passe cette histoire ?",
+                  "choix": [
+                    "Sous l'océan",
+                    "Dans un château",
+                    "Sur une plage"
+                  ],
+                  "bonne": 0,
+                  "indice": "Le texte parle de poissons, d'eau et de polypes.",
+                  "extrait": "s'élança comme le poisson peut voler à travers l'eau"
+                },
+                {
+                  "question": "Que signifie le mot 'visqueux' ?",
+                  "choix": [
+                    "Qui colle et glisse",
+                    "Qui est très sec",
+                    "Qui est très dur"
+                  ],
+                  "bonne": 0,
+                  "indice": "Pense à la texture d'une couleuvre ou d'un escargot.",
+                  "extrait": "Elle arriva dans la forêt à un espace visqueux"
+                },
+                {
+                  "question": "En quoi est faite la maison à la fin du texte ?",
+                  "choix": [
+                    "En ossements humains",
+                    "En coquillages blancs",
+                    "En pierres précieuses"
+                  ],
+                  "bonne": 0,
+                  "indice": "Lis la toute dernière phrase du texte.",
+                  "extrait": "Au milieu de cette place s'élevait une maison construite en ossements humain."
+                }
+              ]
             },
             "motsMeles": {
               "actif": true,
-              "mots": [],
-              "directions": null
+              "mots": [
+                "forêt",
+                "effrayée",
+                "coeur",
+                "cheveux",
+                "polypes",
+                "bras",
+                "couleuvres",
+                "ventres",
+                "maison",
+                "humain"
+              ],
+              "directions": "diagonales"
             },
             "maze": {
               "actif": true,
-              "trous": []
+              "trous": [
+                {
+                  "index": 6,
+                  "choix": [
+                    "sirène",
+                    "fille",
+                    "fée"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 12,
+                  "choix": [
+                    "battait",
+                    "chantait",
+                    "dormait"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 19,
+                  "choix": [
+                    "point",
+                    "bord",
+                    "coin"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 27,
+                  "choix": [
+                    "prince",
+                    "roi",
+                    "père"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 34,
+                  "choix": [
+                    "courage",
+                    "sommeil",
+                    "espoir"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 42,
+                  "choix": [
+                    "tête",
+                    "main",
+                    "peau"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 50,
+                  "choix": [
+                    "donner",
+                    "faire",
+                    "prendre"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 56,
+                  "choix": [
+                    "mains",
+                    "pieds",
+                    "yeux"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 64,
+                  "choix": [
+                    "poisson",
+                    "oiseau",
+                    "chat"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 68,
+                  "choix": [
+                    "travers",
+                    "dessus",
+                    "contre"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 76,
+                  "choix": [
+                    "étendaient",
+                    "cachaient",
+                    "regardaient"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 83,
+                  "choix": [
+                    "doigts",
+                    "jambes",
+                    "oreilles"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 91,
+                  "choix": [
+                    "espace",
+                    "chemin",
+                    "village"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 97,
+                  "choix": [
+                    "couleuvres",
+                    "bulles",
+                    "algues"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 105,
+                  "choix": [
+                    "gras",
+                    "fin",
+                    "sec"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 110,
+                  "choix": [
+                    "place",
+                    "ville",
+                    "route"
+                  ],
+                  "bonne": 0
+                }
+              ]
             }
           }
         },
@@ -4969,30 +5802,322 @@
           "id": "p4-texte-04",
           "titre": "Le loup et le chien",
           "texte": "Un Loup n'avait que les os et la peau,\nTant les chiens faisaient bonne garde.\nCe Loup rencontre un Dogue aussi puissant que beau,\nGras, poli, qui s'était fourvoyé par mégarde.\nL'attaquer, le mettre en quartiers,\nSire Loup l'eût fait volontiers ;\nMais il fallait livrer bataille,\nEt le Mâtin était de taille\nA se défendre hardiment.\nLe Loup donc l'aborde humblement,\nEntre en propos, et lui fait compliment\nSur son embonpoint, qu'il admire.\n\"Il ne tiendra qu'à vous beau sire,\nD'être aussi gras que moi, lui repartit le Chien.\nQuittez les bois, vous ferez bien :\nVos pareils y sont misérables,\nCancres, hères, et pauvres diables,\nDont la condition est de mourir de faim.\nSuivez-moi : vous aurez un bien meilleur destin. \"",
-          "valide": false,
+          "valide": true,
           "activites": {
             "lecture": {
               "actif": true,
-              "vitesse": null,
-              "groupes": [],
-              "groupesDemandes": false
+              "vitesse": 60,
+              "groupes": [
+                "Un Loup n'avait que",
+                "les os et la peau,",
+                "Tant les chiens faisaient bonne garde.",
+                "Ce Loup rencontre un Dogue",
+                "aussi puissant que beau,",
+                "Gras, poli, qui s'était fourvoyé par mégarde.",
+                "L'attaquer, le mettre en quartiers,",
+                "Sire Loup l'eût fait volontiers ;",
+                "Mais il fallait livrer bataille,",
+                "Et le Mâtin était de taille",
+                "A se défendre hardiment.",
+                "Le Loup donc l'aborde humblement,",
+                "Entre en propos, et lui fait compliment",
+                "Sur son embonpoint, qu'il admire. \"",
+                "Il ne tiendra qu'à vous beau sire,",
+                "D'être aussi gras que moi,",
+                "lui repartit le Chien.",
+                "Quittez les bois, vous ferez bien :",
+                "Vos pareils y sont misérables,",
+                "Cancres, hères, et pauvres diables,",
+                "Dont la condition est de mourir de faim.",
+                "Suivez-moi : vous aurez un bien meilleur destin. \""
+              ],
+              "groupesDemandes": true
             },
             "dictee": {
               "actif": true,
-              "mots": []
+              "mots": [
+                {
+                  "mot": "un loup",
+                  "phrase": "Un Loup n'avait que les os et la peau"
+                },
+                {
+                  "mot": "les chiens",
+                  "phrase": "Tant les chiens faisaient bonne garde"
+                },
+                {
+                  "mot": "rencontre",
+                  "phrase": "Ce Loup rencontre un Dogue aussi puissant que beau"
+                },
+                {
+                  "mot": "gras",
+                  "phrase": "Gras, poli, qui s'était fourvoyé par mégarde"
+                },
+                {
+                  "mot": "attaquer",
+                  "phrase": "L'attaquer, le mettre en quartiers"
+                },
+                {
+                  "mot": "volontiers",
+                  "phrase": "Sire Loup l'eût fait volontiers"
+                },
+                {
+                  "mot": "fallait",
+                  "phrase": "Mais il fallait livrer bataille"
+                },
+                {
+                  "mot": "compliment",
+                  "phrase": "Entre en propos, et lui fait compliment"
+                },
+                {
+                  "mot": "misérables",
+                  "phrase": "Vos pareils y sont misérables"
+                }
+              ]
             },
             "comprehension": {
               "actif": true,
-              "questions": []
+              "questions": [
+                {
+                  "question": "Comment est le Loup au début de l'histoire ?",
+                  "choix": [
+                    "Il est très maigre",
+                    "Il est très fatigué",
+                    "Il est très malade"
+                  ],
+                  "bonne": 0,
+                  "indice": "Regarde la première phrase sur son corps.",
+                  "extrait": "Un Loup n'avait que les os et la peau,"
+                },
+                {
+                  "question": "Comment est le Dogue que rencontre le Loup ?",
+                  "choix": [
+                    "Il est fort et beau",
+                    "Il est petit et rapide",
+                    "Il est vieux et calme"
+                  ],
+                  "bonne": 0,
+                  "indice": "Cherche les adjectifs après le mot Dogue.",
+                  "extrait": "Ce Loup rencontre un Dogue aussi puissant que beau,"
+                },
+                {
+                  "question": "Pourquoi le Loup ne mange-t-il pas le Dogue ?",
+                  "choix": [
+                    "Le Dogue est trop fort",
+                    "Le Loup n'a pas faim",
+                    "Le Dogue est trop poli"
+                  ],
+                  "bonne": 0,
+                  "indice": "Relis le passage sur la bataille et la taille du Mâtin.",
+                  "extrait": "Mais il fallait livrer bataille, Et le Mâtin était de taille A se défendre hardiment."
+                },
+                {
+                  "question": "Que fait le Loup pour approcher le chien ?",
+                  "choix": [
+                    "Il lui fait des compliments",
+                    "Il lui demande du travail",
+                    "Il lui propose un jeu"
+                  ],
+                  "bonne": 0,
+                  "indice": "Regarde comment le Loup lui parle humblement.",
+                  "extrait": "Le Loup donc l'aborde humblement, Entre en propos, et lui fait compliment"
+                },
+                {
+                  "question": "Que signifie le mot « embonpoint » ?",
+                  "choix": [
+                    "Le fait d'être gras",
+                    "Le fait d'être grand",
+                    "Le fait d'être gentil"
+                  ],
+                  "bonne": 0,
+                  "indice": "Le chien répond en parlant d'être gras.",
+                  "extrait": "Sur son embonpoint, qu'il admire."
+                },
+                {
+                  "question": "Que conseille le chien au loup pour vivre mieux ?",
+                  "choix": [
+                    "De quitter la forêt",
+                    "De chasser en groupe",
+                    "De dormir plus souvent"
+                  ],
+                  "bonne": 0,
+                  "indice": "Le chien lui dit où il ne faut plus aller.",
+                  "extrait": "Quittez les bois, vous ferez bien :"
+                }
+              ]
             },
             "motsMeles": {
               "actif": true,
-              "mots": [],
-              "directions": null
+              "mots": [
+                "Loup",
+                "chiens",
+                "rencontre",
+                "Dogue",
+                "attaquer",
+                "bataille",
+                "aborde",
+                "compliment",
+                "embonpoint",
+                "misérables"
+              ],
+              "directions": "diagonales"
             },
             "maze": {
               "actif": true,
-              "trous": []
+              "trous": [
+                {
+                  "index": 8,
+                  "choix": [
+                    "peau",
+                    "main",
+                    "robe"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 13,
+                  "choix": [
+                    "bonne",
+                    "mauvaise",
+                    "petite"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 21,
+                  "choix": [
+                    "puissant",
+                    "lent",
+                    "triste"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 28,
+                  "choix": [
+                    "fourvoyé",
+                    "couché",
+                    "caché"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 35,
+                  "choix": [
+                    "quartiers",
+                    "morceaux",
+                    "chemins"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 40,
+                  "choix": [
+                    "volontiers",
+                    "rarement",
+                    "tristement"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 48,
+                  "choix": [
+                    "Mâtin",
+                    "Chat",
+                    "Loup"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 55,
+                  "choix": [
+                    "hardiment",
+                    "doucement",
+                    "lentement"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 63,
+                  "choix": [
+                    "propos",
+                    "jeux",
+                    "chemins"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 70,
+                  "choix": [
+                    "embonpoint",
+                    "courage",
+                    "regard"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 75,
+                  "choix": [
+                    "tiendra",
+                    "viendra",
+                    "tombera"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 84,
+                  "choix": [
+                    "moi",
+                    "toi",
+                    "lui"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 91,
+                  "choix": [
+                    "bois",
+                    "villes",
+                    "champs"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 96,
+                  "choix": [
+                    "pareils",
+                    "amis",
+                    "ennemis"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 104,
+                  "choix": [
+                    "diables",
+                    "anges",
+                    "rois"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 112,
+                  "choix": [
+                    "faim",
+                    "sommeil",
+                    "froid"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 118,
+                  "choix": [
+                    "meilleur",
+                    "pire",
+                    "même"
+                  ],
+                  "bonne": 0
+                }
+              ]
             }
           }
         },
@@ -5000,30 +6125,321 @@
           "id": "p4-texte-05",
           "titre": "L'oiseau bleu",
           "texte": "En même temps le roi change de figure ; ses bras se couvrent de plumes et forment des ailes ; ses jambes et ses pieds deviennent noirs et menus ; il lui croît des ongles crochus, son corps s'apetisse ; il est tout garni de longues plumes fines et mêlées de bleu céleste ; ses yeux s'arrondissent et brillent comme des soleils ; son nez n'est plus qu'un bec d'ivoire ; il s'élève sur sa tête une aigrette blanche, qui forme une couronne, il chante à ravir, et parle de même. En cet état il jette un cri douloureux de se voir ainsi métamorphosé, et s'envole à tire-d'aile pour fuir le funeste palais de Soussio. Dans la mélancolie qui l'accable, il voltige de branche en branche : des myrtes, des cyprès.",
-          "valide": false,
+          "valide": true,
           "activites": {
             "lecture": {
               "actif": true,
-              "vitesse": null,
-              "groupes": [],
-              "groupesDemandes": false
+              "vitesse": 90,
+              "groupes": [
+                "En même temps",
+                "le roi change de figure ;",
+                "ses bras se couvrent de plumes",
+                "et forment des ailes ;",
+                "ses jambes et ses pieds deviennent",
+                "noirs et menus ;",
+                "il lui croît des ongles crochus,",
+                "son corps s'apetisse ;",
+                "il est tout garni de longues plumes fines",
+                "et mêlées de bleu céleste ;",
+                "ses yeux s'arrondissent et brillent",
+                "comme des soleils ;",
+                "son nez n'est",
+                "plus qu'un bec d'ivoire ;",
+                "il s'élève sur sa tête",
+                "une aigrette blanche,",
+                "qui forme une couronne,",
+                "il chante à ravir, et parle de même.",
+                "En cet état",
+                "il jette un cri douloureux",
+                "de se voir ainsi métamorphosé,",
+                "et s'envole à tire-d'aile",
+                "pour fuir le funeste palais de Soussio.",
+                "Dans la mélancolie qui l'accable,",
+                "il voltige",
+                "de branche en branche : des myrtes, des cyprès."
+              ],
+              "groupesDemandes": true
             },
             "dictee": {
               "actif": true,
-              "mots": []
+              "mots": [
+                {
+                  "mot": "ses bras",
+                  "phrase": "ses bras se couvrent de plumes"
+                },
+                {
+                  "mot": "des ailes",
+                  "phrase": "ses bras forment des ailes"
+                },
+                {
+                  "mot": "ses jambes",
+                  "phrase": "ses jambes et ses pieds deviennent noirs"
+                },
+                {
+                  "mot": "un bec",
+                  "phrase": "son nez n'est plus qu'un bec"
+                },
+                {
+                  "mot": "une aigrette",
+                  "phrase": "il s'élève sur sa tête une aigrette"
+                },
+                {
+                  "mot": "métamorphosé",
+                  "phrase": "il jette un cri douloureux de se voir ainsi métamorphosé"
+                },
+                {
+                  "mot": "il voltige",
+                  "phrase": "il voltige de branche en branche"
+                },
+                {
+                  "mot": "un bec d'ivoire",
+                  "phrase": "son nez n'est plus qu'un bec d'ivoire"
+                }
+              ]
             },
             "comprehension": {
               "actif": true,
-              "questions": []
+              "questions": [
+                {
+                  "question": "Que deviennent les bras du roi ?",
+                  "choix": [
+                    "Des ailes",
+                    "Des pattes",
+                    "Des plumes"
+                  ],
+                  "bonne": 0,
+                  "indice": "Regarde le début du texte, juste après les plumes.",
+                  "extrait": "ses bras se couvrent de plumes et forment des ailes"
+                },
+                {
+                  "question": "De quelle couleur est l'oiseau ?",
+                  "choix": [
+                    "Bleu",
+                    "Blanc",
+                    "Noir"
+                  ],
+                  "bonne": 0,
+                  "indice": "Cherche le mot 'bleu' dans le texte.",
+                  "extrait": "il est tout garni de longues plumes fines et mêlées de bleu céleste"
+                },
+                {
+                  "question": "À quoi ressemblent les yeux du roi ?",
+                  "choix": [
+                    "À des soleils",
+                    "À des lunes",
+                    "À des étoiles"
+                  ],
+                  "bonne": 0,
+                  "indice": "Relis la phrase qui parle des yeux.",
+                  "extrait": "ses yeux s'arrondissent et brillent comme des soleils"
+                },
+                {
+                  "question": "Que signifie le mot 'métamorphosé' ?",
+                  "choix": [
+                    "Transformé",
+                    "Fatigué",
+                    "Effrayé"
+                  ],
+                  "bonne": 0,
+                  "indice": "Regarde tout ce qui a changé chez le roi depuis le début.",
+                  "extrait": "il jette un cri douloureux de se voir ainsi métamorphosé"
+                },
+                {
+                  "question": "Pourquoi le roi s'envole-t-il ?",
+                  "choix": [
+                    "Pour quitter le palais",
+                    "Pour chercher un ami",
+                    "Pour aller chasser"
+                  ],
+                  "bonne": 0,
+                  "indice": "Relis la phrase avec le mot 'fuir'.",
+                  "extrait": "et s'envole à tire-d'aile pour fuir le funeste palais de Soussio"
+                },
+                {
+                  "question": "Comment se sent le roi à la fin du texte ?",
+                  "choix": [
+                    "Il est triste",
+                    "Il est joyeux",
+                    "Il est en colère"
+                  ],
+                  "bonne": 0,
+                  "indice": "Cherche le mot 'mélancolie'.",
+                  "extrait": "Dans la mélancolie qui l'accable, il voltige de branche en branche"
+                }
+              ]
             },
             "motsMeles": {
               "actif": true,
-              "mots": [],
-              "directions": null
+              "mots": [
+                "plumes",
+                "ailes",
+                "voltige",
+                "myrtes",
+                "cyprès",
+                "palais",
+                "céleste",
+                "aigrette",
+                "douloureux"
+              ],
+              "directions": "diagonales"
             },
             "maze": {
               "actif": true,
-              "trous": []
+              "trous": [
+                {
+                  "index": 7,
+                  "choix": [
+                    "figure",
+                    "vêtement",
+                    "pays"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 13,
+                  "choix": [
+                    "plumes",
+                    "feuilles",
+                    "pierres"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 19,
+                  "choix": [
+                    "jambes",
+                    "mains",
+                    "oreilles"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 26,
+                  "choix": [
+                    "menus",
+                    "larges",
+                    "forts"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 34,
+                  "choix": [
+                    "corps",
+                    "visage",
+                    "esprit"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 41,
+                  "choix": [
+                    "longues",
+                    "courtes",
+                    "rares"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 48,
+                  "choix": [
+                    "céleste",
+                    "sombre",
+                    "pâle"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 56,
+                  "choix": [
+                    "soleils",
+                    "miroirs",
+                    "cailloux"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 62,
+                  "choix": [
+                    "bec",
+                    "doigt",
+                    "bras"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 70,
+                  "choix": [
+                    "aigrette",
+                    "casquette",
+                    "oreille"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 77,
+                  "choix": [
+                    "chante",
+                    "mange",
+                    "dort"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 83,
+                  "choix": [
+                    "même",
+                    "loin",
+                    "vite"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 90,
+                  "choix": [
+                    "cri",
+                    "pas",
+                    "livre"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 96,
+                  "choix": [
+                    "métamorphosé",
+                    "habillé",
+                    "endormi"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 104,
+                  "choix": [
+                    "funeste",
+                    "grand",
+                    "beau"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 110,
+                  "choix": [
+                    "mélancolie",
+                    "patience",
+                    "colère"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 118,
+                  "choix": [
+                    "branche",
+                    "maison",
+                    "route"
+                  ],
+                  "bonne": 0
+                }
+              ]
             }
           }
         },
@@ -5341,5 +6757,5 @@
     }
   ],
   "corpusVersion": 1,
-  "publieLe": "2026-11-16T12:38:13.212Z"
+  "publieLe": "2026-11-16T14:20:18.680Z"
 }
