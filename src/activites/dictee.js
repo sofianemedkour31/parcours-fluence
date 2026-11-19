@@ -6,6 +6,14 @@ import { dire, taire, voixDisponible } from '../voix.js';
 
 const ACCENTS = ['é', 'è', 'ê', 'à', 'â', 'ç', 'ù', 'û', 'î', 'ï', 'ô', 'ë', 'œ'];
 
+// Les synthèses vocales peuvent mal articuler un mot très court hors contexte.
+export function lecturePrincipale(item) {
+  const mot = item.mot.trim();
+  const phrase = item.phrase?.trim();
+  const enContexte = /^\p{L}{1,3}$/u.test(mot) && Boolean(phrase);
+  return { texte: enContexte ? phrase : item.mot, enContexte };
+}
+
 export function monterDictee(zone, { texte, finir }) {
   const tous = texte.activites.dictee.mots.filter((m) => m.mot);
   let liste = tous;
@@ -41,6 +49,7 @@ export function monterDictee(zone, { texte, finir }) {
     essais = 0;
     majProgression();
     const item = liste[i];
+    const lecture = lecturePrincipale(item);
     const numero = i;
     const champ = el('input', {
       class: 'champ-dictee', type: 'text', autocomplete: 'off', autocapitalize: 'off',
@@ -60,11 +69,14 @@ export function monterDictee(zone, { texte, finir }) {
 
     remplir(etape, 
       el('div', { class: 'dictee-ecoute' },
-        el('button', { class: 'btn-gros-son', onclick: () => ecouter(item.mot, 0.85) },
-          iconePixel('son', { taille: 48, contour: 'currentColor', fond: 'currentColor' }), el('span', {}, 'Écouter le mot')),
+        el('button', { class: 'btn-gros-son', onclick: () => ecouter(lecture.texte, 0.85) },
+          iconePixel('son', { taille: 48, contour: 'currentColor', fond: 'currentColor' }),
+          el('span', {}, lecture.enContexte ? 'Écouter la phrase' : 'Écouter le mot')),
         el('div', { class: 'dictee-options' },
-          el('button', { class: 'btn-px', onclick: () => ecouter(item.mot, 0.7) }, 'Lentement'),
-          item.phrase ? el('button', { class: 'btn-px', onclick: () => ecouter(item.phrase, 0.85) }, 'Dans une phrase') : null)),
+          el('button', { class: 'btn-px', onclick: () => ecouter(lecture.texte, 0.7) }, 'Lentement'),
+          item.phrase && !lecture.enContexte
+            ? el('button', { class: 'btn-px', onclick: () => ecouter(item.phrase, 0.85) }, 'Dans une phrase')
+            : null)),
       modele,
       champ,
       el('div', { class: 'accents', role: 'group', 'aria-label': 'Lettres avec accent' },
@@ -85,7 +97,7 @@ export function monterDictee(zone, { texte, finir }) {
       annonce = null;
       if (numero !== i || !champ.isConnected) return;
       champ.focus({ preventScroll: true });
-      dire(item.mot, { vitesse: 0.85 });
+      dire(lecture.texte, { vitesse: 0.85 });
     }, 350);
 
     function valider() {
@@ -115,7 +127,7 @@ export function monterDictee(zone, { texte, finir }) {
         remplir(retourMsg, el('span', { class: 'msg-ko' }, 'Regarde bien le mot, puis recopie-le.'));
         champ.value = '';
         champ.focus();
-        ecouter(item.mot, 0.85);
+        ecouter(lecture.texte, 0.85);
       }
     }
   }

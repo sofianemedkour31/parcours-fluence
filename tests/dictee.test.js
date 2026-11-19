@@ -1,7 +1,20 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { construireMessages, nettoyer } from '../api/_lib/generation.js';
+import { lecturePrincipale } from '../src/activites/dictee.js';
 import { figureDansTexte, phraseAvec } from '../src/lib/texte.js';
+
+test('un mot très court est dicté dans sa phrase pour éviter une prononciation ambiguë', () => {
+  assert.deepEqual(lecturePrincipale({ mot: 'dur', phrase: 'Ce mot est dur à lire.' }), {
+    texte: 'Ce mot est dur à lire.', enContexte: true,
+  });
+  assert.deepEqual(lecturePrincipale({ mot: 'vivre', phrase: 'Il veut vivre longtemps.' }), {
+    texte: 'vivre', enContexte: false,
+  });
+  assert.deepEqual(lecturePrincipale({ mot: 'dur', phrase: '' }), {
+    texte: 'dur', enContexte: false,
+  });
+});
 
 test('la consigne demande le déterminant avec chaque nom de dictée', () => {
   const demande = construireMessages({ titre: 'Les animaux', texte: 'Des chats regardent l’oiseau.' })[1].content;
