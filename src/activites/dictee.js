@@ -11,7 +11,10 @@ export function lecturePrincipale(item) {
   const mot = item.mot.trim();
   const phrase = item.phrase?.trim();
   const enContexte = /^\p{L}{1,3}$/u.test(mot) && Boolean(phrase);
-  return { texte: enContexte ? phrase : item.mot, enContexte };
+  return {
+    texte: enContexte ? `Écris le mot ${mot} dans la case. ${phrase}` : item.mot,
+    enContexte,
+  };
 }
 
 export function monterDictee(zone, { texte, finir }) {
@@ -71,12 +74,10 @@ export function monterDictee(zone, { texte, finir }) {
       el('div', { class: 'dictee-ecoute' },
         el('button', { class: 'btn-gros-son', onclick: () => ecouter(lecture.texte, 0.85) },
           iconePixel('son', { taille: 48, contour: 'currentColor', fond: 'currentColor' }),
-          el('span', {}, lecture.enContexte ? 'Écouter la phrase' : 'Écouter le mot')),
+          el('span', {}, 'Écouter le mot')),
         el('div', { class: 'dictee-options' },
           el('button', { class: 'btn-px', onclick: () => ecouter(lecture.texte, 0.7) }, 'Lentement'),
-          item.phrase && !lecture.enContexte
-            ? el('button', { class: 'btn-px', onclick: () => ecouter(item.phrase, 0.85) }, 'Dans une phrase')
-            : null)),
+          item.phrase ? el('button', { class: 'btn-px', onclick: () => ecouter(item.phrase, 0.85) }, 'Dans une phrase') : null)),
       modele,
       champ,
       el('div', { class: 'accents', role: 'group', 'aria-label': 'Lettres avec accent' },

@@ -4,9 +4,9 @@ import { construireMessages, nettoyer } from '../api/_lib/generation.js';
 import { lecturePrincipale } from '../src/activites/dictee.js';
 import { figureDansTexte, phraseAvec } from '../src/lib/texte.js';
 
-test('un mot très court est dicté dans sa phrase pour éviter une prononciation ambiguë', () => {
+test('un mot très court est nommé clairement puis prononcé dans sa phrase', () => {
   assert.deepEqual(lecturePrincipale({ mot: 'dur', phrase: 'Ce mot est dur à lire.' }), {
-    texte: 'Ce mot est dur à lire.', enContexte: true,
+    texte: 'Écris le mot dur dans la case. Ce mot est dur à lire.', enContexte: true,
   });
   assert.deepEqual(lecturePrincipale({ mot: 'vivre', phrase: 'Il veut vivre longtemps.' }), {
     texte: 'vivre', enContexte: false,
