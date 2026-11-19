@@ -3,7 +3,7 @@ import { el, vider, remplir } from '../ui.js';
 import { COULEURS, CLE_BROUILLON, CLE_APERCU, chargerPublie, lireBrouillon, fusionnerCorpus, copierJson } from '../donnees.js';
 import { figureDansTexte, propre, compterMots, formeGrille } from '../lib/texte.js';
 import { genererGrille } from '../lib/grille.js';
-import { bornesGroupes, ciblesMaze, erreursMaze } from '../lib/activites-lecture.js';
+import { bornesGroupes, ciblesMaze, erreursMaze, erreursMazePhrases } from '../lib/activites-lecture.js';
 import { erreursTexte } from '../lib/validation.js';
 import { dire } from '../voix.js';
 
@@ -237,7 +237,7 @@ export async function monterStudio(racine) {
       carte('dictee', `Dictée de mots (${a.dictee.mots.length})`, a.dictee, editeurDictee(t)),
       carte('comprehension', `Compréhension (${a.comprehension.questions.length} questions)`, a.comprehension, editeurQuestions(t)),
       carte('motsMeles', `Mots mêlés (${a.motsMeles.mots.length} mots)`, a.motsMeles, editeurMotsMeles(t)),
-      carte('maze', `Labyrinthe de lecture (${a.maze.trous.length} choix)`, a.maze, editeurMaze(t)),
+      carte('maze', `Labyrinthe de lecture (${a.maze.mode === 'phrases' ? a.maze.phrases.length : a.maze.trous.length} choix)`, a.maze, editeurMaze(t)),
 
       piedTexte(t),
     );
@@ -361,6 +361,7 @@ export async function monterStudio(racine) {
 
   function editeurMaze(t) {
     const maze = t.activites.maze;
+    if (maze.mode === 'phrases') return editeurMazePhrases(t);
     const cibles = ciblesMaze(t.texte);
     const initialiser = () => {
       if (maze.trous.length && !confirm('Recréer les emplacements MAZE ? Les distracteurs actuels seront effacés.')) return;
@@ -387,6 +388,25 @@ export async function monterStudio(racine) {
         ? el('p', { class: 'st-warn' }, `À corriger : ${erreursMaze(t.texte, maze.trous).join(', ')}.`) : null);
   }
 
+  function editeurMazePhrases(t) {
+    const phrases = t.activites.maze.phrases;
+    const lignes = phrases.map((item, i) => el('div', { class: 'st-maze-phrase' },
+      el('div', { class: 'st-q-entete' },
+        el('b', {}, `Phrase ${i + 1}`),
+        el('button', { class: 'st-mini', title: 'Retirer', onclick: () => { phrases.splice(i, 1); sauver(); majEditeur(); } }, '✕')),
+      el('label', { class: 'st-champ-court' }, 'Phrase à trou',
+        el('input', { value: item.phrase, placeholder: 'La ___ tourne sur la table.', oninput: (e) => { item.phrase = e.target.value; sauver(); } })),
+      el('div', { class: 'st-maze-reponses' },
+        [0, 1, 2].map((k) => el('label', { class: 'st-champ-court' }, k === 0 ? 'Bon mot' : `Autre choix ${k}`,
+          el('input', { value: item.choix[k] || '', oninput: (e) => { item.choix[k] = e.target.value; sauver(); } }))))));
+    return el('div', { class: 'st-maze' },
+      el('p', { class: 'st-aide' }, 'Une case ___ par phrase. Le premier mot est la bonne réponse ; les deux autres sont des distracteurs.'),
+      lignes,
+      el('button', { class: 'st-lien', onclick: () => { phrases.push({ phrase: '', choix: ['', '', ''], bonne: 0 }); sauver(); majEditeur(); } }, '+ Ajouter une phrase'),
+      erreursMazePhrases(t.texte, phrases).length
+        ? el('p', { class: 'st-warn' }, `À corriger : ${erreursMazePhrases(t.texte, phrases).join(', ')}.`) : null);
+  }
+
   // --- Albert -----------------------------------------------------------------
   async function appelAlbert(t) {
     const r = await fetch('/api/albert', {
@@ -404,7 +424,7 @@ export async function monterStudio(racine) {
     t.activites = resultat.activites;
     // Conserve les choix d'activation de l'enseignant.
     for (const k of Object.keys(t.activites)) {
-      if (k === 'maze' && !anciens?.maze?.trous?.length) continue;
+      if (k === 'maze' && !anciens?.maze?.trous?.length && !anciens?.maze?.phrases?.length) continue;
       if (anciens?.[k]?.actif === false) t.activites[k].actif = false;
     }
     t._alertes = resultat.alertes;
@@ -616,7 +636,7 @@ function activitesVides() {
 function aDesActivites(t) {
   const a = t.activites || {};
   return Boolean(a.dictee?.mots?.length || a.comprehension?.questions?.length || a.motsMeles?.mots?.length
-    || a.lecture?.groupes?.length || a.maze?.trous?.length);
+    || a.lecture?.groupes?.length || a.maze?.trous?.length || a.maze?.phrases?.length);
 }
 
 /** Complète les champs manquants pour que l'éditeur n'ait jamais à se méfier. */
@@ -642,6 +662,11 @@ function normaliser(c) {
       t.activites.maze.trous = (t.activites.maze.trous || []).map((trou) => ({
         index: trou.index, bonne: 0, choix: [...(trou.choix || []), '', '', ''].slice(0, 3),
       }));
+      if (t.activites.maze.mode === 'phrases') {
+        t.activites.maze.phrases = (t.activites.maze.phrases || []).map((item) => ({
+          phrase: item.phrase || '', bonne: 0, choix: [...(item.choix || []), '', '', ''].slice(0, 3),
+        }));
+      }
       t.activites.dictee.mots = (t.activites.dictee.mots || []).map((m) => (typeof m === 'string' ? { mot: m, phrase: '' } : m));
       t.activites.comprehension.questions = (t.activites.comprehension.questions || []).map((q) => ({
         question: '', indice: '', extrait: '', bonne: 0, ...q, choix: [...(q.choix || []), '', '', ''].slice(0, 3),

@@ -8,7 +8,7 @@ Application de lecture au look de console rétro. Elle propose 5 parcours et 5 a
 | **Dictée** | Il écoute un mot (normalement, lentement ou dans une phrase), puis l'écrit. Au 1er essai faux, il voit les lettres bien placées. Au 2e, le mot est montré et il le recopie. |
 | **Comprendre** | Questions à 3 choix, lues à voix haute sur demande. Après une erreur, il reçoit un indice et peut relire le texte avec le passage utile surligné. |
 | **Mots mêlés** | Grille générée à partir des mots choisis. Il glisse le doigt sur un mot, ou touche la première puis la dernière lettre. Un mode agrandi permet de zoomer, avec la liste des mots toujours affichée. |
-| **Labyrinthe de lecture (MAZE)** | Environ un mot sur sept est remplacé par trois choix. L'élève choisit le seul mot qui convient dans le contexte. |
+| **Labyrinthe de lecture (MAZE)** | Environ un mot sur sept est remplacé par trois choix. Pour les supports de mots du parcours NMD, l'élève complète de petites phrases à trou avec le bon mot parmi trois. |
 
 Navigation : parcours → texte → activité. Le bouton **Retour**, la touche Échap et le bouton retour d'Android remontent d'un niveau.
 Aucune donnée élève n'est enregistrée.
@@ -100,4 +100,6 @@ src/lib/                 traitement du texte, génération de la grille
 }
 ```
 
-Les parcours 1 à 4 contiennent chacun les 15 textes de leur livret cycle 3. Le parcours NMD contient les cinq supports de lecture avec phrases ou récit (supports 3 à 7 du livret cycle 2), déjà validés avec leurs activités.
+Les parcours 1 à 4 contiennent chacun les 15 textes de leur livret cycle 3. Le parcours NMD contient les sept supports du livret cycle 2. Les supports 1 et 2 conservent leurs listes de syllabes et de mots ; la compréhension y prend la forme de petites définitions, et MAZE de phrases à trou. Les supports 3 à 7 reprennent les phrases et récits du livret. Tous sont validés avec leurs cinq activités.
+
+Pour les listes de mots, `maze` utilise `mode: "phrases"` et un tableau `phrases` d'objets `{ "phrase": "La ___ tourne.", "choix": ["roue", "lune", "jupe"], "bonne": 0 }`. Les trois choix doivent figurer dans le support ; le premier est la bonne réponse avant le mélange affiché à l'élève.

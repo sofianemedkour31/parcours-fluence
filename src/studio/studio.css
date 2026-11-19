@@ -108,6 +108,8 @@ body.mode-studio {
 .st-maze { display: flex; flex-direction: column; gap: 10px; }
 .st-maze-ligne { display: grid; grid-template-columns: minmax(120px, 1fr) repeat(2, minmax(120px, 1fr)); gap: 6px 10px; align-items: center; padding: 10px; border: 2px solid #eee8db; border-radius: 4px; }
 .st-maze-ligne small { grid-column: 1 / -1; color: #6f6680; }
+.st-maze-phrase { padding: 10px; border: 2px solid #eee8db; border-radius: 4px; }
+.st-maze-reponses { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 
 .st-table { display: flex; flex-direction: column; gap: 6px; margin-bottom: 6px; }
 .st-tr { display: grid; grid-template-columns: 200px 1fr 78px; gap: 8px; align-items: start; }
@@ -151,4 +153,5 @@ p.st-warn { margin: 6px 0; }
   .st-tr { grid-template-columns: 1fr; }
   .st-mm { grid-template-columns: 1fr; }
   .st-maze-ligne { grid-template-columns: 1fr; }
+  .st-maze-reponses { grid-template-columns: 1fr; }
 }

@@ -1,17 +1,22 @@
-// Labyrinthe de lecture : un mot du texte sur sept est choisi parmi trois propositions.
+// Labyrinthe de lecture : choix dans le texte, ou phrases à compléter pour les listes de mots.
 import { el, ajouter, remplir, iconePixel, fenetre } from '../ui.js';
 import { jetons, melanger } from '../lib/texte.js';
-import { erreursMaze } from '../lib/activites-lecture.js';
+import { erreursMaze, erreursMazePhrases } from '../lib/activites-lecture.js';
 import { jouer } from '../sons.js';
 
 export function monterMaze(zone, { texte, finir }) {
-  const trous = texte.activites.maze.trous;
-  if (erreursMaze(texte.texte, trous).length) {
+  const maze = texte.activites.maze;
+  const parPhrases = maze.mode === 'phrases';
+  const items = parPhrases ? maze.phrases : maze.trous;
+  const erreurs = parPhrases
+    ? erreursMazePhrases(texte.texte, items)
+    : erreursMaze(texte.texte, items);
+  if (erreurs.length) {
     ajouter(zone, el('p', { class: 'alerte' }, 'Ce labyrinthe doit être complété dans le studio.'));
     return () => {};
   }
 
-  const parIndex = new Map(trous.map((trou) => [trou.index, trou]));
+  const parIndex = parPhrases ? null : new Map(items.map((trou) => [trou.index, trou]));
   const rates = new Set();
   let resolus = 0;
   let reussis = 0;
@@ -21,10 +26,10 @@ export function monterMaze(zone, { texte, finir }) {
   const retour = el('p', { class: 'maze-retour', role: 'status', 'aria-live': 'polite' });
   const papier = el('div', { class: 'papier maze-texte' });
 
-  function choisir(trou, bouton, cadre) {
+  function choisir(trou, index, bouton, cadre) {
     if (cadre.classList.contains('resolu')) return;
     if (bouton.textContent !== trou.choix[0]) {
-      rates.add(trou.index);
+      rates.add(index);
       bouton.disabled = true;
       bouton.classList.add('faux');
       remplir(retour, 'Ce mot ne convient pas. Essaie un autre choix.');
@@ -32,37 +37,49 @@ export function monterMaze(zone, { texte, finir }) {
       return;
     }
     resolus++;
-    if (!rates.has(trou.index)) reussis++;
+    if (!rates.has(index)) reussis++;
     cadre.classList.add('resolu');
     remplir(cadre, el('strong', {}, trou.choix[0]));
     remplir(retour, 'Bien joué !');
-    compteur.textContent = `${resolus} / ${trous.length} mots trouvés`;
+    compteur.textContent = `${resolus} / ${items.length} mots trouvés`;
     jouer('juste');
-    if (resolus === trous.length) finDifferee = setTimeout(victoire, 500);
+    if (resolus === items.length) finDifferee = setTimeout(victoire, 500);
   }
 
-  for (const paragraphe of jetons(texte.texte)) {
-    const ligne = el('p');
-    for (const jeton of paragraphe) {
-      if (jeton.type === 'sep') { ligne.append(jeton.v); continue; }
-      const trou = parIndex.get(motIndex++);
-      if (!trou) { ligne.append(jeton.v); continue; }
-      const cadre = el('span', { class: 'maze-choix', role: 'group', 'aria-label': `Choisis le mot ${trou.index + 1}` });
-      const choix = melanger(trou.choix);
-      for (const proposition of choix) {
-        const bouton = el('button', { type: 'button', onclick: () => choisir(trou, bouton, cadre) }, proposition);
-        cadre.append(bouton);
-      }
-      ligne.append(cadre);
+  function creerChoix(trou, index) {
+    const cadre = el('span', { class: 'maze-choix', role: 'group', 'aria-label': `Choisis le mot du choix ${index + 1}` });
+    for (const proposition of melanger(trou.choix)) {
+      const bouton = el('button', { type: 'button', onclick: () => choisir(trou, index, bouton, cadre) }, proposition);
+      cadre.append(bouton);
     }
-    papier.append(ligne);
+    return cadre;
   }
 
-  compteur.textContent = `0 / ${trous.length} mots trouvés`;
+  if (parPhrases) {
+    items.forEach((item, index) => {
+      const [avant, apres] = item.phrase.split('___');
+      papier.append(el('p', { class: 'maze-phrase' }, avant, creerChoix(item, index), apres));
+    });
+  } else {
+    for (const paragraphe of jetons(texte.texte)) {
+      const ligne = el('p');
+      for (const jeton of paragraphe) {
+        if (jeton.type === 'sep') { ligne.append(jeton.v); continue; }
+        const index = motIndex++;
+        const trou = parIndex.get(index);
+        ligne.append(trou ? creerChoix(trou, index) : jeton.v);
+      }
+      papier.append(ligne);
+    }
+  }
+
+  compteur.textContent = `0 / ${items.length} mots trouvés`;
   ajouter(zone,
     el('div', { class: 'activite-entete' },
       el('h2', {}, 'Labyrinthe de lecture'),
-      el('p', { class: 'consigne' }, 'Lis le texte. À chaque choix, touche le seul mot qui convient.')),
+      el('p', { class: 'consigne' }, parPhrases
+        ? 'Lis chaque phrase et choisis le mot du support qui la complète.'
+        : 'Lis le texte. À chaque choix, touche le seul mot qui convient.')),
     compteur,
     retour,
     papier);
@@ -72,7 +89,7 @@ export function monterMaze(zone, { texte, finir }) {
     const { fermer } = fenetre(el('div', { class: 'bravo' },
       iconePixel('etoile', { taille: 72, contour: '#1b1626', fond: '#ffd23f' }),
       el('h2', {}, 'Labyrinthe terminé !'),
-      el('p', {}, `${reussis} mot${reussis > 1 ? 's' : ''} trouvé${reussis > 1 ? 's' : ''} du premier coup sur ${trous.length}.`),
+      el('p', {}, `${reussis} mot${reussis > 1 ? 's' : ''} trouvé${reussis > 1 ? 's' : ''} du premier coup sur ${items.length}.`),
       el('div', { class: 'boutons' },
         el('button', { class: 'btn-px btn-principal', onclick: () => { fermer(); finir(); } }, 'Autre activité'))));
   }

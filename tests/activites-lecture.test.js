@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { bornesGroupes, ciblesMaze, erreursMaze, motsLecture } from '../src/lib/activites-lecture.js';
+import { bornesGroupes, ciblesMaze, erreursMaze, erreursMazePhrases, motsLecture } from '../src/lib/activites-lecture.js';
 import { erreursTexte } from '../src/lib/validation.js';
 import { nettoyer } from '../api/_lib/generation.js';
 
@@ -41,6 +41,20 @@ test('MAZE choisit environ un mot sur sept et exige deux distracteurs distincts'
   assert.deepEqual(erreursMaze(texte, trous), []);
   trous[0].choix[2] = 'dragon';
   assert.ok(erreursMaze(texte, trous).length);
+});
+
+test('les phrases à trou demandent une seule case et le bon mot du support', () => {
+  const support = 'loup roue jupe fourmi journal';
+  const phrases = [
+    { phrase: 'Le ___ hurle dans la forêt.', choix: ['loup', 'roue', 'jupe'], bonne: 0 },
+    { phrase: 'La ___ tourne sur le vélo.', choix: ['roue', 'fourmi', 'journal'], bonne: 0 },
+  ];
+  assert.deepEqual(erreursMazePhrases(support, phrases), []);
+  phrases[0].phrase = 'Le ___ ___ hurle.';
+  assert.ok(erreursMazePhrases(support, phrases).length);
+  phrases[0].phrase = 'Le ___ hurle dans la forêt.';
+  phrases[0].choix[0] = 'dragon';
+  assert.ok(erreursMazePhrases(support, phrases).length);
 });
 
 test('un ancien texte validé sans MAZE reste publiable', () => {

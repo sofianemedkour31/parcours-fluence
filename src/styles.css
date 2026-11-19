@@ -354,6 +354,7 @@ mark { background: #ffe27a; color: inherit; box-shadow: 0 0 0 3px #ffe27a; }
 
 /* Labyrinthe de lecture */
 .maze-texte { font-size: clamp(21px, 2.4vw, 28px); line-height: 2.15; }
+.maze-phrase { margin: 0 0 16px; padding: 8px 12px; line-height: 1.7; border-bottom: 2px solid #d8c9a1; }
 .maze-choix { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px; max-width: 100%; padding: 3px 5px; margin: 2px 4px; vertical-align: middle; background: #e9ddbc; box-shadow: 0 0 0 2px var(--trait); }
 .maze-choix button { min-height: 42px; padding: 3px 8px; border: 2px solid var(--trait); background: #fffdf5; color: var(--encre); font: 700 .75em var(--lecture); }
 .maze-choix button:hover:not(:disabled), .maze-choix button:focus-visible { background: #ffe27a; }

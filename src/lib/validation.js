@@ -1,7 +1,7 @@
 // Règles communes au studio et à la publication : un texte validé doit être jouable.
 import { genererGrille } from './grille.js';
 import { figureDansTexte, formeDictee, formeGrille, propre } from './texte.js';
-import { bornesGroupes, erreursMaze } from './activites-lecture.js';
+import { bornesGroupes, erreursMaze, erreursMazePhrases } from './activites-lecture.js';
 
 export function erreursTexte(t, parcours) {
   const erreurs = [];
@@ -65,7 +65,10 @@ export function erreursTexte(t, parcours) {
     }
   }
   if (a.maze?.actif !== false && a.maze) {
-    erreurs.push(...erreursMaze(texte, a.maze.trous).map((e) => `MAZE : ${e}`));
+    const erreursActivite = a.maze.mode === 'phrases'
+      ? erreursMazePhrases(texte, a.maze.phrases)
+      : erreursMaze(texte, a.maze.trous);
+    erreurs.push(...erreursActivite.map((e) => `MAZE : ${e}`));
   }
   return erreurs;
 }

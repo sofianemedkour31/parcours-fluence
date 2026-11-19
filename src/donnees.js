@@ -1,6 +1,6 @@
 // Chargement du contenu des parcours.
 // Les élèves lisent le fichier publié ; le studio travaille sur un brouillon local.
-import { erreursMaze } from './lib/activites-lecture.js';
+import { erreursMaze, erreursMazePhrases } from './lib/activites-lecture.js';
 
 export const CLE_BROUILLON = 'pl-studio-brouillon';
 export const CLE_APERCU = 'pl-apercu';
@@ -94,7 +94,8 @@ export function activitesDisponibles(texte) {
     dictee: Boolean(a.dictee?.actif !== false && a.dictee?.mots?.length),
     comprehension: Boolean(a.comprehension?.actif !== false && a.comprehension?.questions?.length),
     motsMeles: Boolean(a.motsMeles?.actif !== false && a.motsMeles?.mots?.length),
-    maze: Boolean(a.maze?.actif !== false && a.maze?.trous?.length
-      && !erreursMaze(texte?.texte || '', a.maze.trous).length),
+    maze: Boolean(a.maze?.actif !== false && (a.maze?.mode === 'phrases'
+      ? a.maze.phrases?.length && !erreursMazePhrases(texte?.texte || '', a.maze.phrases).length
+      : a.maze?.trous?.length && !erreursMaze(texte?.texte || '', a.maze.trous).length)),
   };
 }

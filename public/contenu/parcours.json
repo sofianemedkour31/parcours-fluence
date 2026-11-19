@@ -6769,6 +6769,332 @@
       },
       "textes": [
         {
+          "id": "p5-texte-06",
+          "titre": "Syllabes et mots (l, r, f, j) — support 1",
+          "texte": "lu ri fa ju ar\nfor jar mir il fra\n\nlame lune loup lire fil\nroue rare rôle arme ours\nfou folie fil rafale futé\njoli joujou jupe jour journée\nmur larme farine renard jupe\nfourmi journal fumée souris forme",
+          "valide": true,
+          "activites": {
+            "lecture": {
+              "actif": true,
+              "vitesse": 40,
+              "groupes": [],
+              "groupesDemandes": false
+            },
+            "dictee": {
+              "actif": true,
+              "mots": [
+                {
+                  "mot": "lire",
+                  "phrase": "J’aime lire le soir."
+                },
+                {
+                  "mot": "rare",
+                  "phrase": "Ce mot est rare."
+                },
+                {
+                  "mot": "fou",
+                  "phrase": "Ce garçon est fou de joie."
+                },
+                {
+                  "mot": "futé",
+                  "phrase": "Le renard est futé."
+                },
+                {
+                  "mot": "joli",
+                  "phrase": "Ce dessin est joli."
+                }
+              ]
+            },
+            "comprehension": {
+              "actif": true,
+              "questions": [
+                {
+                  "question": "Quel mot désigne un animal sauvage proche du chien ?",
+                  "choix": [
+                    "loup",
+                    "roue",
+                    "jupe"
+                  ],
+                  "bonne": 0,
+                  "indice": "Pense à un animal qui hurle.",
+                  "extrait": "loup"
+                },
+                {
+                  "question": "Quel mot désigne un vêtement ?",
+                  "choix": [
+                    "journal",
+                    "fourmi",
+                    "jupe"
+                  ],
+                  "bonne": 2,
+                  "indice": "On peut le porter.",
+                  "extrait": "jupe"
+                },
+                {
+                  "question": "Quel mot désigne une pièce qui tourne sur un vélo ?",
+                  "choix": [
+                    "roue",
+                    "farine",
+                    "lame"
+                  ],
+                  "bonne": 0,
+                  "indice": "Cette pièce est ronde.",
+                  "extrait": "roue"
+                },
+                {
+                  "question": "Quel mot désigne un petit insecte qui vit en colonie ?",
+                  "choix": [
+                    "renard",
+                    "fourmi",
+                    "ours"
+                  ],
+                  "bonne": 1,
+                  "indice": "Il peut transporter des miettes.",
+                  "extrait": "fourmi"
+                },
+                {
+                  "question": "Quel mot désigne une publication imprimée qui donne des nouvelles ?",
+                  "choix": [
+                    "journée",
+                    "joujou",
+                    "journal"
+                  ],
+                  "bonne": 2,
+                  "indice": "On peut la lire chaque matin.",
+                  "extrait": "journal"
+                }
+              ]
+            },
+            "motsMeles": {
+              "actif": true,
+              "mots": [
+                "lame",
+                "lune",
+                "loup",
+                "roue",
+                "rafale",
+                "joujou",
+                "renard",
+                "souris"
+              ],
+              "directions": "simple"
+            },
+            "maze": {
+              "actif": true,
+              "mode": "phrases",
+              "trous": [],
+              "phrases": [
+                {
+                  "phrase": "Le ___ hurle dans la forêt.",
+                  "choix": [
+                    "loup",
+                    "lame",
+                    "lune"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "phrase": "La ___ tourne sur le vélo.",
+                  "choix": [
+                    "roue",
+                    "jupe",
+                    "farine"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "phrase": "Je mets une ___ pour sortir.",
+                  "choix": [
+                    "jupe",
+                    "larme",
+                    "fourmi"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "phrase": "La ___ porte une miette.",
+                  "choix": [
+                    "fourmi",
+                    "fumée",
+                    "roue"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "phrase": "Je lis le ___ du matin.",
+                  "choix": [
+                    "journal",
+                    "joujou",
+                    "renard"
+                  ],
+                  "bonne": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "p5-texte-07",
+          "titre": "Syllabes et mots (v, ch, p, b, t, d) — support 2",
+          "texte": "vou cha pir do tou\ndu chou tro pru dal\n\nvélo vache cheval vivre vis\npari peur poule toupie tarte\nballe bulle robot barbe bobine\nchou dame douche dur radis\nbiche tartine moutarde tapis vapeur\ndoute touche moustache domino porte",
+          "valide": true,
+          "activites": {
+            "lecture": {
+              "actif": true,
+              "vitesse": 40,
+              "groupes": [],
+              "groupesDemandes": false
+            },
+            "dictee": {
+              "actif": true,
+              "mots": [
+                {
+                  "mot": "vivre",
+                  "phrase": "Il veut vivre longtemps."
+                },
+                {
+                  "mot": "dur",
+                  "phrase": "Ce mot est dur à lire."
+                },
+                {
+                  "mot": "doute",
+                  "phrase": "Je doute encore de la réponse."
+                },
+                {
+                  "mot": "touche",
+                  "phrase": "Elle touche le mur."
+                }
+              ]
+            },
+            "comprehension": {
+              "actif": true,
+              "questions": [
+                {
+                  "question": "Quel mot désigne un véhicule à deux roues ?",
+                  "choix": [
+                    "robot",
+                    "vélo",
+                    "domino"
+                  ],
+                  "bonne": 1,
+                  "indice": "On peut pédaler dessus.",
+                  "extrait": "vélo"
+                },
+                {
+                  "question": "Quel mot désigne l’animal de la ferme dont on boit le lait ?",
+                  "choix": [
+                    "vache",
+                    "biche",
+                    "poule"
+                  ],
+                  "bonne": 0,
+                  "indice": "Cet animal meugle.",
+                  "extrait": "vache"
+                },
+                {
+                  "question": "Quel mot désigne un jouet qui tourne sur lui-même ?",
+                  "choix": [
+                    "balle",
+                    "toupie",
+                    "robot"
+                  ],
+                  "bonne": 1,
+                  "indice": "On le fait tourner sur sa pointe.",
+                  "extrait": "toupie"
+                },
+                {
+                  "question": "Quel mot désigne les poils juste sous le nez ?",
+                  "choix": [
+                    "barbe",
+                    "moustache",
+                    "bobine"
+                  ],
+                  "bonne": 1,
+                  "indice": "Cherche le mot qui parle du visage.",
+                  "extrait": "moustache"
+                },
+                {
+                  "question": "Quel mot désigne une tranche de pain garnie ?",
+                  "choix": [
+                    "tarte",
+                    "tapis",
+                    "tartine"
+                  ],
+                  "bonne": 2,
+                  "indice": "On peut y étaler de la confiture.",
+                  "extrait": "tartine"
+                }
+              ]
+            },
+            "motsMeles": {
+              "actif": true,
+              "mots": [
+                "vélo",
+                "vache",
+                "cheval",
+                "poule",
+                "toupie",
+                "tarte",
+                "robot",
+                "tartine"
+              ],
+              "directions": "simple"
+            },
+            "maze": {
+              "actif": true,
+              "mode": "phrases",
+              "trous": [],
+              "phrases": [
+                {
+                  "phrase": "La ___ donne du lait à la ferme.",
+                  "choix": [
+                    "vache",
+                    "poule",
+                    "bobine"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "phrase": "La ___ tourne sur sa pointe.",
+                  "choix": [
+                    "toupie",
+                    "tarte",
+                    "balle"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "phrase": "Je pédale sur mon ___.",
+                  "choix": [
+                    "vélo",
+                    "robot",
+                    "domino"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "phrase": "La ___ pousse sous mon nez.",
+                  "choix": [
+                    "moustache",
+                    "bobine",
+                    "tartine"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "phrase": "Je mange une ___ à la confiture.",
+                  "choix": [
+                    "tartine",
+                    "tapis",
+                    "porte"
+                  ],
+                  "bonne": 0
+                }
+              ]
+            }
+          }
+        },
+        {
           "id": "p5-texte-01",
           "titre": "Les phrases (s, z) — support 3",
           "texte": "Sara a une bonne pizza au chorizo. Le petit du zèbre joue dans le zoo. La petite Zabou sème la zizanie à la crèche. Lisa réalise une visite au musée. Les roses sont dans le vase bleu.",
@@ -7698,6 +8024,6 @@
       ]
     }
   ],
-  "corpusVersion": 2,
+  "corpusVersion": 3,
   "publieLe": "2026-11-16T14:20:18.680Z"
 }

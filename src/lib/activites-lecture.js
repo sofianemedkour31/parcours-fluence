@@ -1,4 +1,4 @@
-import { formeDictee, jetons } from './texte.js';
+import { figureDansTexte, formeDictee, jetons, propre } from './texte.js';
 
 export function motsLecture(texte) {
   return jetons(texte).flat().filter((j) => j.type === 'mot').map((j) => j.v);
@@ -55,6 +55,27 @@ export function erreursMaze(texte, trous) {
       || choix.some((mot) => !/^[\p{L}]{2,20}$/u.test(String(mot || '')))
       || new Set(choix.map(formeDictee)).size !== 3) {
       erreurs.push('trois mots distincts par choix, dont le bon mot du texte');
+      break;
+    }
+  }
+  return erreurs;
+}
+
+/** Variante pour les supports composés uniquement de mots : une phrase, un mot manquant. */
+export function erreursMazePhrases(texte, phrases) {
+  if (!Array.isArray(phrases) || phrases.length < 2) return ['au moins deux phrases à compléter'];
+  const erreurs = [];
+  for (const item of phrases) {
+    if (!item || propre(item.phrase).split('___').length !== 2 || motsLecture(item.phrase).length < 2) {
+      erreurs.push('une phrase avec une seule case ___ et du contexte');
+      break;
+    }
+    const choix = item.choix;
+    if (!Array.isArray(choix) || choix.length !== 3 || item.bonne !== 0
+      || choix.some((mot) => !/^[\p{L}]{2,20}$/u.test(String(mot || '')))
+      || new Set(choix.map(formeDictee)).size !== 3
+      || choix.some((mot) => !figureDansTexte(mot, texte))) {
+      erreurs.push('trois mots distincts du support, avec le bon mot en premier');
       break;
     }
   }
