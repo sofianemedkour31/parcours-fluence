@@ -13,6 +13,7 @@ export function monterDictee(zone, { texte, finir }) {
   let essais = 0;
   let resultats = [];
   let attente = null;
+  let annonce = null;
 
   const progression = el('div', { class: 'progression' });
   const etape = el('div', { class: 'dictee-etape' });
@@ -35,9 +36,12 @@ export function monterDictee(zone, { texte, finir }) {
   }
 
   function afficherMot() {
+    clearTimeout(annonce);
+    taire();
     essais = 0;
     majProgression();
     const item = liste[i];
+    const numero = i;
     const champ = el('input', {
       class: 'champ-dictee', type: 'text', autocomplete: 'off', autocapitalize: 'off',
       autocorrect: 'off', spellcheck: 'false', 'aria-label': 'Écris le mot ici', enterkeyhint: 'done',
@@ -46,15 +50,21 @@ export function monterDictee(zone, { texte, finir }) {
     const modele = el('div', { class: 'modele', hidden: true });
     const btnValider = el('button', { class: 'btn-px btn-principal', onclick: valider }, 'Valider');
 
+    function ecouter(contenu, vitesse) {
+      clearTimeout(annonce);
+      annonce = null;
+      dire(contenu, { vitesse });
+    }
+
     champ.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); valider(); } });
 
     remplir(etape, 
       el('div', { class: 'dictee-ecoute' },
-        el('button', { class: 'btn-gros-son', onclick: () => dire(item.mot, { vitesse: 0.8 }) },
+        el('button', { class: 'btn-gros-son', onclick: () => ecouter(item.mot, 0.85) },
           iconePixel('son', { taille: 48, contour: 'currentColor', fond: 'currentColor' }), el('span', {}, 'Écouter le mot')),
         el('div', { class: 'dictee-options' },
-          el('button', { class: 'btn-px', onclick: () => dire(item.mot, { vitesse: 0.5 }) }, 'Lentement'),
-          item.phrase ? el('button', { class: 'btn-px', onclick: () => dire(item.phrase, { vitesse: 0.85 }) }, 'Dans une phrase') : null)),
+          el('button', { class: 'btn-px', onclick: () => ecouter(item.mot, 0.7) }, 'Lentement'),
+          item.phrase ? el('button', { class: 'btn-px', onclick: () => ecouter(item.phrase, 0.85) }, 'Dans une phrase') : null)),
       modele,
       champ,
       el('div', { class: 'accents', role: 'group', 'aria-label': 'Lettres avec accent' },
@@ -71,7 +81,12 @@ export function monterDictee(zone, { texte, finir }) {
       retourMsg,
       el('div', { class: 'boutons' }, btnValider),
     );
-    setTimeout(() => { champ.focus({ preventScroll: true }); dire(item.mot, { vitesse: 0.8 }); }, 350);
+    annonce = setTimeout(() => {
+      annonce = null;
+      if (numero !== i || !champ.isConnected) return;
+      champ.focus({ preventScroll: true });
+      dire(item.mot, { vitesse: 0.85 });
+    }, 350);
 
     function valider() {
       const saisie = formeDictee(champ.value);
@@ -100,7 +115,7 @@ export function monterDictee(zone, { texte, finir }) {
         remplir(retourMsg, el('span', { class: 'msg-ko' }, 'Regarde bien le mot, puis recopie-le.'));
         champ.value = '';
         champ.focus();
-        dire(item.mot, { vitesse: 0.8 });
+        ecouter(item.mot, 0.85);
       }
     }
   }
@@ -118,6 +133,8 @@ export function monterDictee(zone, { texte, finir }) {
 
   function suivant() {
     clearTimeout(attente);
+    clearTimeout(annonce);
+    annonce = null;
     taire();
     i++;
     if (i < liste.length) afficherMot();
@@ -142,6 +159,10 @@ export function monterDictee(zone, { texte, finir }) {
   }
 
   function recommencer(nouvelleListe) {
+    clearTimeout(attente);
+    clearTimeout(annonce);
+    annonce = null;
+    taire();
     liste = nouvelleListe;
     i = 0;
     resultats = [];
@@ -149,5 +170,5 @@ export function monterDictee(zone, { texte, finir }) {
   }
 
   afficherMot();
-  return () => { clearTimeout(attente); taire(); };
+  return () => { clearTimeout(attente); clearTimeout(annonce); taire(); };
 }
