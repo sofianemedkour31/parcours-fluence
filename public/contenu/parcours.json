@@ -7219,49 +7219,51 @@
             },
             "maze": {
               "actif": true,
-              "trous": [
+              "mode": "phrases",
+              "trous": [],
+              "phrases": [
                 {
-                  "index": 6,
+                  "phrase": "Sara mange une ___ au chorizo.",
                   "choix": [
-                    "chorizo",
-                    "chorizos",
-                    "chorizée"
+                    "pizza",
+                    "crèche",
+                    "visite"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 14,
+                  "phrase": "Le petit du zèbre joue dans le ___.",
                   "choix": [
                     "zoo",
-                    "zèbre",
-                    "zéro"
+                    "vase",
+                    "chorizo"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 20,
+                  "phrase": "Zabou sème la ___ à la crèche.",
                   "choix": [
                     "zizanie",
-                    "zizanies",
-                    "zéro"
+                    "pizza",
+                    "visite"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 27,
+                  "phrase": "Lisa réalise une visite au ___.",
                   "choix": [
-                    "visite",
-                    "visites",
-                    "visiter"
+                    "musée",
+                    "chorizo",
+                    "vase"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 35,
+                  "phrase": "Les roses sont dans le ___ bleu.",
                   "choix": [
                     "vase",
-                    "vases",
-                    "rose"
+                    "chorizo",
+                    "zèbre"
                   ],
                   "bonne": 0
                 }
@@ -7393,49 +7395,51 @@
             },
             "maze": {
               "actif": true,
-              "trous": [
+              "mode": "phrases",
+              "trous": [],
+              "phrases": [
                 {
-                  "index": 6,
+                  "phrase": "Kali joue de la ___ avec Guillem.",
                   "choix": [
-                    "Guillem",
+                    "guitare",
+                    "carottes",
+                    "figues"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "phrase": "Le guide chasse le ___ qui attaque le koala.",
+                  "choix": [
+                    "crocodile",
+                    "guidon",
+                    "karaté"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "phrase": "Dans le dojo, je pratique le ___.",
+                  "choix": [
+                    "karaté",
+                    "koala",
+                    "guide"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "phrase": "Le cochon mange des ___ et des figues.",
+                  "choix": [
+                    "carottes",
                     "guitare",
                     "koala"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 15,
+                  "phrase": "Guy répare le ___ de son vélo.",
                   "choix": [
-                    "koala",
-                    "guitare",
-                    "dojo"
-                  ],
-                  "bonne": 0
-                },
-                {
-                  "index": 19,
-                  "choix": [
-                    "karaté",
-                    "carotte",
-                    "crocodile"
-                  ],
-                  "bonne": 0
-                },
-                {
-                  "index": 27,
-                  "choix": [
-                    "mange",
-                    "mangent",
-                    "manges"
-                  ],
-                  "bonne": 0
-                },
-                {
-                  "index": 34,
-                  "choix": [
-                    "doit",
-                    "doivent",
-                    "dois"
+                    "guidon",
+                    "crocodile",
+                    "karaté"
                   ],
                   "bonne": 0
                 }
@@ -7571,58 +7575,60 @@
             },
             "maze": {
               "actif": true,
-              "trous": [
+              "mode": "phrases",
+              "trous": [],
+              "phrases": [
                 {
-                  "index": 7,
+                  "phrase": "Soline porte un pantalon ___.",
                   "choix": [
-                    "chemise",
-                    "chemises",
-                    "chemin"
+                    "marron",
+                    "blanche",
+                    "insouciant"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 13,
+                  "phrase": "Les enfants font des ___ dans le jardin.",
                   "choix": [
                     "rondes",
-                    "ronde",
-                    "rond"
-                  ],
-                  "bonne": 0
-                },
-                {
-                  "index": 20,
-                  "choix": [
-                    "oncle",
-                    "oncles",
-                    "ongle"
-                  ],
-                  "bonne": 0
-                },
-                {
-                  "index": 28,
-                  "choix": [
                     "pintades",
-                    "pintade",
+                    "dindons"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "phrase": "Mon oncle chante dans le ___.",
+                  "choix": [
+                    "salon",
+                    "chaton",
                     "pantalon"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 35,
+                  "phrase": "Les pintades et les ___ sont dans la cour.",
                   "choix": [
-                    "cour",
-                    "cours",
-                    "court"
+                    "dindons",
+                    "pantalon",
+                    "serpent"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 42,
+                  "phrase": "Le serpent rampe le long du ___.",
                   "choix": [
                     "chemin",
-                    "chemise",
-                    "chemins"
+                    "chaton",
+                    "pantalon"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "phrase": "Le serpent veut attaquer le ___.",
+                  "choix": [
+                    "chaton",
+                    "pantalon",
+                    "salon"
                   ],
                   "bonne": 0
                 }
@@ -7762,67 +7768,60 @@
             },
             "maze": {
               "actif": true,
-              "trous": [
+              "mode": "phrases",
+              "trous": [],
+              "phrases": [
                 {
-                  "index": 7,
+                  "phrase": "Argo navigue sur un ___ qui prend l’eau.",
                   "choix": [
-                    "Argo",
-                    "arbre",
-                    "armoire"
+                    "bateau",
+                    "marteau",
+                    "drapeau"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 14,
+                  "phrase": "Le pirate accroche un ___ pour être vu.",
                   "choix": [
                     "drapeau",
-                    "drapeaux",
-                    "drapée"
+                    "couteau",
+                    "marteau"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 21,
+                  "phrase": "Il prend son couteau et un ___.",
                   "choix": [
                     "marteau",
-                    "gâteau",
-                    "bateau"
+                    "paquebot",
+                    "cargo"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 26,
+                  "phrase": "Il monte en haut de son ___.",
                   "choix": [
-                    "haut",
-                    "haute",
-                    "hauts"
+                    "cargo",
+                    "couteau",
+                    "drapeau"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 34,
+                  "phrase": "Il espère qu’un ___ verra son drapeau.",
                   "choix": [
-                    "verra",
-                    "voient",
-                    "verront"
+                    "paquebot",
+                    "marteau",
+                    "couteau"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 42,
-                  "choix": [
-                    "gros",
-                    "grande",
-                    "grosse"
-                  ],
-                  "bonne": 0
-                },
-                {
-                  "index": 49,
+                  "phrase": "Le drapeau conseille de prendre son ___ plutôt que le bateau.",
                   "choix": [
                     "auto",
-                    "autos",
-                    "autre"
+                    "marteau",
+                    "couteau"
                   ],
                   "bonne": 0
                 }
@@ -7962,58 +7961,60 @@
             },
             "maze": {
               "actif": true,
-              "trous": [
+              "mode": "phrases",
+              "trous": [],
+              "phrases": [
                 {
-                  "index": 7,
+                  "phrase": "Simon met son pantalon et son ___.",
                   "choix": [
-                    "pantalon",
-                    "pantalons",
-                    "pintades"
+                    "veston",
+                    "poil",
+                    "chaud"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 13,
+                  "phrase": "Chaque matin, Simon nourrit les ___.",
                   "choix": [
-                    "nourrir",
-                    "nourris",
-                    "nourrit"
+                    "lapins",
+                    "veston",
+                    "pantalon"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 22,
-                  "choix": [
-                    "découvre",
-                    "découvrent",
-                    "découvres"
-                  ],
-                  "bonne": 0
-                },
-                {
-                  "index": 26,
+                  "phrase": "Il découvre quatorze petits ___.",
                   "choix": [
                     "lapereaux",
-                    "lapereau",
-                    "lapine"
+                    "pantalon",
+                    "veston"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 35,
+                  "phrase": "Les petits se serrent contre leur ___.",
                   "choix": [
-                    "vont",
-                    "va",
-                    "vais"
+                    "maman",
+                    "veston",
+                    "pantalon"
                   ],
                   "bonne": 0
                 },
                 {
-                  "index": 41,
+                  "phrase": "Ils restent au ___ car ils n’ont pas de poil.",
                   "choix": [
-                    "car",
-                    "chez",
-                    "avec"
+                    "chaud",
+                    "veston",
+                    "pantalon"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "phrase": "Les lapereaux n’ont pas encore de ___.",
+                  "choix": [
+                    "poil",
+                    "veston",
+                    "pantalon"
                   ],
                   "bonne": 0
                 }
@@ -8024,6 +8025,6 @@
       ]
     }
   ],
-  "corpusVersion": 3,
+  "corpusVersion": 4,
   "publieLe": "2026-11-16T14:20:18.680Z"
 }

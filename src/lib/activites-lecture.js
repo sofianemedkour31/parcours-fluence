@@ -61,7 +61,7 @@ export function erreursMaze(texte, trous) {
   return erreurs;
 }
 
-/** Variante pour les supports composés uniquement de mots : une phrase, un mot manquant. */
+/** Variante MAZE avec une phrase et un mot manquant par choix. */
 export function erreursMazePhrases(texte, phrases) {
   if (!Array.isArray(phrases) || phrases.length < 2) return ['au moins deux phrases à compléter'];
   const erreurs = [];

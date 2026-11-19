@@ -12,6 +12,8 @@ test('les cinq parcours conservent leurs textes et les textes validés sont publ
   assert.deepEqual(corpus.parcours[4].textes.map((t) => t.titre.match(/support (\d+)/)?.[1]), ['1', '2', '3', '4', '5', '6', '7']);
   assert.deepEqual(corpus.parcours[4].textes.map((t) => t.id),
     ['p5-texte-06', 'p5-texte-07', 'p5-texte-01', 'p5-texte-02', 'p5-texte-03', 'p5-texte-04', 'p5-texte-05']);
+  assert.ok(corpus.parcours[4].textes.every((t) => t.activites.maze.mode === 'phrases'
+    && t.activites.maze.phrases.length >= 5));
   for (const p of corpus.parcours) for (const [index, t] of p.textes.entries()) {
     if (p.id !== 5) assert.equal(t.id, `p${p.id}-texte-${String(index + 1).padStart(2, '0')}`);
     assert.ok(t.titre && t.texte.length >= 100);
