@@ -1,6 +1,6 @@
 # Parcours lecture
 
-Application de lecture au look de console rétro. Elle propose 4 parcours, chacun composé de plusieurs textes, et 5 activités par texte :
+Application de lecture au look de console rétro. Elle propose 5 parcours et 5 activités par texte :
 
 | Activité | Ce que fait l'élève |
 |---|---|
@@ -16,14 +16,14 @@ Aucune donnée élève n'est enregistrée.
 ## Studio enseignant : `/#/studio`
 
 1. Entrez le **code studio** (variable `STUDIO_CODE`).
-2. Choisissez un parcours et un des **15 textes déjà présents**. Le titre et le passage sont prêts ; vous pouvez aussi ajouter vos propres textes avec **+ Texte**.
+2. Choisissez un parcours et un texte déjà présent. Le titre et le passage sont prêts ; vous pouvez aussi ajouter vos propres textes avec **+ Texte**.
 3. Cliquez sur **Préparer les activités avec Albert**. Mistral Small choisit les mots de dictée, les mots mêlés, la vitesse et les groupes de souffle ; Gemma rédige les questions de compréhension et les distracteurs MAZE. Les deux appels sont effectués en parallèle, puis l'application vérifie et réunit leurs réponses. Un mot absent du texte est retiré et signalé.
 4. Relisez et corrigez dans les cartes. Vous pouvez aussi désactiver une activité.
 5. Cliquez sur **Valider ce texte**. Le studio vérifie les réponses et la grille ; toute modification ultérieure du texte ou de ses activités le repasse en brouillon.
 6. Cliquez sur **Publier pour les élèves**. Seuls les textes validés deviennent visibles dans le mode élève. Si la publication n'est pas configurée, utilisez **Exporter le fichier** (voir plus bas).
 
 Les réglages de chaque parcours (niveau, nombre de mots et de questions, sens de la grille, vitesse) servent à Albert. Le bouton « Préparer avec Albert les N textes sans activités » traite tout un parcours d'un coup.
-Les 60 textes des quatre livrets sont enregistrés comme brouillons. Le travail en cours est gardé dans le navigateur de l'ordinateur enseignant. Une publication conserve aussi les textes sans activités dans le fichier de contenu ; le mode élève n'affiche que les textes validés. Si un ancien brouillon local existe, les nouveaux textes y sont ajoutés sans écraser les modifications précédentes.
+Les 60 textes des quatre livrets cycle 3 sont enregistrés dans le studio, avec les textes du parcours NMD issus du livret cycle 2. Le travail en cours est gardé dans le navigateur de l'ordinateur enseignant. Une publication conserve aussi les textes sans activités dans le fichier de contenu ; le mode élève n'affiche que les textes validés. Si un ancien brouillon local existe, les nouveaux textes y sont ajoutés sans écraser les modifications précédentes.
 
 ## Mise en ligne sur Vercel
 
@@ -100,4 +100,4 @@ src/lib/                 traitement du texte, génération de la grille
 }
 ```
 
-Chaque parcours contient les 15 textes de son livret PDF, dans le même ordre. Ils sont initialement non validés et sans activités générées.
+Les parcours 1 à 4 contiennent chacun les 15 textes de leur livret cycle 3. Le parcours NMD contient les cinq supports de lecture avec phrases ou récit (supports 3 à 7 du livret cycle 2), déjà validés avec leurs activités.

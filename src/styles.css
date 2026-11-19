@@ -157,7 +157,7 @@ button:disabled { cursor: not-allowed; }
 .carte-parcours:hover:not(:disabled), .carte-parcours:focus-visible { transform: translateY(-6px); }
 .carte-parcours:active:not(:disabled) { transform: translateY(4px); }
 .carte-parcours:disabled { filter: grayscale(.85) brightness(.6); }
-.cp-etiquette { font-family: var(--console); font-size: 28px; text-transform: uppercase; letter-spacing: 3px; }
+.cp-etiquette { font-family: var(--console); font-size: 28px; line-height: 1.1; text-align: center; text-transform: uppercase; letter-spacing: 3px; }
 .cp-numero { font-family: var(--pixel); font-size: 64px; color: var(--papier); text-shadow: 6px 6px 0 var(--cs); line-height: 1.1; }
 .cp-info { font-family: var(--console); font-size: 24px; background: var(--cc); padding: 2px 12px; box-shadow: 0 0 0 3px var(--cs); }
 

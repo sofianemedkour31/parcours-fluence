@@ -6754,8 +6754,950 @@
           }
         }
       ]
+    },
+    {
+      "id": 5,
+      "nom": "Parcours NMD",
+      "couleur": "violet",
+      "reglages": {
+        "niveau": "CE1",
+        "nbMotsDictee": 6,
+        "nbQuestions": 5,
+        "nbMotsMeles": 8,
+        "directions": "simple",
+        "vitesse": 60
+      },
+      "textes": [
+        {
+          "id": "p5-texte-01",
+          "titre": "Les phrases (s, z) — support 3",
+          "texte": "Sara a une bonne pizza au chorizo. Le petit du zèbre joue dans le zoo. La petite Zabou sème la zizanie à la crèche. Lisa réalise une visite au musée. Les roses sont dans le vase bleu.",
+          "valide": true,
+          "activites": {
+            "lecture": {
+              "actif": true,
+              "vitesse": 60,
+              "groupes": [
+                "Sara a une bonne pizza",
+                "au chorizo.",
+                "Le petit du zèbre",
+                "joue dans le zoo.",
+                "La petite Zabou",
+                "sème la zizanie",
+                "à la crèche.",
+                "Lisa réalise une visite",
+                "au musée.",
+                "Les roses sont",
+                "dans le vase bleu."
+              ],
+              "groupesDemandes": true
+            },
+            "dictee": {
+              "actif": true,
+              "mots": [
+                {
+                  "mot": "une bonne pizza",
+                  "phrase": "Sara a une bonne pizza au chorizo."
+                },
+                {
+                  "mot": "le zoo",
+                  "phrase": "Le petit du zèbre joue dans le zoo."
+                },
+                {
+                  "mot": "la crèche",
+                  "phrase": "La petite Zabou sème la zizanie à la crèche."
+                },
+                {
+                  "mot": "une visite",
+                  "phrase": "Lisa réalise une visite au musée."
+                },
+                {
+                  "mot": "le vase bleu",
+                  "phrase": "Les roses sont dans le vase bleu."
+                }
+              ]
+            },
+            "comprehension": {
+              "actif": true,
+              "questions": [
+                {
+                  "question": "Que mange Sara ?",
+                  "choix": [
+                    "Une salade",
+                    "Une pizza au chorizo",
+                    "Un gâteau"
+                  ],
+                  "bonne": 1,
+                  "indice": "Relis la première phrase.",
+                  "extrait": "Sara a une bonne pizza au chorizo."
+                },
+                {
+                  "question": "Où joue le petit du zèbre ?",
+                  "choix": [
+                    "Dans la crèche",
+                    "Au musée",
+                    "Dans le zoo"
+                  ],
+                  "bonne": 2,
+                  "indice": "Cherche le lieu où joue le petit.",
+                  "extrait": "Le petit du zèbre joue dans le zoo."
+                },
+                {
+                  "question": "Que sème Zabou ?",
+                  "choix": [
+                    "La zizanie",
+                    "Des roses",
+                    "Du blé"
+                  ],
+                  "bonne": 0,
+                  "indice": "Relis la phrase de Zabou.",
+                  "extrait": "La petite Zabou sème la zizanie à la crèche."
+                },
+                {
+                  "question": "Quel lieu Lisa visite-t-elle ?",
+                  "choix": [
+                    "Le zoo",
+                    "Le musée",
+                    "La crèche"
+                  ],
+                  "bonne": 1,
+                  "indice": "Cherche où Lisa va.",
+                  "extrait": "Lisa réalise une visite au musée."
+                },
+                {
+                  "question": "De quelle couleur est le vase ?",
+                  "choix": [
+                    "Rouge",
+                    "Vert",
+                    "Bleu"
+                  ],
+                  "bonne": 2,
+                  "indice": "Regarde le dernier mot du texte.",
+                  "extrait": "Les roses sont dans le vase bleu."
+                }
+              ]
+            },
+            "motsMeles": {
+              "actif": true,
+              "mots": [
+                "pizza",
+                "chorizo",
+                "zèbre",
+                "Zabou",
+                "zizanie",
+                "crèche",
+                "musée",
+                "roses"
+              ],
+              "directions": "simple"
+            },
+            "maze": {
+              "actif": true,
+              "trous": [
+                {
+                  "index": 6,
+                  "choix": [
+                    "chorizo",
+                    "chorizos",
+                    "chorizée"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 14,
+                  "choix": [
+                    "zoo",
+                    "zèbre",
+                    "zéro"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 20,
+                  "choix": [
+                    "zizanie",
+                    "zizanies",
+                    "zéro"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 27,
+                  "choix": [
+                    "visite",
+                    "visites",
+                    "visiter"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 35,
+                  "choix": [
+                    "vase",
+                    "vases",
+                    "rose"
+                  ],
+                  "bonne": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "p5-texte-02",
+          "titre": "Les phrases (k, gu) — support 4",
+          "texte": "Kali joue de la guitare avec Guillem. Le guide chasse le crocodile qui s’attaque au koala. Je pratique le karaté dans le dojo de l’école. Le cochon mange des carottes et des figues. Guy doit réparer le guidon de son vélo.",
+          "valide": true,
+          "activites": {
+            "lecture": {
+              "actif": true,
+              "vitesse": 60,
+              "groupes": [
+                "Kali joue de la guitare",
+                "avec Guillem.",
+                "Le guide chasse le crocodile",
+                "qui s’attaque au koala.",
+                "Je pratique le karaté",
+                "dans le dojo de l’école.",
+                "Le cochon mange des carottes",
+                "et des figues.",
+                "Guy doit réparer le guidon",
+                "de son vélo."
+              ],
+              "groupesDemandes": true
+            },
+            "dictee": {
+              "actif": true,
+              "mots": [
+                {
+                  "mot": "la guitare",
+                  "phrase": "Kali joue de la guitare avec Guillem."
+                },
+                {
+                  "mot": "le crocodile",
+                  "phrase": "Le guide chasse le crocodile qui s’attaque au koala."
+                },
+                {
+                  "mot": "le karaté",
+                  "phrase": "Je pratique le karaté dans le dojo de l’école."
+                },
+                {
+                  "mot": "des carottes",
+                  "phrase": "Le cochon mange des carottes et des figues."
+                },
+                {
+                  "mot": "le guidon",
+                  "phrase": "Guy doit réparer le guidon de son vélo."
+                }
+              ]
+            },
+            "comprehension": {
+              "actif": true,
+              "questions": [
+                {
+                  "question": "De quel instrument joue Kali ?",
+                  "choix": [
+                    "Du piano",
+                    "De la guitare",
+                    "Du tambour"
+                  ],
+                  "bonne": 1,
+                  "indice": "Relis la phrase de Kali.",
+                  "extrait": "Kali joue de la guitare avec Guillem."
+                },
+                {
+                  "question": "Quel animal le crocodile attaque-t-il ?",
+                  "choix": [
+                    "Un koala",
+                    "Un cochon",
+                    "Un cheval"
+                  ],
+                  "bonne": 0,
+                  "indice": "Lis la fin de la phrase du guide.",
+                  "extrait": "Le guide chasse le crocodile qui s’attaque au koala."
+                },
+                {
+                  "question": "Quel sport est pratiqué dans le dojo ?",
+                  "choix": [
+                    "Le football",
+                    "La danse",
+                    "Le karaté"
+                  ],
+                  "bonne": 2,
+                  "indice": "Cherche le nom du sport.",
+                  "extrait": "Je pratique le karaté dans le dojo de l’école."
+                },
+                {
+                  "question": "Que mange le cochon ?",
+                  "choix": [
+                    "Des carottes et des figues",
+                    "Du chocolat et une tarte",
+                    "Du riz et des pommes"
+                  ],
+                  "bonne": 0,
+                  "indice": "Relis la phrase du cochon.",
+                  "extrait": "Le cochon mange des carottes et des figues."
+                },
+                {
+                  "question": "Que doit réparer Guy ?",
+                  "choix": [
+                    "Sa guitare",
+                    "Le guidon de son vélo",
+                    "La porte du dojo"
+                  ],
+                  "bonne": 1,
+                  "indice": "Cherche ce qui est cassé sur le vélo.",
+                  "extrait": "Guy doit réparer le guidon de son vélo."
+                }
+              ]
+            },
+            "motsMeles": {
+              "actif": true,
+              "mots": [
+                "guitare",
+                "guide",
+                "crocodile",
+                "koala",
+                "karaté",
+                "carottes",
+                "figues",
+                "guidon"
+              ],
+              "directions": "simple"
+            },
+            "maze": {
+              "actif": true,
+              "trous": [
+                {
+                  "index": 6,
+                  "choix": [
+                    "Guillem",
+                    "guitare",
+                    "koala"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 15,
+                  "choix": [
+                    "koala",
+                    "guitare",
+                    "dojo"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 19,
+                  "choix": [
+                    "karaté",
+                    "carotte",
+                    "crocodile"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 27,
+                  "choix": [
+                    "mange",
+                    "mangent",
+                    "manges"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 34,
+                  "choix": [
+                    "doit",
+                    "doivent",
+                    "dois"
+                  ],
+                  "bonne": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "p5-texte-03",
+          "titre": "Les phrases (an, en, on, in) — support 5",
+          "texte": "Soline porte un pantalon marron et une chemise blanche. Les enfants font des rondes dans le jardin avec maman. Mon oncle danse et chante dans le salon. Les pintades et les dindons sont dans la cour. Le serpent rampe le long du chemin pour attaquer le chaton insouciant.",
+          "valide": true,
+          "activites": {
+            "lecture": {
+              "actif": true,
+              "vitesse": 60,
+              "groupes": [
+                "Soline porte un pantalon marron",
+                "et une chemise blanche.",
+                "Les enfants font des rondes",
+                "dans le jardin avec maman.",
+                "Mon oncle danse et chante",
+                "dans le salon.",
+                "Les pintades et les dindons",
+                "sont dans la cour.",
+                "Le serpent rampe le long du chemin",
+                "pour attaquer le chaton insouciant."
+              ],
+              "groupesDemandes": true
+            },
+            "dictee": {
+              "actif": true,
+              "mots": [
+                {
+                  "mot": "un pantalon marron",
+                  "phrase": "Soline porte un pantalon marron et une chemise blanche."
+                },
+                {
+                  "mot": "une chemise blanche",
+                  "phrase": "Soline porte un pantalon marron et une chemise blanche."
+                },
+                {
+                  "mot": "les enfants",
+                  "phrase": "Les enfants font des rondes dans le jardin avec maman."
+                },
+                {
+                  "mot": "les pintades",
+                  "phrase": "Les pintades et les dindons sont dans la cour."
+                },
+                {
+                  "mot": "le serpent",
+                  "phrase": "Le serpent rampe le long du chemin pour attaquer le chaton insouciant."
+                },
+                {
+                  "mot": "le chaton insouciant",
+                  "phrase": "Le serpent rampe le long du chemin pour attaquer le chaton insouciant."
+                }
+              ]
+            },
+            "comprehension": {
+              "actif": true,
+              "questions": [
+                {
+                  "question": "De quelle couleur est le pantalon de Soline ?",
+                  "choix": [
+                    "Bleu",
+                    "Marron",
+                    "Blanc"
+                  ],
+                  "bonne": 1,
+                  "indice": "Relis ce que porte Soline.",
+                  "extrait": "Soline porte un pantalon marron et une chemise blanche."
+                },
+                {
+                  "question": "Que font les enfants dans le jardin ?",
+                  "choix": [
+                    "Des rondes",
+                    "Du vélo",
+                    "Une sieste"
+                  ],
+                  "bonne": 0,
+                  "indice": "Cherche le jeu des enfants.",
+                  "extrait": "Les enfants font des rondes dans le jardin avec maman."
+                },
+                {
+                  "question": "Où mon oncle danse-t-il et chante-t-il ?",
+                  "choix": [
+                    "Dans la cour",
+                    "Dans la rue",
+                    "Dans le salon"
+                  ],
+                  "bonne": 2,
+                  "indice": "Relis la phrase de mon oncle.",
+                  "extrait": "Mon oncle danse et chante dans le salon."
+                },
+                {
+                  "question": "Quels oiseaux sont dans la cour ?",
+                  "choix": [
+                    "Des roses et des chats",
+                    "Des pintades et des dindons",
+                    "Des poules et des canards"
+                  ],
+                  "bonne": 1,
+                  "indice": "Cherche les deux noms d’oiseaux.",
+                  "extrait": "Les pintades et les dindons sont dans la cour."
+                },
+                {
+                  "question": "Quel animal le serpent veut-il attaquer ?",
+                  "choix": [
+                    "Le chaton",
+                    "La pintade",
+                    "Le dindon"
+                  ],
+                  "bonne": 0,
+                  "indice": "Lis la fin du texte.",
+                  "extrait": "Le serpent rampe le long du chemin pour attaquer le chaton insouciant."
+                }
+              ]
+            },
+            "motsMeles": {
+              "actif": true,
+              "mots": [
+                "pantalon",
+                "chemise",
+                "enfants",
+                "rondes",
+                "jardin",
+                "oncle",
+                "serpent",
+                "chaton"
+              ],
+              "directions": "simple"
+            },
+            "maze": {
+              "actif": true,
+              "trous": [
+                {
+                  "index": 7,
+                  "choix": [
+                    "chemise",
+                    "chemises",
+                    "chemin"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 13,
+                  "choix": [
+                    "rondes",
+                    "ronde",
+                    "rond"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 20,
+                  "choix": [
+                    "oncle",
+                    "oncles",
+                    "ongle"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 28,
+                  "choix": [
+                    "pintades",
+                    "pintade",
+                    "pantalon"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 35,
+                  "choix": [
+                    "cour",
+                    "cours",
+                    "court"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 42,
+                  "choix": [
+                    "chemin",
+                    "chemise",
+                    "chemins"
+                  ],
+                  "bonne": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "p5-texte-04",
+          "titre": "Le pirate rigolo — support 6",
+          "texte": "Dans son joli bateau qui prend l’eau, Argo, le pirate rigolo, décide d’accrocher un drapeau. Il prend son couteau et un marteau puis monte tout en haut de son cargo. Il espère qu’un paquebot verra son drapeau où il a écrit, en gros, « Parfois il vaut mieux prendre son auto ! »",
+          "valide": true,
+          "activites": {
+            "lecture": {
+              "actif": true,
+              "vitesse": 60,
+              "groupes": [
+                "Dans son joli bateau",
+                "qui prend l’eau,",
+                "Argo, le pirate rigolo,",
+                "décide d’accrocher un drapeau.",
+                "Il prend son couteau",
+                "et un marteau",
+                "puis monte tout en haut",
+                "de son cargo.",
+                "Il espère qu’un paquebot",
+                "verra son drapeau",
+                "où il a écrit,",
+                "en gros,",
+                "« Parfois il vaut mieux",
+                "prendre son auto ! »"
+              ],
+              "groupesDemandes": true
+            },
+            "dictee": {
+              "actif": true,
+              "mots": [
+                {
+                  "mot": "son joli bateau",
+                  "phrase": "Dans son joli bateau qui prend l’eau, Argo, le pirate rigolo, décide d’accrocher un drapeau."
+                },
+                {
+                  "mot": "le pirate rigolo",
+                  "phrase": "Dans son joli bateau qui prend l’eau, Argo, le pirate rigolo, décide d’accrocher un drapeau."
+                },
+                {
+                  "mot": "un drapeau",
+                  "phrase": "Dans son joli bateau qui prend l’eau, Argo, le pirate rigolo, décide d’accrocher un drapeau."
+                },
+                {
+                  "mot": "son couteau",
+                  "phrase": "Il prend son couteau et un marteau puis monte tout en haut de son cargo."
+                },
+                {
+                  "mot": "un marteau",
+                  "phrase": "Il prend son couteau et un marteau puis monte tout en haut de son cargo."
+                },
+                {
+                  "mot": "un paquebot",
+                  "phrase": "Il espère qu’un paquebot verra son drapeau où il a écrit, en gros, « Parfois il vaut mieux prendre son auto ! »"
+                }
+              ]
+            },
+            "comprehension": {
+              "actif": true,
+              "questions": [
+                {
+                  "question": "Quel problème a le bateau d’Argo ?",
+                  "choix": [
+                    "Il prend l’eau",
+                    "Il n’a plus de voile",
+                    "Il n’a plus de moteur"
+                  ],
+                  "bonne": 0,
+                  "indice": "Relis les premiers mots du récit.",
+                  "extrait": "Dans son joli bateau qui prend l’eau,"
+                },
+                {
+                  "question": "Qu’accroche Argo pour être vu ?",
+                  "choix": [
+                    "Une corde",
+                    "Une ancre",
+                    "Un drapeau"
+                  ],
+                  "bonne": 2,
+                  "indice": "Cherche ce qu’il décide d’accrocher.",
+                  "extrait": "décide d’accrocher un drapeau."
+                },
+                {
+                  "question": "Quels objets Argo prend-il ?",
+                  "choix": [
+                    "Un couteau et un marteau",
+                    "Une carte et une lampe",
+                    "Un seau et une pelle"
+                  ],
+                  "bonne": 0,
+                  "indice": "Relis la deuxième phrase.",
+                  "extrait": "Il prend son couteau et un marteau"
+                },
+                {
+                  "question": "Qui Argo espère-t-il voir passer ?",
+                  "choix": [
+                    "Un koala",
+                    "Un paquebot",
+                    "Un vélo"
+                  ],
+                  "bonne": 1,
+                  "indice": "Cherche qui pourrait voir son drapeau.",
+                  "extrait": "Il espère qu’un paquebot verra son drapeau"
+                },
+                {
+                  "question": "Quel conseil est écrit sur le drapeau ?",
+                  "choix": [
+                    "Prendre un vélo",
+                    "Rester sur le cargo",
+                    "Prendre son auto"
+                  ],
+                  "bonne": 2,
+                  "indice": "Lis les mots écrits sur le drapeau.",
+                  "extrait": "Parfois il vaut mieux prendre son auto !"
+                }
+              ]
+            },
+            "motsMeles": {
+              "actif": true,
+              "mots": [
+                "bateau",
+                "pirate",
+                "drapeau",
+                "couteau",
+                "marteau",
+                "cargo",
+                "paquebot",
+                "auto"
+              ],
+              "directions": "simple"
+            },
+            "maze": {
+              "actif": true,
+              "trous": [
+                {
+                  "index": 7,
+                  "choix": [
+                    "Argo",
+                    "arbre",
+                    "armoire"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 14,
+                  "choix": [
+                    "drapeau",
+                    "drapeaux",
+                    "drapée"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 21,
+                  "choix": [
+                    "marteau",
+                    "gâteau",
+                    "bateau"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 26,
+                  "choix": [
+                    "haut",
+                    "haute",
+                    "hauts"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 34,
+                  "choix": [
+                    "verra",
+                    "voient",
+                    "verront"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 42,
+                  "choix": [
+                    "gros",
+                    "grande",
+                    "grosse"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 49,
+                  "choix": [
+                    "auto",
+                    "autos",
+                    "autre"
+                  ],
+                  "bonne": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "p5-texte-05",
+          "titre": "Les lapins de Simon — support 7",
+          "texte": "Chaque matin, mon cousin Simon met son pantalon, son veston et il va nourrir les lapins avec sa maman. Ce jour-là, il découvre quatorze nouveaux petits lapereaux. Ils se serrent contre leur maman lapin. Ils vont rester au chaud pendant longtemps car ils n’ont pas encore de poil.",
+          "valide": true,
+          "activites": {
+            "lecture": {
+              "actif": true,
+              "vitesse": 60,
+              "groupes": [
+                "Chaque matin,",
+                "mon cousin Simon met",
+                "son pantalon, son veston",
+                "et il va nourrir",
+                "les lapins avec sa maman.",
+                "Ce jour-là,",
+                "il découvre quatorze nouveaux",
+                "petits lapereaux.",
+                "Ils se serrent",
+                "contre leur maman lapin.",
+                "Ils vont rester au chaud",
+                "pendant longtemps",
+                "car ils n’ont pas encore",
+                "de poil."
+              ],
+              "groupesDemandes": true
+            },
+            "dictee": {
+              "actif": true,
+              "mots": [
+                {
+                  "mot": "mon cousin Simon",
+                  "phrase": "Chaque matin, mon cousin Simon met son pantalon, son veston et il va nourrir les lapins avec sa maman."
+                },
+                {
+                  "mot": "son pantalon",
+                  "phrase": "Chaque matin, mon cousin Simon met son pantalon, son veston et il va nourrir les lapins avec sa maman."
+                },
+                {
+                  "mot": "son veston",
+                  "phrase": "Chaque matin, mon cousin Simon met son pantalon, son veston et il va nourrir les lapins avec sa maman."
+                },
+                {
+                  "mot": "les lapins",
+                  "phrase": "Chaque matin, mon cousin Simon met son pantalon, son veston et il va nourrir les lapins avec sa maman."
+                },
+                {
+                  "mot": "quatorze nouveaux petits lapereaux",
+                  "phrase": "Ce jour-là, il découvre quatorze nouveaux petits lapereaux."
+                },
+                {
+                  "mot": "leur maman lapin",
+                  "phrase": "Ils se serrent contre leur maman lapin."
+                }
+              ]
+            },
+            "comprehension": {
+              "actif": true,
+              "questions": [
+                {
+                  "question": "Quand Simon va-t-il nourrir les lapins ?",
+                  "choix": [
+                    "Chaque matin",
+                    "Chaque soir",
+                    "Une fois par mois"
+                  ],
+                  "bonne": 0,
+                  "indice": "Relis les premiers mots.",
+                  "extrait": "Chaque matin, mon cousin Simon"
+                },
+                {
+                  "question": "Avec qui Simon va-t-il nourrir les lapins ?",
+                  "choix": [
+                    "Avec son oncle",
+                    "Avec sa maman",
+                    "Avec un guide"
+                  ],
+                  "bonne": 1,
+                  "indice": "Lis la fin de la première phrase.",
+                  "extrait": "les lapins avec sa maman."
+                },
+                {
+                  "question": "Combien de petits lapereaux découvre-t-il ?",
+                  "choix": [
+                    "Quatre",
+                    "Dix",
+                    "Quatorze"
+                  ],
+                  "bonne": 2,
+                  "indice": "Cherche le nombre devant nouveaux petits lapereaux.",
+                  "extrait": "il découvre quatorze nouveaux petits lapereaux."
+                },
+                {
+                  "question": "Contre qui les lapereaux se serrent-ils ?",
+                  "choix": [
+                    "Leur maman lapin",
+                    "Simon",
+                    "Un autre animal"
+                  ],
+                  "bonne": 0,
+                  "indice": "Relis la phrase après leur découverte.",
+                  "extrait": "Ils se serrent contre leur maman lapin."
+                },
+                {
+                  "question": "Pourquoi les lapereaux restent-ils au chaud ?",
+                  "choix": [
+                    "Parce qu’ils ont froid dehors",
+                    "Parce qu’ils n’ont pas encore de poil",
+                    "Parce qu’ils jouent"
+                  ],
+                  "bonne": 1,
+                  "indice": "Lis la dernière phrase.",
+                  "extrait": "Ils vont rester au chaud pendant longtemps car ils n’ont pas encore de poil."
+                }
+              ]
+            },
+            "motsMeles": {
+              "actif": true,
+              "mots": [
+                "Simon",
+                "pantalon",
+                "veston",
+                "lapins",
+                "lapereaux",
+                "maman",
+                "poil",
+                "chaud"
+              ],
+              "directions": "simple"
+            },
+            "maze": {
+              "actif": true,
+              "trous": [
+                {
+                  "index": 7,
+                  "choix": [
+                    "pantalon",
+                    "pantalons",
+                    "pintades"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 13,
+                  "choix": [
+                    "nourrir",
+                    "nourris",
+                    "nourrit"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 22,
+                  "choix": [
+                    "découvre",
+                    "découvrent",
+                    "découvres"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 26,
+                  "choix": [
+                    "lapereaux",
+                    "lapereau",
+                    "lapine"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 35,
+                  "choix": [
+                    "vont",
+                    "va",
+                    "vais"
+                  ],
+                  "bonne": 0
+                },
+                {
+                  "index": 41,
+                  "choix": [
+                    "car",
+                    "chez",
+                    "avec"
+                  ],
+                  "bonne": 0
+                }
+              ]
+            }
+          }
+        }
+      ]
     }
   ],
-  "corpusVersion": 1,
+  "corpusVersion": 2,
   "publieLe": "2026-11-16T14:20:18.680Z"
 }

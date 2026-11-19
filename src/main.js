@@ -159,7 +159,7 @@ function ecranAccueil() {
           onclick: () => { jouer('choisir'); aller(['p', String(p.id)]); },
           onpointerenter: () => jouer('deplacer'),
         },
-        el('span', { class: 'cp-etiquette' }, 'Parcours'),
+        el('span', { class: 'cp-etiquette' }, p.nom === `Parcours ${p.id}` ? 'Parcours' : p.nom),
         el('span', { class: 'cp-numero' }, String(p.id)),
         el('span', { class: 'cp-info' }, n ? `${n} texte${n > 1 ? 's' : ''}` : 'Bientôt'));
       })),
