@@ -9,18 +9,21 @@ const VITESSES = [20, 30, 40, 50, 60, 70, 80, 90, 100, 120, 140];
 const TAILLES = [24, 28, 32, 38, 44];
 
 export function monterLecture(zone, { texte, parcours, finir }) {
+  let aides = {};
+  try { aides = JSON.parse(sessionStorage.getItem('ulis-aides-lecture')) || {}; } catch { /* aides par défaut */ }
   const conseil = texte.activites?.lecture?.vitesse || parcours.reglages?.vitesse || 60;
   let vitesse = VITESSES.reduce((a, b) => (Math.abs(b - conseil) < Math.abs(a - conseil) ? b : a));
-  let taille = 1;
+  let taille = Number.isInteger(aides.taille) && aides.taille >= 0 && aides.taille < TAILLES.length ? aides.taille : 1;
   let index = 0;
   let enCours = false;
   let minuterie = null;
   let debut = 0;
   let cumul = 0;
   let horloge = null;
-  let modeLigne = false;
+  let modeLigne = aides.ligne === true;
+  let espacement = aides.espacement === true;
   const groupes = bornesGroupes(texte.texte, texte.activites?.lecture?.groupes);
-  let parGroupes = Boolean(groupes);
+  let parGroupes = Boolean(groupes) && aides.groupes !== false;
 
   // Texte découpé en mots cliquables
   const mots = [];
@@ -34,8 +37,10 @@ export function monterLecture(zone, { texte, parcours, finir }) {
         return span;
       }))));
   let unites = parGroupes ? groupes : mots.map((_, i) => ({ debut: i, fin: i }));
+  papier.classList.toggle('mode-ligne', modeLigne);
+  papier.classList.toggle('mots-espaces', espacement);
 
-  const chrono = el('span', { class: 'chrono', 'aria-live': 'off' }, '0:00');
+  const chrono = el('span', { class: 'chrono', 'aria-live': 'off', 'aria-label': 'Durée du guide de lecture', title: 'Durée du guide de lecture' }, '0:00');
   const affVitesse = el('span', { class: 'vitesse-valeur' });
   const btnLire = el('button', { class: 'btn-px btn-principal', onclick: () => (enCours ? pause() : lancer()) });
   const btnMots = el('button', { class: 'btn-px', onclick: () => changerMode(false) }, 'Mot à mot');
@@ -49,6 +54,11 @@ export function monterLecture(zone, { texte, parcours, finir }) {
   const barre = el('div', { class: 'commandes' },
     btnLire,
     el('button', { class: 'btn-px', onclick: () => { recommencer(); }, title: 'Recommencer' }, '↺ Début'),
+    el('button', { class: 'btn-px', onclick: ecouterModele }, iconePixel('son', { taille: 18, contour: 'currentColor', fond: 'currentColor' }), ' Écouter le modèle'),
+    chrono);
+  const reglages = el('details', { class: 'aides-lecture' },
+    el('summary', {}, 'Mes aides de lecture'),
+    el('div', { class: 'commandes' },
     el('div', { class: 'groupe-vitesse', role: 'group', 'aria-label': 'Vitesse' },
       el('button', { class: 'btn-px btn-carre', 'aria-label': 'Moins vite', onclick: () => changerVitesse(-1) }, '−'),
       el('span', { class: 'vitesse' }, affVitesse, el('small', {}, 'mots/min')),
@@ -58,17 +68,22 @@ export function monterLecture(zone, { texte, parcours, finir }) {
       el('button', { class: 'btn-px btn-carre grand', 'aria-label': 'Texte plus grand', onclick: () => changerTaille(1) }, 'A')),
     el('div', { class: 'mode-lecture', role: 'group', 'aria-label': 'Mode de lecture' }, btnMots, btnGroupes),
     el('button', {
-      class: 'btn-px', 'aria-pressed': 'false',
-      onclick: (e) => { modeLigne = !modeLigne; e.currentTarget.setAttribute('aria-pressed', String(modeLigne)); papier.classList.toggle('mode-ligne', modeLigne); majLigne(); },
-    }, 'Ligne'),
-    el('button', { class: 'btn-px', onclick: ecouterModele }, iconePixel('son', { taille: 18, contour: 'currentColor', fond: 'currentColor' }), ' Écouter'),
-    chrono);
+      class: 'btn-px', 'aria-pressed': String(modeLigne),
+      onclick: (e) => { modeLigne = !modeLigne; e.currentTarget.setAttribute('aria-pressed', String(modeLigne)); papier.classList.toggle('mode-ligne', modeLigne); majLigne(); sauverAides(); },
+    }, 'Suivre une ligne'),
+    el('button', { class: 'btn-px', 'aria-pressed': String(espacement), onclick: (e) => {
+      espacement = !espacement;
+      e.currentTarget.setAttribute('aria-pressed', String(espacement));
+      papier.classList.toggle('mots-espaces', espacement);
+      requestAnimationFrame(majMots); sauverAides();
+    } }, 'Espacer les mots')));
 
   ajouter(zone, 
     el('div', { class: 'activite-entete' },
       el('h2', {}, texte.titre),
       consigne),
     barre,
+    reglages,
     papier,
   );
   majVitesse();
@@ -151,7 +166,8 @@ export function monterLecture(zone, { texte, parcours, finir }) {
     const { fermer } = fenetre(el('div', { class: 'bravo' },
       iconePixel('etoile', { taille: 72, contour: '#1b1626', fond: '#ffd23f' }),
       el('h2', {}, 'Texte terminé !'),
-      el('p', {}, `Tu as lu ${mots.length} mots en ${formaterDuree(cumul)}.`),
+      el('p', {}, 'Tu peux relire le texte autant de fois que tu veux.'),
+      el('p', {}, `Durée du guide : ${formaterDuree(cumul)}.`),
       el('div', { class: 'boutons' },
         el('button', { class: 'btn-px', onclick: () => { fermer(); recommencer(); } }, 'Relire'),
         el('button', { class: 'btn-px btn-principal', onclick: () => { fermer(); finir(); } }, 'Autre activité'))));
@@ -186,6 +202,7 @@ export function monterLecture(zone, { texte, parcours, finir }) {
     const position = unites[Math.min(index, unites.length - 1)]?.debut ?? 0;
     pause();
     parGroupes = avecGroupes;
+    sauverAides();
     unites = parGroupes ? groupes : mots.map((_, i) => ({ debut: i, fin: i }));
     index = Math.max(0, unites.findIndex((u) => position >= u.debut && position <= u.fin));
     majMode();
@@ -211,12 +228,19 @@ export function monterLecture(zone, { texte, parcours, finir }) {
   function changerTaille(d) {
     taille = Math.min(TAILLES.length - 1, Math.max(0, taille + d));
     papier.style.setProperty('--taille', `${TAILLES[taille]}px`);
+    sauverAides();
     requestAnimationFrame(majMots);
   }
 
   function ecouterModele() {
     pause();
     dire(texte.texte, { vitesse: 0.85 });
+  }
+
+  function sauverAides() {
+    try {
+      sessionStorage.setItem('ulis-aides-lecture', JSON.stringify({ taille, ligne: modeLigne, espacement, groupes: groupes ? parGroupes : aides.groupes }));
+    } catch { /* la lecture reste utilisable sans stockage */ }
   }
 
   function majVitesse() { affVitesse.textContent = String(vitesse); }

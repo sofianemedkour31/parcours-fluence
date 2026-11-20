@@ -1,9 +1,10 @@
 // Chargement du contenu des parcours.
 // Les élèves lisent le fichier publié ; le studio travaille sur un brouillon local.
 import { erreursMaze, erreursMazePhrases } from './lib/activites-lecture.js';
+import { contenuPourEleve } from './lib/semaine.js';
 
-export const CLE_BROUILLON = 'pl-studio-brouillon';
-export const CLE_APERCU = 'pl-apercu';
+export const CLE_BROUILLON = 'ulis-studio-brouillon';
+export const CLE_APERCU = 'ulis-apercu';
 
 /** Le contenu est du JSON ; cette copie fonctionne aussi dans les anciens navigateurs Android. */
 export function copierJson(valeur) { return JSON.parse(JSON.stringify(valeur)); }
@@ -18,7 +19,7 @@ export const COULEURS = {
 };
 
 export const ACTIVITES = [
-  { cle: 'lecture', nom: 'Lire', aide: 'Lis le texte avec le prompteur.' },
+  { cle: 'lecture', nom: 'Lire et relire', aide: 'Entraîne-toi à lire à voix haute, à ton rythme.' },
   { cle: 'dictee', nom: 'Dictée', aide: 'Écoute les mots et écris-les.' },
   { cle: 'comprehension', nom: 'Comprendre', aide: 'Réponds aux questions sur le texte.' },
   { cle: 'motsMeles', nom: 'Mots mêlés', aide: 'Retrouve les mots cachés dans la grille.' },
@@ -74,17 +75,11 @@ export async function chargerPublie() {
   return r.json();
 }
 
-/** Contenu vu par l'élève : seulement les textes validés, sauf en mode aperçu du studio. */
+/** Le texte commun validé ; le studio peut prévisualiser toute sa réserve. */
 export async function chargerPourEleve() {
   const apercu = modeApercu();
   const source = (apercu && lireBrouillon()) || await chargerPublie();
-  return {
-    ...source,
-    parcours: (source.parcours || []).map((p) => ({
-      ...p,
-      textes: (p.textes || []).filter((t) => apercu || t.valide),
-    })),
-  };
+  return contenuPourEleve(source, apercu);
 }
 
 export function activitesDisponibles(texte) {

@@ -138,6 +138,22 @@ button:disabled { cursor: not-allowed; }
 .btn-ecouter:active { transform: translateY(2px); }
 
 /* ---------------------------------------------------------------- Accueil */
+.semaine-attente { max-width: 680px; margin: 7vh auto 24px; text-align: center; }
+.semaine-attente h1 { color: var(--or); font-size: clamp(24px, 4vw, 36px); }
+.semaine-attente p { font-size: 21px; line-height: 1.6; }
+.semaine-pied { margin-top: 36px; text-align: center; }
+.semaine-pied a { color: var(--texte-doux); font-size: 16px; padding: 12px; display: inline-block; }
+.grille-activites.grille-semaine { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grille-semaine .fluence-prioritaire { grid-column: 1 / -1; }
+.grille-semaine .cartouche { min-width: 0; }
+.fluence-prioritaire .cartouche { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 10px 24px; background: #c9efc0; text-align: left; padding: 24px; min-height: 190px; }
+.fluence-prioritaire .cartouche-icone { grid-column: 1; grid-row: 1 / 4; background: transparent; box-shadow: none; padding: 0; }
+.fluence-prioritaire .cartouche-nom, .fluence-prioritaire .cartouche-aide, .etiquette-fluence { grid-column: 2; }
+.etiquette-fluence { font: 18px var(--lecture); font-weight: 700; }
+@media (max-width: 760px) {
+  .grille-activites.grille-semaine { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fluence-prioritaire .cartouche { grid-template-columns: 64px minmax(0, 1fr); gap: 10px 16px; padding: 18px; }
+}
 .titre-jeu { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 18px 0 34px; }
 .titre-jeu h1 { margin: 0; text-align: center; font-family: var(--pixel); font-weight: normal; line-height: 1.6; }
 .titre-jeu h1 span:first-child { display: block; font-size: 16px; color: var(--texte-doux); letter-spacing: 3px; text-transform: uppercase; }
@@ -215,6 +231,10 @@ button:disabled { cursor: not-allowed; }
 .boutons-haut { display: flex; justify-content: flex-end; margin: -6px 0 6px; }
 
 /* Lecture */
+.aides-lecture { border: 2px solid #5b5378; padding: 12px; margin: 0 4px 20px; border-radius: 4px; }
+.aides-lecture summary { cursor: pointer; font-size: 19px; min-height: 32px; }
+.aides-lecture .commandes { margin: 18px 0 6px; }
+.prompteur.mots-espaces { word-spacing: .35em; letter-spacing: .035em; }
 .commandes { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 4px 0 18px; }
 .groupe-vitesse { display: inline-flex; align-items: center; gap: 4px; }
 .vitesse { display: inline-flex; flex-direction: column; align-items: center; min-width: 70px; font-family: var(--pixel); font-size: 16px; color: var(--or); }

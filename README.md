@@ -1,4 +1,24 @@
-# Parcours lecture
+# Ma semaine de lecture — ULIS
+
+Version dédiée au travail de fluence sur **un même texte pour tous les élèves**, conservé pendant la semaine. L’habillage console, Albert et les cinq activités sont conservés.
+
+## Utiliser la version ULIS
+
+1. Ouvrez `/#/studio`. Le bandeau indique le texte commun choisi.
+2. Cliquez sur **+ Nouveau texte de la semaine**, puis collez le texte travaillé dans le dispositif. Vous pouvez aussi sélectionner un texte de la réserve existante.
+3. Préparez les cinq activités avec Albert, relisez-les et cliquez sur **Valider ce texte**.
+4. Cliquez sur **Utiliser cette semaine**. Ce choix unique remplace le texte de la semaine précédent sans supprimer les textes de la réserve.
+5. Publiez, ou exportez `parcours.json` pour le déposer dans `public/contenu/`.
+
+L’accueil élève présente directement les cinq activités du texte commun, avec **Lire et relire** mis en avant. Tant qu’aucun texte n’est choisi et validé, il affiche un message d’attente. Les autres textes, même validés, restent réservés au studio ; ils ne sont pas proposés dans la navigation élève. Le fichier JSON public contient toujours la réserve : ce filtrage ne constitue pas un contrôle d’accès à des données confidentielles.
+
+**Mes aides de lecture** regroupe la vitesse, la taille, les groupes de souffle, le suivi d’une ligne et l’espacement des mots. La taille, l’espacement et les modes d’aide sont conservés dans l’onglet pendant la session, sans profil élève. Le modèle audio reste disponible. La durée affichée est celle du guide ; elle ne mesure pas les mots correctement lus par l’élève.
+
+Le choix est enregistré à la racine du contenu sous `texteSemaine: { parcoursId, texteId }` (ou `null` avant sélection). Si ce texte repasse en brouillon, la publication est bloquée jusqu’à sa nouvelle validation. Les brouillons ULIS utilisent leurs propres clés de stockage, distinctes de celles du projet d’origine.
+
+Cette copie utilise le dépôt [parcours-fluence](https://github.com/sofianemedkour31/parcours-fluence). Sur son projet Vercel distinct, configurez `GITHUB_REPO=sofianemedkour31/parcours-fluence` et un `GITHUB_TOKEN` autorisé sur **ce** dépôt. L’API refuse toute publication vers un autre dépôt, même si une ancienne configuration est réutilisée par erreur. Le dépôt et le déploiement du projet d’origine sont indépendants. Les modifications des variables d’environnement Vercel nécessitent un nouveau déploiement.
+
+## Fonctionnement conservé
 
 Application de lecture au look de console rétro. Elle propose 5 parcours et 5 activités par texte :
 
@@ -10,7 +30,7 @@ Application de lecture au look de console rétro. Elle propose 5 parcours et 5 a
 | **Mots mêlés** | Grille générée à partir des mots choisis. Il glisse le doigt sur un mot, ou touche la première puis la dernière lettre. Un mode agrandi permet de zoomer, avec la liste des mots toujours affichée. |
 | **Labyrinthe de lecture (MAZE)** | Dans les parcours 1 à 4, environ un mot sur sept est remplacé par trois choix. Dans le parcours NMD, l'élève complète de petites phrases à trou avec le bon mot parmi trois. |
 
-Navigation : parcours → texte → activité. Le bouton **Retour**, la touche Échap et le bouton retour d'Android remontent d'un niveau.
+Navigation élève : texte de la semaine → activité. Le bouton **Retour**, la touche Échap et le bouton retour d’Android permettent de revenir aux activités du texte commun.
 Aucune donnée élève n'est enregistrée.
 
 ## Studio enseignant : `/#/studio`
@@ -20,10 +40,10 @@ Aucune donnée élève n'est enregistrée.
 3. Cliquez sur **Préparer les activités avec Albert**. Mistral Small choisit les mots de dictée, les mots mêlés, la vitesse et les groupes de souffle ; Gemma rédige les questions de compréhension et les distracteurs MAZE. Les deux appels sont effectués en parallèle, puis l'application vérifie et réunit leurs réponses. Un mot absent du texte est retiré et signalé.
 4. Relisez et corrigez dans les cartes. Vous pouvez aussi désactiver une activité.
 5. Cliquez sur **Valider ce texte**. Le studio vérifie les réponses et la grille ; toute modification ultérieure du texte ou de ses activités le repasse en brouillon.
-6. Cliquez sur **Publier pour les élèves**. Seuls les textes validés deviennent visibles dans le mode élève. Si la publication n'est pas configurée, utilisez **Exporter le fichier** (voir plus bas).
+6. Cliquez sur **Utiliser cette semaine**, puis sur **Publier pour les élèves**. Seul le texte commun choisi et validé devient visible dans le mode élève. Si la publication n'est pas configurée, utilisez **Exporter le fichier** (voir plus bas).
 
 Les réglages de chaque parcours (niveau, nombre de mots et de questions, sens de la grille, vitesse) servent à Albert. Le bouton « Préparer avec Albert les N textes sans activités » traite tout un parcours d'un coup.
-Les 60 textes des quatre livrets cycle 3 sont enregistrés dans le studio, avec les textes du parcours NMD issus du livret cycle 2. Le travail en cours est gardé dans le navigateur de l'ordinateur enseignant. Une publication conserve aussi les textes sans activités dans le fichier de contenu ; le mode élève n'affiche que les textes validés. Si un ancien brouillon local existe, les nouveaux textes y sont ajoutés sans écraser les modifications précédentes.
+Les 60 textes des quatre livrets cycle 3 sont enregistrés dans la réserve du studio, avec les textes du parcours NMD issus du livret cycle 2. Le travail en cours est gardé dans le navigateur de l’ordinateur enseignant. Une publication conserve aussi les textes sans activités dans le fichier de contenu ; le mode élève n’affiche que le texte de la semaine choisi et validé. Si un ancien brouillon ULIS local existe, les nouveaux textes y sont ajoutés sans écraser les modifications précédentes.
 
 ## Mise en ligne sur Vercel
 

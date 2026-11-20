@@ -58,6 +58,9 @@ body.mode-studio {
 .st-pastille { width: 12px; height: 12px; background: var(--c); box-shadow: 0 0 0 2px var(--cs); }
 
 .st-corps { flex: 1; display: grid; grid-template-columns: 320px 1fr; gap: 0; margin: 0 22px 30px; border: 2px solid #2c2440; background: #fff; border-radius: 0 6px 6px 6px; min-height: 0; }
+.st-semaine { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 20px; margin: 22px 22px 0; padding: 18px; background: #e2f2df; border: 2px solid #2f6b3a; border-radius: 6px; }
+.st-semaine > div { flex: 1 1 340px; }
+.st-semaine p { margin: 6px 0; }
 .st-colonne { border-right: 2px solid #e2dccd; padding: 16px; background: #fbf9f4; }
 .st-editeur { padding: 18px 24px 40px; min-width: 0; }
 

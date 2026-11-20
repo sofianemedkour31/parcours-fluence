@@ -2,6 +2,8 @@
 // Vercel redéploie alors automatiquement et les élèves voient la nouvelle version.
 import { codeValide, refuser, corps } from './_lib/acces.js';
 import { erreursTexte } from '../src/lib/validation.js';
+import { erreursSemaine } from '../src/lib/semaine.js';
+import { DEPOT_GITHUB } from './_lib/projet.js';
 
 const CHEMIN = 'public/contenu/parcours.json';
 
@@ -10,6 +12,7 @@ export default async function handler(req, res) {
   if (!codeValide(req)) return refuser(res, 401, 'Code studio incorrect.');
   const { GITHUB_TOKEN: jeton, GITHUB_REPO: depot, GITHUB_BRANCH: branche = 'main' } = process.env;
   if (!jeton || !depot) return refuser(res, 501, 'Publication non configurée : utilisez « Exporter le fichier ».');
+  if (depot !== DEPOT_GITHUB) return refuser(res, 409, `Publication bloquée : cette application doit utiliser le dépôt ${DEPOT_GITHUB}.`);
 
   let contenu;
   try { contenu = (await corps(req)).contenu; } catch { return refuser(res, 400, 'Requête illisible.'); }
@@ -18,6 +21,8 @@ export default async function handler(req, res) {
       || p.textes.some((t) => !t || typeof t !== 'object'))) {
     return refuser(res, 400, 'Contenu invalide.');
   }
+  const erreursChoix = erreursSemaine(contenu);
+  if (erreursChoix.length) return refuser(res, 400, erreursChoix.join(' '));
   for (const p of contenu.parcours) for (const t of p.textes) {
     if (!t.valide) continue;
     const erreurs = erreursTexte(t, p);

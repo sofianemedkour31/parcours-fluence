@@ -4,6 +4,8 @@ import test from 'node:test';
 import publier from '../api/publier.js';
 import { erreursTexte } from '../src/lib/validation.js';
 import { candidatsStatiques } from '../scripts/fichiers-statiques.mjs';
+import { DEPOT_GITHUB } from '../api/_lib/projet.js';
+import statut from '../api/statut.js';
 
 const exemple = JSON.parse(readFileSync(new URL('./fixtures/contenu-valide.json', import.meta.url), 'utf8'));
 const copier = () => structuredClone(exemple);
@@ -44,7 +46,7 @@ test('l’API refuse un texte validé invalide avant tout appel à GitHub', asyn
   };
   process.env.STUDIO_CODE = 'code-test';
   process.env.GITHUB_TOKEN = 'jeton-test';
-  process.env.GITHUB_REPO = 'compte/depot';
+  process.env.GITHUB_REPO = DEPOT_GITHUB;
   globalThis.fetch = () => { throw new Error('GitHub ne doit pas être appelé'); };
   try {
     const contenu = copier();
@@ -71,7 +73,7 @@ test('l’API conserve les brouillons pour les prochains passages dans le studio
   };
   process.env.STUDIO_CODE = 'code-test';
   process.env.GITHUB_TOKEN = 'jeton-test';
-  process.env.GITHUB_REPO = 'compte/depot';
+  process.env.GITHUB_REPO = DEPOT_GITHUB;
   let fichier;
   globalThis.fetch = async (_url, options = {}) => {
     if (options.method === 'PUT') {
@@ -83,15 +85,50 @@ test('l’API conserve les brouillons pour les prochains passages dans le studio
   try {
     const contenu = copier();
     contenu.parcours[0].textes.push({ id: 'brouillon', titre: 'À préparer', texte: 'Un texte qui attend ses activités.', valide: false, activites: {} });
+    contenu.texteSemaine = { parcoursId: contenu.parcours[0].id, texteId: contenu.parcours[0].textes[0].id };
     const res = reponse();
     await publier({ method: 'POST', headers: { 'x-studio-code': 'code-test' }, body: { contenu } }, res);
     assert.equal(res.statusCode, 200);
     assert.deepEqual(fichier.parcours[0].textes.map((t) => t.id), ['exemple-pilou', 'brouillon']);
+    assert.deepEqual(fichier.texteSemaine, contenu.texteSemaine);
   } finally {
     globalThis.fetch = originalFetch;
     for (const [cle, nom] of Object.entries({ code: 'STUDIO_CODE', token: 'GITHUB_TOKEN', repo: 'GITHUB_REPO' })) {
       if (original[cle] === undefined) delete process.env[nom];
       else process.env[nom] = original[cle];
+    }
+  }
+});
+
+test('la copie bloque le dépôt d’origine et un texte de semaine non validé avant tout appel GitHub', async () => {
+  const avant = { ...process.env };
+  const originalFetch = globalThis.fetch;
+  process.env.STUDIO_CODE = 'code-test';
+  process.env.GITHUB_TOKEN = 'jeton-test';
+  globalThis.fetch = () => { throw new Error('Aucun appel à GitHub ne doit partir'); };
+  try {
+    process.env.GITHUB_REPO = 'sofianemedkour31/parcours-lecture';
+    const ancienDepot = reponse();
+    await publier({ method: 'POST', headers: { 'x-studio-code': 'code-test' }, body: { contenu: copier() } }, ancienDepot);
+    assert.equal(ancienDepot.statusCode, 409);
+    const etat = reponse();
+    statut({ headers: { 'x-studio-code': 'code-test' } }, etat);
+    assert.equal(etat.body.publier, false);
+    assert.match(etat.body.erreurPublication, /parcours-fluence/);
+
+    process.env.GITHUB_REPO = DEPOT_GITHUB;
+    const contenu = copier();
+    contenu.texteSemaine = { parcoursId: 1, texteId: 'exemple-pilou' };
+    contenu.parcours[0].textes[0].valide = false;
+    const brouillon = reponse();
+    await publier({ method: 'POST', headers: { 'x-studio-code': 'code-test' }, body: { contenu } }, brouillon);
+    assert.equal(brouillon.statusCode, 400);
+    assert.match(brouillon.body.erreur, /Validez/);
+  } finally {
+    globalThis.fetch = originalFetch;
+    for (const cle of ['STUDIO_CODE', 'GITHUB_TOKEN', 'GITHUB_REPO']) {
+      if (avant[cle] === undefined) delete process.env[cle];
+      else process.env[cle] = avant[cle];
     }
   }
 });

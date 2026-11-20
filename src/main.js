@@ -10,6 +10,7 @@ import { monterDictee } from './activites/dictee.js';
 import { monterComprehension } from './activites/comprehension.js';
 import { monterMotsMeles } from './activites/motsmeles.js';
 import { monterMaze } from './activites/maze.js';
+import { trouverTexteSemaine } from './lib/semaine.js';
 
 const MOTEURS = {
   lecture: monterLecture,
@@ -49,7 +50,7 @@ racine.append(
   el('div', { class: 'console' },
     el('div', { class: 'console-haut' },
       el('span', { class: 'led', 'aria-hidden': 'true' }),
-      el('span', { class: 'marque' }, 'PARCOURS ', el('b', {}, 'LECTURE')),
+      el('span', { class: 'marque' }, 'MA SEMAINE ', el('b', {}, 'DE LECTURE')),
       boutonSon),
     el('div', { class: 'ecran' },
       bandeauApercu,
@@ -74,6 +75,7 @@ function aller(chemin) { location.hash = `#/${chemin.map(encodeURIComponent).joi
 function retour() {
   const r = route();
   jouer('retour');
+  if (!modeApercu()) return aller([]);
   if (r[0] !== 'p') return aller([]);
   if (r.length >= 5) return aller(r.slice(0, 4));   // activité → choix des activités
   if (r.length >= 4) return aller(r.slice(0, 2));   // texte → liste des textes
@@ -120,7 +122,7 @@ async function afficher() {
   document.documentElement.style.setProperty('--p-sombre', c.sombre);
   document.documentElement.style.setProperty('--p-clair', c.clair);
 
-  if (!idT) return ecranTextes(parcours);
+  if (!idT) return aller([]);
   const index = parcours.textes.findIndex((t) => t.id === idT);
   const texte = parcours.textes[index];
   if (!texte) return aller(['p', idP]);
@@ -143,64 +145,45 @@ function majFil(elements) {
 // ---------------------------------------------------------------------------
 function ecranAccueil() {
   majFil([]);
-  document.documentElement.style.removeProperty('--p-fond');
+  const semaine = trouverTexteSemaine(contenu);
+  if (semaine) {
+    const c = couleurDe(semaine.parcours);
+    document.documentElement.style.setProperty('--p-fond', c.fond);
+    document.documentElement.style.setProperty('--p-sombre', c.sombre);
+    document.documentElement.style.setProperty('--p-clair', c.clair);
+    ecranActivites(semaine.parcours, semaine.texte, 0, true);
+  } else {
+    vue.append(el('div', { class: 'semaine-attente' },
+      iconePixel('lecture', { taille: 84, contour: 'var(--or)', fond: '#5dbb63' }),
+      el('h1', {}, 'Ma semaine de lecture'),
+      el('p', {}, 'Ton texte arrive bientôt.'),
+      el('p', {}, 'Ton enseignant prépare le texte et les activités de la semaine.'),
+      boutonEcouter('Ton texte arrive bientôt. Ton enseignant prépare le texte et les activités de la semaine.')));
+  }
   vue.append(
-    el('div', { class: 'titre-jeu' },
-      el('h1', {}, el('span', {}, 'Choisis'), el('span', {}, 'ton parcours')),
-      boutonEcouter('Choisis ton parcours.')),
-    el('div', { class: 'grille-parcours' },
-      contenu.parcours.map((p) => {
-        const c = couleurDe(p);
-        const n = p.textes.length;
-        return el('button', {
-          class: 'carte-parcours',
-          style: { '--c': c.fond, '--cs': c.sombre, '--cc': c.clair },
-          disabled: n === 0,
-          onclick: () => { jouer('choisir'); aller(['p', String(p.id)]); },
-          onpointerenter: () => jouer('deplacer'),
-        },
-        el('span', { class: 'cp-etiquette' }, p.nom === `Parcours ${p.id}` ? 'Parcours' : p.nom),
-        el('span', { class: 'cp-numero' }, String(p.id)),
-        el('span', { class: 'cp-info' }, n ? `${n} texte${n > 1 ? 's' : ''}` : 'Bientôt'));
-      })),
+    el('footer', { class: 'semaine-pied' }, el('a', { href: '#/studio' }, 'Espace enseignant')),
   );
 }
 
-function ecranTextes(parcours) {
-  majFil([parcours.nom]);
-  vue.append(
-    el('div', { class: 'entete-ecran' },
-      el('h1', {}, parcours.nom),
-      el('p', {}, 'Choisis ton texte.'), boutonEcouter('Choisis ton texte.')),
-    el('ol', { class: 'grille-textes' },
-      parcours.textes.map((t, i) => el('li', {},
-        el('button', {
-          class: 'carte-texte',
-          onclick: () => { jouer('choisir'); aller(['p', String(parcours.id), 't', t.id]); },
-          onpointerenter: () => jouer('deplacer'),
-        },
-        el('span', { class: 'ct-numero' }, String(i + 1).padStart(2, '0')),
-        el('span', { class: 'ct-titre' }, t.titre || `Texte ${i + 1}`),
-        !t.valide ? el('span', { class: 'ct-brouillon' }, 'non validé') : null)))),
-  );
-}
-
-function ecranActivites(parcours, texte, index) {
-  majFil([parcours.nom, `Texte ${index + 1}`]);
+function ecranActivites(parcours, texte, index, accueil = false) {
+  majFil(accueil ? [] : ['Notre texte', texte.titre]);
   const dispo = activitesDisponibles(texte);
   vue.append(
     el('div', { class: 'entete-ecran' },
-      el('p', { class: 'surtitre' }, `Texte ${index + 1}`),
+      el('p', { class: 'surtitre' }, accueil ? 'Notre texte de la semaine' : 'Notre texte'),
       el('h1', {}, texte.titre),
-      el('p', {}, 'Choisis ton activité.'), boutonEcouter(`${texte.titre}. Choisis ton activité.`)),
-    el('div', { class: 'grille-activites' },
-      ACTIVITES.map((a) => el('div', { class: 'cartouche-wrap' },
+      !texte.valide ? el('p', { class: 'alerte' }, 'Aperçu : ce texte est encore en brouillon.') : null,
+      el('p', {}, 'Je retrouve le même texte toute la semaine.'),
+      boutonEcouter(`${texte.titre}. Je retrouve le même texte toute la semaine. Je m’entraîne à lire et je choisis une activité.`)),
+    el('div', { class: 'grille-activites grille-semaine' },
+      ACTIVITES.map((a) => el('div', { class: `cartouche-wrap ${a.cle === 'lecture' ? 'fluence-prioritaire' : ''}` },
         el('button', {
           class: `cartouche cartouche-${a.cle}`,
           disabled: !dispo[a.cle],
           onclick: () => { jouer('choisir'); aller(['p', String(parcours.id), 't', texte.id, a.cle]); },
           onpointerenter: () => jouer('deplacer'),
         },
+        a.cle === 'lecture' ? el('span', { class: 'etiquette-fluence' }, 'Fluence') : null,
         el('span', { class: 'cartouche-icone' }, iconePixel(a.cle, { taille: 64, contour: '#1b1626', fond: 'var(--fond-icone)', reflet: '#ffffffaa' })),
         el('span', { class: 'cartouche-nom' }, a.nom),
         el('span', { class: 'cartouche-aide' }, a.aide)),
@@ -210,13 +193,13 @@ function ecranActivites(parcours, texte, index) {
 
 function ecranActivite(parcours, texte, index, act) {
   const a = ACTIVITES.find((x) => x.cle === act);
-  majFil([parcours.nom, `Texte ${index + 1}`, a.nom]);
+  majFil(['Notre texte', a.nom]);
   const zone = el('section', { class: `activite activite-${act}` });
   vue.append(zone);
   nettoyage = MOTEURS[act](zone, {
     texte,
     parcours,
-    finir: () => aller(['p', String(parcours.id), 't', texte.id]),
+    finir: () => aller(modeApercu() ? ['p', String(parcours.id), 't', texte.id] : []),
   });
 }
 

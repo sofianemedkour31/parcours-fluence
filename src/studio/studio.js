@@ -5,10 +5,11 @@ import { figureDansTexte, propre, compterMots, formeGrille } from '../lib/texte.
 import { genererGrille } from '../lib/grille.js';
 import { bornesGroupes, ciblesMaze, erreursMaze, erreursMazePhrases } from '../lib/activites-lecture.js';
 import { erreursTexte } from '../lib/validation.js';
+import { trouverTexteSemaine, erreursSemaine } from '../lib/semaine.js';
 import { dire } from '../voix.js';
 
-const CLE_CODE = 'pl-studio-code';
-const CLE_META = 'pl-studio-meta';
+const CLE_CODE = 'ulis-studio-code';
+const CLE_META = 'ulis-studio-meta';
 const REGLAGES = { niveau: 'CE1', nbMotsDictee: 8, nbQuestions: 5, nbMotsMeles: 8, directions: 'simple', vitesse: 60 };
 const NIVEAUX = ['GS', 'CP', 'CE1', 'CE2', 'CM1', 'CM2'];
 const SENS = { simple: '→ et ↓', diagonales: '→ ↓ et ↘', completes: 'tous les sens' };
@@ -16,7 +17,7 @@ const SENS = { simple: '→ et ↓', diagonales: '→ ↓ et ↘', completes: 't
 export async function monterStudio(racine) {
   const lien = el('link', { rel: 'stylesheet', href: new URL('./studio.css', import.meta.url).href });
   document.head.append(lien);
-  document.title = 'Studio — Parcours lecture';
+  document.title = 'Studio — Ma semaine de lecture';
 
   let contenu = lireBrouillon();
   let meta = lireMeta();
@@ -52,6 +53,7 @@ export async function monterStudio(racine) {
   const zoneConnexion = el('div', { class: 'st-connexion' });
   const pastilleEtat = el('span', { class: 'st-etat' });
   const zoneActions = el('div', { class: 'st-actions' });
+  const zoneSemaine = el('section', { class: 'st-semaine', 'aria-label': 'Texte commun de la semaine' });
   const onglets = el('nav', { class: 'st-onglets', 'aria-label': 'Parcours' });
   const colonne = el('aside', { class: 'st-colonne' });
   const editeur = el('section', { class: 'st-editeur' });
@@ -59,8 +61,9 @@ export async function monterStudio(racine) {
 
   remplir(racine,
     el('header', { class: 'st-haut' },
-      el('div', { class: 'st-titre' }, el('b', {}, 'Studio'), el('span', {}, 'Parcours lecture')),
+      el('div', { class: 'st-titre' }, el('b', {}, 'Studio'), el('span', {}, 'Ma semaine de lecture')),
       pastilleEtat, zoneActions, zoneConnexion),
+    zoneSemaine,
     onglets,
     el('div', { class: 'st-corps' }, colonne, editeur),
     notif);
@@ -70,6 +73,7 @@ export async function monterStudio(racine) {
     if (statut) {
       remplir(zoneConnexion,
         el('span', { class: `st-badge ${statut.albert ? 'ok' : 'ko'}` }, statut.albert ? 'Albert connecté' : 'Albert non configuré'),
+        statut.erreurPublication ? el('span', { class: 'st-badge ko' }, statut.erreurPublication) : null,
         el('button', { class: 'st-lien', onclick: () => { try { sessionStorage.removeItem(CLE_CODE); } catch { /* stockage indisponible */ } code = ''; statut = null; majConnexion(); majActions(); } }, 'Se déconnecter'));
       return;
     }
@@ -99,6 +103,7 @@ export async function monterStudio(racine) {
 
   // --- Barre d'actions -------------------------------------------------------
   function majActions() {
+    majSemaine();
     remplir(pastilleEtat, meta.modifie ? 'Modifications non publiées' : 'À jour');
     pastilleEtat.classList.toggle('modifie', Boolean(meta.modifie));
     const fichier = el('input', { type: 'file', accept: 'application/json,.json', hidden: true, onchange: importer });
@@ -109,6 +114,20 @@ export async function monterStudio(racine) {
       fichier,
       statut?.publier ? el('button', { class: 'st-btn st-btn-fort', onclick: publier, disabled: !meta.modifie }, 'Publier pour les élèves') : null,
       el('button', { class: 'st-lien', onclick: repartirPublie, title: 'Abandonner le brouillon local' }, 'Recharger la version publiée'));
+  }
+
+  function majSemaine() {
+    const semaine = trouverTexteSemaine(contenu);
+    remplir(zoneSemaine,
+      el('div', {},
+        el('strong', {}, 'Un texte commun pour toute la semaine'),
+        el('p', {}, semaine ? `${semaine.texte.titre || 'Sans titre'}${semaine.texte.valide ? '' : ' — brouillon à valider'}` : 'Aucun texte choisi pour le moment.'),
+        el('p', { class: 'st-aide' }, 'Collez le texte travaillé dans le dispositif, préparez ses cinq activités, puis choisissez « Utiliser cette semaine ». Les autres textes restent dans la réserve.')),
+      semaine ? el('button', { class: 'st-btn st-btn-clair', onclick: () => {
+        pId = semaine.parcours.id; tId = semaine.texte.id;
+        majOnglets(); majColonne(); majEditeur();
+      } }, 'Ouvrir le texte de la semaine') : null,
+      el('button', { class: 'st-btn st-btn-fort', onclick: nouveauTexte }, '+ Nouveau texte de la semaine'));
   }
 
   // --- Onglets des parcours --------------------------------------------------
@@ -174,6 +193,7 @@ export async function monterStudio(racine) {
   }
 
   function pastilleTexte(t) {
+    if (trouverTexteSemaine(contenu)?.texte === t) return el('span', { class: 'st-statut valide' }, 'Cette semaine');
     if (t.valide) return el('span', { class: 'st-statut valide' }, 'validé');
     if (aDesActivites(t)) return el('span', { class: 'st-statut relire' }, 'à relire');
     return el('span', { class: 'st-statut vide' }, 'texte seul');
@@ -244,8 +264,15 @@ export async function monterStudio(racine) {
   }
 
   function piedTexte(t) {
+    const choisi = trouverTexteSemaine(contenu)?.texte === t;
     return el('div', { class: 'st-pied' },
-      el('span', { class: `st-statut grand ${t.valide ? 'valide' : 'relire'}` }, t.valide ? 'Validé : visible par les élèves après publication' : 'Brouillon : invisible pour les élèves'),
+      el('span', { class: `st-statut grand ${t.valide ? 'valide' : 'relire'}` }, t.valide ? (choisi ? 'Texte commun prêt pour la publication' : 'Validé : disponible dans la réserve') : 'Brouillon : invisible pour les élèves'),
+      el('button', { class: 'st-btn st-btn-fort', disabled: choisi || !t.valide || t.activites.lecture.actif === false,
+        'aria-pressed': String(choisi), onclick: () => {
+          contenu.texteSemaine = { parcoursId: parcoursCourant().id, texteId: t.id };
+          sauver(); majColonne(); majEditeur();
+          notifier('Texte de la semaine choisi. Publiez pour le rendre accessible aux élèves.');
+        } }, choisi ? 'Texte de la semaine' : 'Utiliser cette semaine'),
       el('button', { class: 'st-btn st-btn-clair', onclick: () => apercu(t) }, 'Aperçu élève'),
       t.valide
         ? el('button', { class: 'st-btn st-btn-clair', onclick: () => { t.valide = false; sauver(); majOnglets(); majColonne(); majEditeur(); } }, 'Repasser en brouillon')
@@ -492,6 +519,7 @@ export async function monterStudio(racine) {
   function supprimer(t) {
     if (!confirm(`Supprimer « ${t.titre || 'ce texte'} » et ses activités ?`)) return;
     const p = parcoursCourant();
+    if (trouverTexteSemaine(contenu)?.texte === t) contenu.texteSemaine = null;
     p.textes = p.textes.filter((x) => x.id !== t.id);
     tId = null;
     sauver(); majOnglets(); majColonne(); majEditeur();
@@ -513,6 +541,7 @@ export async function monterStudio(racine) {
       }
     }
     meta.modifie = true;
+    majSemaine();
     try {
       localStorage.setItem(CLE_BROUILLON, JSON.stringify(contenu));
       localStorage.setItem(CLE_META, JSON.stringify(meta));
@@ -535,6 +564,8 @@ export async function monterStudio(racine) {
 
   function versionAPublier() {
     const pret = contenuPropre();
+    const erreursChoix = erreursSemaine(pret);
+    if (erreursChoix.length) { notifier(erreursChoix.join(' '), 'erreur'); return null; }
     for (const p of pret.parcours) for (const t of p.textes) {
       if (!t.valide) continue;
       const erreurs = erreursTexte(t, p);
@@ -571,9 +602,10 @@ export async function monterStudio(racine) {
   }
 
   async function publier() {
+    if (!contenu.texteSemaine) { notifier('Choisissez le texte de la semaine avec « Utiliser cette semaine ».', 'erreur'); return; }
     const publie = versionAPublier();
     if (!publie) return;
-    if (!confirm('Publier cette version ? Les élèves verront tous les textes validés.')) return;
+    if (!confirm('Publier cette version ? Les élèves retrouveront uniquement le texte de la semaine et ses activités.')) return;
     try {
       const r = await fetch('/api/publier', {
         method: 'POST',
@@ -642,6 +674,7 @@ function aDesActivites(t) {
 /** Complète les champs manquants pour que l'éditeur n'ait jamais à se méfier. */
 function normaliser(c) {
   c.version ||= 1;
+  c.texteSemaine ??= null;
   c.parcours ||= [];
   for (let n = 1; n <= 4; n++) {
     if (!c.parcours.find((p) => p.id === n)) c.parcours.push({ id: n, nom: `Parcours ${n}`, couleur: ['vert', 'jaune', 'orange', 'bleu'][n - 1], textes: [] });
