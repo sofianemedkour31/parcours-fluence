@@ -233,12 +233,10 @@ function ecranDemarrage() {
   consoleJeu.dataset.ecran = 'demarrage';
   vue.append(el('section', { class: 'demarrage' },
     el('div', { class: 'demarrage-ciel', 'aria-hidden': 'true' }, Array.from({ length: 18 }, (_, i) => el('i', { style: { left: `${(i * 37) % 100}%`, top: `${(i * 53) % 70}%`, animationDelay: `${i % 6 * .3}s` } }))),
-    el('h1', { class: 'logo', 'aria-label': 'Lecto — Ma semaine de lecture' },
-      [...'LECTO'].map((l, i) => el('span', { 'aria-hidden': 'true', style: { animationDelay: `${i * .09}s` } }, l)),
-      el('small', {}, 'Ma semaine de lecture')),
+    el('h1', { class: 'logo', 'aria-label': 'LECTO' },
+      [...'LECTO'].map((l, i) => el('span', { 'aria-hidden': 'true', style: { animationDelay: `${i * .09}s` } }, l))),
     mascotte({ taille: 96, classe: 'saute' }),
     el('button', { class: 'btn-px btn-principal bouton-demarrer', onclick: demarrer }, 'START — C’est parti !'),
-    el('p', { class: 'demarrage-detail' }, 'Un texte pour la semaine · Cinq activités'),
     el('a', { class: 'lien-studio', href: '#/studio' }, 'Espace enseignant')));
 }
 function demarrer() {

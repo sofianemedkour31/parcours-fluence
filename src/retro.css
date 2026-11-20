@@ -181,14 +181,13 @@ button:disabled { cursor: not-allowed; }
 
 /* ---------------------------------------------------------- Démarrage */
 .console[data-ecran="demarrage"] .vue { padding: 0; background: linear-gradient(#1b1440, #2d1f63 70%, #4a2f7a); }
-.demarrage { position: relative; height: 100%; min-height: 360px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; cursor: pointer; overflow: hidden; }
+.demarrage { position: relative; height: auto; min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; overflow: hidden; }
 .demarrage-ciel i { position: absolute; width: 4px; height: 4px; background: #fff8d6; animation: scintille 1.8s steps(2) infinite; }
 @keyframes scintille { 50% { opacity: .15; } }
-.logo { margin: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 6px; font: clamp(40px, 7vw, 76px) var(--pixel); }
+.logo { margin: 0; display: flex; flex-wrap: nowrap; flex-shrink: 0; justify-content: center; align-items: baseline; gap: 6px; padding: 0 12px 12px; font: clamp(40px, 7vw, 76px)/1.3 var(--pixel); }
 .logo span { display: inline-block; color: var(--or); text-shadow: 5px 5px 0 #e5446d, 10px 10px 0 var(--trait); animation: tombe .6s steps(6) both; }
 .logo span:nth-child(2) { color: #8fe08a; } .logo span:nth-child(3) { color: #8fc3ff; } .logo span:nth-child(4) { color: #ff9fb7; } .logo span:nth-child(5) { color: #ffb36b; }
 @keyframes tombe { from { transform: translateY(-160%); } 70% { transform: translateY(12%); } }
-.logo small { flex-basis: 100%; text-align: center; font: 26px var(--console); color: #c9bff0; letter-spacing: 3px; margin-top: 8px; }
 .appuie { margin: 8px 0 0; font: 13px var(--pixel); color: #fff; animation: clignote 1.1s steps(2) infinite; }
 .appuie b { color: var(--or); font-weight: normal; }
 .copyright { position: absolute; bottom: 14px; margin: 0; font: 9px var(--pixel); color: #8a7fb8; }
@@ -325,9 +324,8 @@ button:disabled { cursor: not-allowed; }
 .mini-touche .touche-console { height: 28px; min-width: 64px; }
 .console-milieu { padding: 14px 0 6px; }
 .demarrage { gap: 24px; padding: 40px 20px; }
-.logo small { font: 24px/1.4 var(--lecture); letter-spacing: 0; margin-top: 16px; }
 .bouton-demarrer { margin-top: 10px; padding: 14px 22px; font-size: 28px; }
-.demarrage-detail { font: 20px/1.5 var(--lecture); text-align: center; color: #ece6f8; margin: 0; }
+.demarrage > .mascotte { flex-shrink: 0; }
 .lien-studio, .semaine-pied a { font: 16px var(--lecture); color: #cfc5ee; padding: 10px; }
 .semaine-attente { margin: 30px auto; }
 .semaine-attente h1 { font: 20px/1.7 var(--pixel); color: var(--or); }
@@ -407,11 +405,9 @@ button:disabled { cursor: not-allowed; }
   .hud-retour span:last-child { display: none; }
   .hud-compteur { font-size: 12px; }
   .hud-bloc { gap: 4px; }
-  .demarrage { min-height: 390px; gap: 20px; padding: 30px 12px; }
+  .demarrage { gap: 20px; padding: 24px 12px; }
   .logo { font-size: clamp(32px, 10vw, 48px); gap: 3px; }
-  .logo small { font-size: 19px; }
   .bouton-demarrer { font-size: 24px; padding: 12px; }
-  .demarrage-detail { font-size: 16px; }
   .rangee-cartouches { gap: 18px 14px; }
   .cartouche-nom { font-size: 14px; }
   .cartouche-aide { font-size: 16px; }
