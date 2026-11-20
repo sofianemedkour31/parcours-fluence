@@ -6,6 +6,7 @@ import { genererGrille } from '../lib/grille.js';
 import { bornesGroupes, ciblesMaze, erreursMaze, erreursMazePhrases } from '../lib/activites-lecture.js';
 import { erreursTexte } from '../lib/validation.js';
 import { trouverTexteSemaine, erreursSemaine } from '../lib/semaine.js';
+import { completerPeriodes, deplacerTexteVersPeriode } from '../lib/periodes.js';
 import { dire } from '../voix.js';
 
 const CLE_CODE = 'ulis-studio-code';
@@ -24,8 +25,9 @@ export async function monterStudio(racine) {
   let publie = null;
   try { publie = await chargerPublie(); } catch { /* hors ligne : on garde le brouillon */ }
   if (!contenu) { contenu = copierJson(publie || { version: 1, parcours: [] }); meta = { modifie: false }; }
-  normaliser(contenu);
-  if (publie && fusionnerCorpus(contenu, publie)) {
+  const periodesModifiees = normaliser(contenu);
+  const corpusModifie = publie && fusionnerCorpus(contenu, publie);
+  if (periodesModifiees || corpusModifie) {
     meta.modifie = true;
     try {
       localStorage.setItem(CLE_BROUILLON, JSON.stringify(contenu));
@@ -54,7 +56,7 @@ export async function monterStudio(racine) {
   const pastilleEtat = el('span', { class: 'st-etat' });
   const zoneActions = el('div', { class: 'st-actions' });
   const zoneSemaine = el('section', { class: 'st-semaine', 'aria-label': 'Texte commun de la semaine' });
-  const onglets = el('nav', { class: 'st-onglets', 'aria-label': 'Parcours' });
+  const onglets = el('nav', { class: 'st-onglets', 'aria-label': 'Périodes de l’année scolaire' });
   const colonne = el('aside', { class: 'st-colonne' });
   const editeur = el('section', { class: 'st-editeur' });
   const notif = el('div', { class: 'st-notif', role: 'status', 'aria-live': 'polite' });
@@ -130,7 +132,7 @@ export async function monterStudio(racine) {
       el('button', { class: 'st-btn st-btn-fort', onclick: nouveauTexte }, '+ Nouveau texte de la semaine'));
   }
 
-  // --- Onglets des parcours --------------------------------------------------
+  // --- Cinq périodes de l’année scolaire -------------------------------------
   function majOnglets() {
     remplir(onglets, contenu.parcours.map((p) => {
       const c = COULEURS[p.couleur] || COULEURS.vert;
@@ -156,9 +158,7 @@ export async function monterStudio(racine) {
 
     remplir(colonne,
       el('details', { class: 'st-reglages' },
-        el('summary', {}, 'Réglages du parcours'),
-        el('label', { class: 'st-champ-court' }, 'Nom',
-          el('input', { value: p.nom, onchange: (e) => { p.nom = e.target.value || p.nom; sauver(); majOnglets(); } })),
+        el('summary', {}, 'Réglages des activités'),
         el('label', { class: 'st-champ-court' }, 'Couleur',
           el('select', { onchange: (e) => { p.couleur = e.target.value; sauver(); majOnglets(); } },
             Object.keys(COULEURS).map((k) => el('option', { value: k, selected: p.couleur === k }, k)))),
@@ -172,7 +172,7 @@ export async function monterStudio(racine) {
           el('select', { onchange: (e) => { r.directions = e.target.value; sauver(); } },
             Object.entries(SENS).map(([k, v]) => el('option', { value: k, selected: r.directions === k }, v)))),
         champ('Vitesse (mots/min)', 'vitesse', 'number', { min: 20, max: 140, step: 5 }),
-        el('p', { class: 'st-aide' }, 'Albert utilise ces réglages pour chaque texte de ce parcours.')),
+        el('p', { class: 'st-aide' }, 'Albert utilise ces réglages pour les textes de cette période.')),
       el('div', { class: 'st-liste-entete' },
         el('h2', {}, `Textes (${p.textes.length})`),
         el('button', { class: 'st-btn', onclick: nouveauTexte }, '+ Texte')),
@@ -220,8 +220,8 @@ export async function monterStudio(racine) {
     const t = texteCourant();
     if (!t) {
       remplir(editeur, el('div', { class: 'st-vide' },
-        el('h2', {}, p ? p.nom : 'Aucun parcours'),
-        el('p', {}, p?.textes.length ? 'Choisissez un texte dans la liste, ou ajoutez-en un.' : 'Ce parcours n\'a pas encore de texte. Ajoutez-en un avec « + Texte ».'),
+        el('h2', {}, p ? p.nom : 'Aucune période'),
+        el('p', {}, p?.textes.length ? 'Choisissez un texte dans la liste, ou ajoutez-en un dans cette période.' : 'Cette période n’a pas encore de texte. Ajoutez-en un avec « + Texte ».'),
         !statut ? el('p', { class: 'st-aide' }, 'Pour générer les activités, entrez le code studio en haut à droite.') : null));
       return;
     }
@@ -236,6 +236,14 @@ export async function monterStudio(racine) {
 
     remplir(editeur,
       el('div', { class: 'st-bloc' },
+        el('label', { class: 'st-champ-court' }, 'Période du texte',
+          el('select', { onchange: (e) => {
+            const destination = contenu.parcours.find((periode) => String(periode.id) === e.target.value);
+            if (!deplacerTexteVersPeriode(contenu, t, p, destination)) { majEditeur(); return; }
+            pId = destination.id;
+            sauver(); majOnglets(); majColonne(); majEditeur();
+            notifier(`Texte rangé dans ${destination.nom.toLowerCase()}.`);
+          } }, contenu.parcours.map((periode) => el('option', { value: periode.id, selected: periode === p }, periode.nom)))),
         el('label', { class: 'st-champ' }, 'Titre',
           el('input', { value: t.titre, placeholder: 'Titre du texte', oninput: (e) => { t.titre = e.target.value; sauver(); majTitreListe(); } })),
         el('label', { class: 'st-champ' }, el('span', {}, 'Texte ', el('small', {}, `${nbMots} mots · un paragraphe par ligne`)),
@@ -591,7 +599,7 @@ export async function monterStudio(racine) {
     if (!f) return;
     try {
       const j = JSON.parse(await f.text());
-      if (!Array.isArray(j.parcours)) throw new Error('Ce fichier ne contient pas de parcours.');
+      if (!Array.isArray(j.parcours)) throw new Error('Ce fichier ne contient pas de périodes de lecture.');
       if (!confirm('Remplacer tout le brouillon par ce fichier ?')) return;
       contenu = j; normaliser(contenu); retenirValides();
       pId = contenu.parcours[0]?.id; tId = null;
@@ -675,11 +683,7 @@ function aDesActivites(t) {
 function normaliser(c) {
   c.version ||= 1;
   c.texteSemaine ??= null;
-  c.parcours ||= [];
-  for (let n = 1; n <= 4; n++) {
-    if (!c.parcours.find((p) => p.id === n)) c.parcours.push({ id: n, nom: `Parcours ${n}`, couleur: ['vert', 'jaune', 'orange', 'bleu'][n - 1], textes: [] });
-  }
-  c.parcours.sort((a, b) => a.id - b.id);
+  const periodesModifiees = completerPeriodes(c);
   for (const p of c.parcours) {
     p.reglages = { ...REGLAGES, ...(p.reglages || {}) };
     p.textes ||= [];
@@ -706,5 +710,6 @@ function normaliser(c) {
       }));
     }
   }
+  return periodesModifiees;
 }
 

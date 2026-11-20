@@ -6,9 +6,9 @@ import { erreursTexte } from '../src/lib/validation.js';
 
 const corpus = JSON.parse(readFileSync(new URL('../public/contenu/parcours.json', import.meta.url), 'utf8'));
 
-test('les cinq parcours conservent leurs textes et les textes validés sont publiables', () => {
+test('les cinq périodes conservent leurs textes et les textes validés sont publiables', () => {
   assert.deepEqual(corpus.parcours.map((p) => p.textes.length), [15, 15, 15, 15, 7]);
-  assert.equal(corpus.parcours[4].nom, 'Parcours NMD');
+  assert.deepEqual(corpus.parcours.map((p) => p.nom), ['Période 1', 'Période 2', 'Période 3', 'Période 4', 'Période 5']);
   assert.deepEqual(corpus.parcours[4].textes.map((t) => t.titre.match(/support (\d+)/)?.[1]), ['1', '2', '3', '4', '5', '6', '7']);
   assert.deepEqual(corpus.parcours[4].textes.map((t) => t.id),
     ['p5-texte-06', 'p5-texte-07', 'p5-texte-01', 'p5-texte-02', 'p5-texte-03', 'p5-texte-04', 'p5-texte-05']);

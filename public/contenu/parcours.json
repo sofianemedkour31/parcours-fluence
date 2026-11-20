@@ -4,7 +4,7 @@
   "parcours": [
     {
       "id": 1,
-      "nom": "Parcours 1",
+      "nom": "Période 1",
       "couleur": "vert",
       "reglages": {
         "niveau": "CP",
@@ -3456,7 +3456,7 @@
     },
     {
       "id": 2,
-      "nom": "Parcours 2",
+      "nom": "Période 2",
       "couleur": "jaune",
       "reglages": {
         "niveau": "CE1",
@@ -4132,7 +4132,7 @@
     },
     {
       "id": 3,
-      "nom": "Parcours 3",
+      "nom": "Période 3",
       "couleur": "orange",
       "reglages": {
         "niveau": "CE2",
@@ -4862,7 +4862,7 @@
     },
     {
       "id": 4,
-      "nom": "Parcours 4",
+      "nom": "Période 4",
       "couleur": "bleu",
       "reglages": {
         "niveau": "CE2",
@@ -6758,7 +6758,7 @@
     },
     {
       "id": 5,
-      "nom": "Parcours NMD",
+      "nom": "Période 5",
       "couleur": "violet",
       "reglages": {
         "niveau": "CE1",

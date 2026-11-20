@@ -8,7 +8,7 @@ Version dédiée au travail de fluence sur **un même texte pour tous les élèv
 ## Utiliser la version ULIS
 
 1. Ouvrez `/#/studio`. Le bandeau indique le texte commun choisi.
-2. Cliquez sur **+ Nouveau texte de la semaine**, puis collez le texte travaillé dans le dispositif. Vous pouvez aussi sélectionner un texte de la réserve existante.
+2. Choisissez l’un des cinq onglets **Période 1** à **Période 5**, puis cliquez sur **+ Nouveau texte de la semaine** et collez le texte travaillé dans le dispositif. Le texte est ajouté dans la période sélectionnée. Vous pouvez aussi utiliser un texte déjà présent ; le menu **Période du texte** permet de le ranger ailleurs.
 3. Préparez les cinq activités avec Albert, relisez-les et cliquez sur **Valider ce texte**.
 4. Cliquez sur **Utiliser cette semaine**. Ce choix unique remplace le texte de la semaine précédent sans supprimer les textes de la réserve.
 5. Publiez, ou exportez `parcours.json` pour le déposer dans `public/contenu/`.
@@ -23,7 +23,7 @@ Cette copie utilise le dépôt [parcours-fluence](https://github.com/sofianemedk
 
 ## Fonctionnement conservé
 
-Application de lecture au look de console rétro. Elle propose 5 parcours et 5 activités par texte :
+Application de lecture au look de console rétro. Le studio organise les textes dans les **cinq périodes de l’année scolaire**, avec cinq activités par texte :
 
 | Activité | Ce que fait l'élève |
 |---|---|
@@ -31,7 +31,7 @@ Application de lecture au look de console rétro. Elle propose 5 parcours et 5 a
 | **Dictée** | Il écoute un mot (normalement, lentement ou dans une phrase), puis l'écrit. Au 1er essai faux, il voit les lettres bien placées. Au 2e, le mot est montré et il le recopie. |
 | **Comprendre** | Questions à 3 choix, lues à voix haute sur demande. Après une erreur, il reçoit un indice et peut relire le texte avec le passage utile surligné. |
 | **Mots mêlés** | Grille générée à partir des mots choisis. Il glisse le doigt sur un mot, ou touche la première puis la dernière lettre. Un mode agrandi permet de zoomer, avec la liste des mots toujours affichée. |
-| **Labyrinthe de lecture (MAZE)** | Dans les parcours 1 à 4, environ un mot sur sept est remplacé par trois choix. Dans le parcours NMD, l'élève complète de petites phrases à trou avec le bon mot parmi trois. |
+| **Labyrinthe de lecture (MAZE)** | L’élève choisit le mot qui convient parmi trois propositions, dans le texte ou dans de petites phrases à trou selon le support. |
 
 Navigation élève : texte de la semaine → activité. Le bouton **Retour**, la touche Échap et le bouton retour d’Android permettent de revenir aux activités du texte commun.
 Aucune donnée élève n'est enregistrée.
@@ -39,14 +39,14 @@ Aucune donnée élève n'est enregistrée.
 ## Studio enseignant : `/#/studio`
 
 1. Entrez le **code studio** (variable `STUDIO_CODE`).
-2. Choisissez un parcours et un texte déjà présent. Le titre et le passage sont prêts ; vous pouvez aussi ajouter vos propres textes avec **+ Texte**.
+2. Choisissez une période et un texte déjà présent. Le titre et le passage sont prêts ; vous pouvez aussi ajouter vos propres textes avec **+ Texte**.
 3. Cliquez sur **Préparer les activités avec Albert**. Mistral Small choisit les mots de dictée, les mots mêlés, la vitesse et les groupes de souffle ; Gemma rédige les questions de compréhension et les distracteurs MAZE. Les deux appels sont effectués en parallèle, puis l'application vérifie et réunit leurs réponses. Un mot absent du texte est retiré et signalé.
 4. Relisez et corrigez dans les cartes. Vous pouvez aussi désactiver une activité.
 5. Cliquez sur **Valider ce texte**. Le studio vérifie les réponses et la grille ; toute modification ultérieure du texte ou de ses activités le repasse en brouillon.
 6. Cliquez sur **Utiliser cette semaine**, puis sur **Publier pour les élèves**. Seul le texte commun choisi et validé devient visible dans le mode élève. Si la publication n'est pas configurée, utilisez **Exporter le fichier** (voir plus bas).
 
-Les réglages de chaque parcours (niveau, nombre de mots et de questions, sens de la grille, vitesse) servent à Albert. Le bouton « Préparer avec Albert les N textes sans activités » traite tout un parcours d'un coup.
-Les 60 textes des quatre livrets cycle 3 sont enregistrés dans la réserve du studio, avec les textes du parcours NMD issus du livret cycle 2. Le travail en cours est gardé dans le navigateur de l’ordinateur enseignant. Une publication conserve aussi les textes sans activités dans le fichier de contenu ; le mode élève n’affiche que le texte de la semaine choisi et validé. Si un ancien brouillon ULIS local existe, les nouveaux textes y sont ajoutés sans écraser les modifications précédentes.
+Les réglages des activités de chaque période (niveau, nombre de mots et de questions, sens de la grille, vitesse) servent à Albert. Le bouton « Préparer avec Albert les N textes sans activités » traite les textes de la période sélectionnée.
+Les textes de l’ancienne réserve restent disponibles et peuvent être déplacés vers la période souhaitée. Les anciens brouillons sont automatiquement adaptés aux cinq périodes, sans effacer leurs textes, leurs activités ou le choix du texte de la semaine. Le travail en cours est gardé dans le navigateur de l’ordinateur enseignant. Une publication conserve aussi les textes sans activités dans le fichier de contenu ; le mode élève n’affiche que le texte de la semaine choisi et validé.
 
 ## Mise en ligne sur Vercel
 
@@ -95,7 +95,7 @@ api/albert.js            relais vers Albert (clé côté serveur, contrôle du c
 api/_lib/generation.js   prompt envoyé à Albert + vérification de sa réponse
 api/publier.js           écriture de parcours.json dans GitHub
 api/statut.js            vérification du code studio
-public/contenu/parcours.json   tout le contenu (parcours, textes, activités)
+public/contenu/parcours.json   tout le contenu (périodes, textes, activités)
 src/main.js              navigation élève
 src/activites/           lecture, dictée, compréhension, mots mêlés
 src/studio/              studio enseignant
@@ -107,7 +107,7 @@ src/lib/                 traitement du texte, génération de la grille
 ```json
 {
   "parcours": [{
-    "id": 1, "nom": "Parcours 1", "couleur": "vert",
+    "id": 1, "nom": "Période 1", "couleur": "vert",
     "reglages": { "niveau": "CP", "nbMotsDictee": 6, "nbQuestions": 4, "nbMotsMeles": 6, "directions": "simple", "vitesse": 45 },
     "textes": [{
       "id": "…", "titre": "…", "texte": "…", "valide": true,
@@ -123,6 +123,6 @@ src/lib/                 traitement du texte, génération de la grille
 }
 ```
 
-Les parcours 1 à 4 contiennent chacun les 15 textes de leur livret cycle 3. Le parcours NMD contient les sept supports du livret cycle 2. Les supports 1 et 2 conservent leurs listes de syllabes et de mots ; la compréhension y prend la forme de petites définitions. Les supports 3 à 7 reprennent les phrases et récits du livret avec des questions sur leur contenu. MAZE propose des phrases à trou dans les sept supports. Tous sont validés avec leurs cinq activités.
+La clé JSON `parcours` et les identifiants existants sont conservés pour que les anciens fichiers et liens restent utilisables ; l’interface présente uniquement des périodes. La réserve issue des livrets conserve ses textes, ses listes de syllabes et ses activités. Le rangement dans les périodes est modifiable depuis le studio.
 
 Pour les phrases à trou, `maze` utilise `mode: "phrases"` et un tableau `phrases` d'objets `{ "phrase": "La ___ tourne.", "choix": ["roue", "lune", "jupe"], "bonne": 0 }`. Les trois choix doivent figurer dans le support ; le premier est la bonne réponse avant le mélange affiché à l'élève.
