@@ -2,6 +2,9 @@
 
 Version dédiée au travail de fluence sur **un même texte pour tous les élèves**, conservé pendant la semaine. L’habillage console, Albert et les cinq activités sont conservés.
 
+- [Site élève](https://parcours-fluence.vercel.app/)
+- [Studio enseignant](https://parcours-fluence.vercel.app/#/studio)
+
 ## Utiliser la version ULIS
 
 1. Ouvrez `/#/studio`. Le bandeau indique le texte commun choisi.
