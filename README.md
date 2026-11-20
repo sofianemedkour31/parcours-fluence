@@ -48,6 +48,14 @@ Aucune donnée élève n'est enregistrée.
 Les réglages des activités de chaque période (niveau, nombre de mots et de questions, sens de la grille, vitesse) servent à Albert. Le bouton « Préparer avec Albert les N textes sans activités » traite les textes de la période sélectionnée.
 Les textes de l’ancienne réserve restent disponibles et peuvent être déplacés vers la période souhaitée. Les anciens brouillons sont automatiquement adaptés aux cinq périodes, sans effacer leurs textes, leurs activités ou le choix du texte de la semaine. Le travail en cours est gardé dans le navigateur de l’ordinateur enseignant. Une publication conserve aussi les textes sans activités dans le fichier de contenu ; le mode élève n’affiche que le texte de la semaine choisi et validé.
 
+## Console Lecto Color
+
+L’habillage reprend la console portable du dossier `mise-a-jour` : écran de démarrage, boutons **START**, **A**, **B**, croix directionnelle, chouette en pixels, cartouches et chargement animé. **START** ouvre le texte de la semaine ; **B** revient en arrière ; **A** active le bouton sélectionné. Les flèches déplacent le focus, et la navigation au clavier et au toucher reste disponible.
+
+Les cinq activités donnent des pièces et des étoiles pendant la séance. Chaque entraînement complet au guide de lecture donne une étoile supplémentaire, jusqu’à trois, pour encourager la relecture. Ces récompenses décrivent la participation à l’application, sans mesurer la fluence réelle. Elles restent en mémoire et repartent à zéro au rechargement de la page, sans compte ni profil élève. Le réglage système de réduction des animations est respecté.
+
+Le nouveau design utilise `src/retro.css`, `src/sprites.js` et `src/jeu.js`. Les aides de lecture, les groupes de souffle, le labyrinthe, le zoom des mots mêlés et les cinq périodes du studio sont conservés. Les anciennes fonctions de la version de référence (quatre mondes et quatre activités) ne remplacent pas cette organisation.
+
 ## Mise en ligne sur Vercel
 
 1. Créez un dépôt GitHub avec ce dossier, puis importez-le dans Vercel. Le préréglage **Vite** est détecté automatiquement.

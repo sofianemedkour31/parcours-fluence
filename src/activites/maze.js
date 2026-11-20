@@ -1,8 +1,9 @@
 // Labyrinthe de lecture : choix dans le texte, ou phrases à compléter pour les listes de mots.
-import { el, ajouter, remplir, iconePixel, fenetre } from '../ui.js';
+import { el, ajouter, remplir } from '../ui.js';
 import { jetons, melanger } from '../lib/texte.js';
 import { erreursMaze, erreursMazePhrases } from '../lib/activites-lecture.js';
 import { jouer } from '../sons.js';
+import { creerPiste, finDeNiveau, gagner, etoilesPour } from '../jeu.js';
 
 export function monterMaze(zone, { texte, finir }) {
   const maze = texte.activites.maze;
@@ -25,6 +26,7 @@ export function monterMaze(zone, { texte, finir }) {
   const compteur = el('p', { class: 'compteur', 'aria-live': 'polite' });
   const retour = el('p', { class: 'maze-retour', role: 'status', 'aria-live': 'polite' });
   const papier = el('div', { class: 'papier maze-texte' });
+  const piste = creerPiste(items.length);
 
   function choisir(trou, index, bouton, cadre) {
     if (cadre.classList.contains('resolu')) return;
@@ -37,6 +39,8 @@ export function monterMaze(zone, { texte, finir }) {
       return;
     }
     resolus++;
+    gagner(rates.has(index) ? 5 : 10, bouton);
+    piste.avancer(resolus);
     if (!rates.has(index)) reussis++;
     cadre.classList.add('resolu');
     remplir(cadre, el('strong', {}, trou.choix[0]));
@@ -82,16 +86,14 @@ export function monterMaze(zone, { texte, finir }) {
         : 'Lis le texte. À chaque choix, touche le seul mot qui convient.')),
     compteur,
     retour,
+    piste.el,
     papier);
 
   function victoire() {
-    jouer('victoire');
-    const { fermer } = fenetre(el('div', { class: 'bravo' },
-      iconePixel('etoile', { taille: 72, contour: '#1b1626', fond: '#ffd23f' }),
-      el('h2', {}, 'Labyrinthe terminé !'),
-      el('p', {}, `${reussis} mot${reussis > 1 ? 's' : ''} trouvé${reussis > 1 ? 's' : ''} du premier coup sur ${items.length}.`),
-      el('div', { class: 'boutons' },
-        el('button', { class: 'btn-px btn-principal', onclick: () => { fermer(); finir(); } }, 'Autre activité'))));
+    finDeNiveau({ texteId: texte.id, activite: 'maze', etoiles: etoilesPour(reussis / items.length), titre: 'Labyrinthe terminé !',
+      lignes: [`${reussis} mot${reussis > 1 ? 's' : ''} trouvé${reussis > 1 ? 's' : ''} du premier coup sur ${items.length}.`],
+      boutons: [{ texte: 'Autre activité', action: finir, principal: true }],
+    });
   }
 
   return () => clearTimeout(finDifferee);

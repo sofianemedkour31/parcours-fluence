@@ -29,6 +29,10 @@ const MOTIFS = {
   faux: () => { note(196, 0, 0.12, { type: 'sawtooth', volume: 0.04 }); note(165, 0.12, 0.16, { type: 'sawtooth', volume: 0.04 }); },
   trouve: () => { note(880, 0, 0.06); note(1175, 0.06, 0.1); },
   victoire: () => { [523, 659, 784, 1047, 784, 1047].forEach((f, i) => note(f, i * 0.1, 0.12)); },
+  piece: () => { note(988, 0, 0.05, { volume: 0.05 }); note(1319, 0.05, 0.16, { volume: 0.05 }); },
+  demarrage: () => { [262, 330, 392, 523, 659, 784].forEach((f, i) => note(f, i * 0.07, 0.1, { type: 'triangle', volume: 0.08 })); note(1047, 0.45, 0.35, { type: 'triangle', volume: 0.08 }); },
+  chargement: () => { [440, 494, 523, 587].forEach((f, i) => note(f, i * 0.09, 0.05, { volume: 0.04 })); },
+  saut: () => { const o = ctx.createOscillator(); const g = ctx.createGain(); o.type = 'square'; o.frequency.setValueAtTime(330, ctx.currentTime); o.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.12); g.gain.setValueAtTime(0.04, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.14); o.connect(g).connect(ctx.destination); o.start(); o.stop(ctx.currentTime + 0.15); },
 };
 
 export function jouer(nom) {

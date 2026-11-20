@@ -194,6 +194,7 @@ export function fenetre(contenu, { classe = '', onFermer } = {}) {
   const boite = el('div', { class: 'fenetre', role: 'dialog', 'aria-modal': 'true' }, contenu);
   fond.append(boite);
   const fermer = () => { fond.remove(); document.removeEventListener('keydown', echap); onFermer?.(); };
+  fond.nettoyer = fermer;
   const echap = (e) => { if (e.key === 'Escape') { e.stopPropagation(); fermer(); } };
   fond.addEventListener('click', (e) => { if (e.target === fond) fermer(); });
   document.addEventListener('keydown', echap);

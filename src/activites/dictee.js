@@ -1,8 +1,9 @@
 // Dictée de mots : l'élève écoute un mot du texte et l'écrit.
-import { el, vider, remplir, ajouter, iconePixel, fenetre } from '../ui.js';
+import { el, vider, remplir, ajouter, iconePixel } from '../ui.js';
 import { formeDictee } from '../lib/texte.js';
 import { jouer } from '../sons.js';
 import { dire, taire, voixDisponible } from '../voix.js';
+import { creerPiste, finDeNiveau, gagner, etoilesPour } from '../jeu.js';
 
 const ACCENTS = ['é', 'è', 'ê', 'à', 'â', 'ç', 'ù', 'û', 'î', 'ï', 'ô', 'ë', 'œ'];
 
@@ -25,6 +26,7 @@ export function monterDictee(zone, { texte, finir }) {
   let resultats = [];
   let attente = null;
   let annonce = null;
+  let piste = creerPiste(liste.length);
 
   const progression = el('div', { class: 'progression' });
   const etape = el('div', { class: 'dictee-etape' });
@@ -35,10 +37,12 @@ export function monterDictee(zone, { texte, finir }) {
       el('p', { class: 'consigne' }, 'Écoute le mot, puis écris-le. Tu peux le réécouter autant de fois que tu veux.')),
     !voixDisponible() ? el('p', { class: 'alerte' }, 'La voix n\'est pas disponible sur cet appareil : demande à un adulte de dicter les mots.') : null,
     progression,
+    piste.el,
     etape,
   );
 
   function majProgression() {
+    piste.avancer(i);
     remplir(progression, 
       el('span', { class: 'progression-texte' }, `Mot ${Math.min(i + 1, liste.length)} / ${liste.length}`),
       el('span', { class: 'progression-barre' },
@@ -106,6 +110,7 @@ export function monterDictee(zone, { texte, finir }) {
       if (!saisie) { champ.focus(); return; }
       const juste = formeDictee(item.mot);
       if (saisie === juste) {
+        gagner(essais === 0 ? 10 : essais === 1 ? 5 : 2, champ);
         jouer('juste');
         if (!resultats[i]) resultats[i] = { mot: item.mot, ok: essais === 0, saisie: champ.value };
         champ.classList.add('juste');
@@ -158,17 +163,16 @@ export function monterDictee(zone, { texte, finir }) {
     majProgression();
     const reussis = resultats.filter((r) => r.ok).length;
     const rates = liste.filter((_, k) => !resultats[k]?.ok);
-    jouer(reussis === liste.length ? 'victoire' : 'juste');
     vider(etape);
-    const { fermer } = fenetre(el('div', { class: 'bravo' },
-      iconePixel('etoile', { taille: 72, contour: '#1b1626', fond: '#ffd23f' }),
-      el('h2', {}, 'Dictée terminée'),
-      el('p', {}, `${reussis} mot${reussis > 1 ? 's' : ''} juste${reussis > 1 ? 's' : ''} du premier coup sur ${liste.length}.`),
-      el('ul', { class: 'liste-bilan' }, liste.map((m, k) => el('li', { class: resultats[k]?.ok ? 'ok' : 'ko' }, m.mot))),
-      el('div', { class: 'boutons' },
-        rates.length ? el('button', { class: 'btn-px', onclick: () => { fermer(); recommencer(rates); } }, 'Refaire les mots ratés') : null,
-        el('button', { class: 'btn-px', onclick: () => { fermer(); recommencer(tous); } }, 'Tout recommencer'),
-        el('button', { class: 'btn-px btn-principal', onclick: () => { fermer(); finir(); } }, 'Autre activité'))));
+    finDeNiveau({ texteId: texte.id, activite: 'dictee', etoiles: etoilesPour(reussis / liste.length), titre: 'Dictée terminée !',
+      lignes: [`${reussis} mot${reussis > 1 ? 's' : ''} juste${reussis > 1 ? 's' : ''} du premier coup sur ${liste.length}.`],
+      contenu: el('ul', { class: 'liste-bilan' }, liste.map((m, k) => el('li', { class: resultats[k]?.ok ? 'ok' : 'ko' }, m.mot))),
+      boutons: [
+        ...(rates.length ? [{ texte: 'Refaire les mots ratés', action: () => recommencer(rates) }] : []),
+        { texte: 'Tout recommencer', action: () => recommencer(tous) },
+        { texte: 'Autre activité', action: finir, principal: true },
+      ],
+    });
   }
 
   function recommencer(nouvelleListe) {
@@ -177,6 +181,8 @@ export function monterDictee(zone, { texte, finir }) {
     annonce = null;
     taire();
     liste = nouvelleListe;
+    const nouvellePiste = creerPiste(liste.length);
+    piste.el.replaceWith(nouvellePiste.el); piste = nouvellePiste;
     i = 0;
     resultats = [];
     afficherMot();

@@ -1,8 +1,9 @@
 // Mots mêlés : glisser du premier au dernier mot, ou toucher la première puis la dernière lettre.
-import { el, vider, remplir, ajouter, iconePixel, fenetre } from '../ui.js';
+import { el, remplir, ajouter } from '../ui.js';
 import { genererGrille } from '../lib/grille.js';
 import { jouer } from '../sons.js';
 import { dire } from '../voix.js';
+import { finDeNiveau, gagner } from '../jeu.js';
 
 const TEINTES = ['#ffd23f', '#7ee0a0', '#8fc3ff', '#ff9fb7', '#c9a2ff', '#ffb36b', '#7fe3e0', '#e6f07a', '#f6a5ff', '#b5e48c', '#ffc8a2', '#a0c4ff'];
 
@@ -17,6 +18,7 @@ export function monterMotsMeles(zone, { texte, parcours, finir }) {
   let debut = null;          // [l, c] de la première lettre choisie
   let survol = null;
   let glisse = false;
+  let finDifferee = null;
 
   const cases = [];
   const plateau = el('div', { class: 'plateau', style: { '--n': n }, role: 'grid', 'aria-label': 'Grille de mots mêlés' });
@@ -66,8 +68,9 @@ export function monterMotsMeles(zone, { texte, parcours, finir }) {
   ajusterPlateau();
 
   function ajusterPlateau() {
-    const largeur = Math.max(1, cadre.clientWidth - 8);
-    const hauteur = agrandie ? Math.max(1, cadre.clientHeight - 8) : Infinity;
+    const style = getComputedStyle(cadre);
+    const largeur = Math.max(1, cadre.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight));
+    const hauteur = agrandie ? Math.max(1, cadre.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom)) : Infinity;
     const cote = Math.min(largeur, hauteur, agrandie ? 820 : 760);
     plateau.style.setProperty('--cote', `${Math.floor(cote * (agrandie ? zoom : 1))}px`);
     valeurZoom.textContent = `${Math.round(zoom * 100)} %`;
@@ -98,7 +101,7 @@ export function monterMotsMeles(zone, { texte, parcours, finir }) {
     }
     ajusterPlateau();
     boutonTaille.setAttribute('aria-pressed', String(ouvrir));
-    boutonTaille.textContent = ouvrir ? '↙ Réduire la grille' : '⛶ Agrandir la grille';
+    boutonTaille.textContent = ouvrir ? '↙ Revenir' : '⛶ Agrandir la grille';
     if (!ouvrir && !forcerFermeture) boutonTaille.focus();
   }
 
@@ -194,6 +197,7 @@ export function monterMotsMeles(zone, { texte, parcours, finir }) {
     }
     const teinte = TEINTES[trouves.size % TEINTES.length];
     trouves.set(place.mot, teinte);
+    gagner(10, cases[place.cases[0][0]][place.cases[0][1]]);
     place.cases.forEach(([l, c]) => {
       const x = cases[l][c];
       x.classList.add('trouvee');
@@ -204,7 +208,7 @@ export function monterMotsMeles(zone, { texte, parcours, finir }) {
     jouer('trouve');
     dire(place.affiche);
     majListe();
-    if (trouves.size === grille.places.length) setTimeout(victoire, 700);
+    if (trouves.size === grille.places.length) finDifferee = setTimeout(victoire, 700);
   }
 
   function memesCases(a, b) {
@@ -230,15 +234,13 @@ export function monterMotsMeles(zone, { texte, parcours, finir }) {
   }
 
   function victoire() {
-    jouer('victoire');
-    const { fermer } = fenetre(el('div', { class: 'bravo' },
-      iconePixel('etoile', { taille: 72, contour: '#1b1626', fond: '#ffd23f' }),
-      el('h2', {}, 'Tous les mots sont trouvés !'),
-      el('div', { class: 'boutons' },
-        el('button', { class: 'btn-px btn-principal', onclick: () => { fermer(); finir(); } }, 'Autre activité'))));
+    finDeNiveau({ texteId: texte.id, activite: 'motsMeles', etoiles: 3, titre: 'Tous les mots sont trouvés !',
+      boutons: [{ texte: 'Autre activité', action: finir, principal: true }],
+    });
   }
 
   return () => {
+    clearTimeout(finDifferee);
     document.removeEventListener('keydown', fermerAvecEchap, true);
     window.removeEventListener('resize', surRedim);
     window.visualViewport?.removeEventListener('resize', surRedim);

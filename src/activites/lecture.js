@@ -1,9 +1,10 @@
 // Lecture au prompteur : progression mot à mot ou par groupes de souffle.
-import { el, vider, remplir, ajouter, iconePixel, formaterDuree, fenetre } from '../ui.js';
+import { el, remplir, ajouter, iconePixel, formaterDuree } from '../ui.js';
 import { jetons } from '../lib/texte.js';
 import { bornesGroupes } from '../lib/activites-lecture.js';
 import { jouer } from '../sons.js';
 import { dire, taire } from '../voix.js';
+import { creerPiste, finDeNiveau, gagner, lectureTerminee } from '../jeu.js';
 
 const VITESSES = [20, 30, 40, 50, 60, 70, 80, 90, 100, 120, 140];
 const TAILLES = [24, 28, 32, 38, 44];
@@ -41,6 +42,7 @@ export function monterLecture(zone, { texte, parcours, finir }) {
   papier.classList.toggle('mots-espaces', espacement);
 
   const chrono = el('span', { class: 'chrono', 'aria-live': 'off', 'aria-label': 'Durée du guide de lecture', title: 'Durée du guide de lecture' }, '0:00');
+  const piste = creerPiste(mots.length);
   const affVitesse = el('span', { class: 'vitesse-valeur' });
   const btnLire = el('button', { class: 'btn-px btn-principal', onclick: () => (enCours ? pause() : lancer()) });
   const btnMots = el('button', { class: 'btn-px', onclick: () => changerMode(false) }, 'Mot à mot');
@@ -84,6 +86,7 @@ export function monterLecture(zone, { texte, parcours, finir }) {
       consigne),
     barre,
     reglages,
+    piste.el,
     papier,
   );
   majVitesse();
@@ -162,20 +165,19 @@ export function monterLecture(zone, { texte, parcours, finir }) {
     cumul += performance.now() - debut;
     majChrono();
     majBouton();
-    jouer('victoire');
-    const { fermer } = fenetre(el('div', { class: 'bravo' },
-      iconePixel('etoile', { taille: 72, contour: '#1b1626', fond: '#ffd23f' }),
-      el('h2', {}, 'Texte terminé !'),
-      el('p', {}, 'Tu peux relire le texte autant de fois que tu veux.'),
-      el('p', {}, `Durée du guide : ${formaterDuree(cumul)}.`),
-      el('div', { class: 'boutons' },
-        el('button', { class: 'btn-px', onclick: () => { fermer(); recommencer(); } }, 'Relire'),
-        el('button', { class: 'btn-px btn-principal', onclick: () => { fermer(); finir(); } }, 'Autre activité'))));
+    const lectures = lectureTerminee(texte.id);
+    gagner(20, btnLire);
+    finDeNiveau({ texteId: texte.id, activite: 'lecture', etoiles: Math.min(3, lectures),
+      titre: lectures === 1 ? 'Premier entraînement terminé !' : `Entraînement n° ${lectures} terminé !`,
+      lignes: [`Durée du guide : ${formaterDuree(cumul)}.`, lectures < 3 ? 'Relis le texte pour gagner une étoile de plus.' : 'Bravo pour tes relectures ! Tu peux continuer à t’entraîner.'],
+      boutons: [{ texte: 'Relire', action: recommencer }, { texte: 'Autre activité', action: finir, principal: true }],
+    });
   }
 
   function majMots() {
     const premier = unites[index]?.debut ?? mots.length;
     const dernier = unites[index]?.fin ?? -1;
+    piste.avancer(premier);
     mots.forEach((m, i) => {
       m.classList.toggle('lu', i < premier);
       m.classList.toggle('courant', i >= premier && i <= dernier);

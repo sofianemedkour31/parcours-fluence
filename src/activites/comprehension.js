@@ -3,6 +3,7 @@ import { el, vider, remplir, ajouter, iconePixel, fenetre } from '../ui.js';
 import { melanger, propre } from '../lib/texte.js';
 import { jouer } from '../sons.js';
 import { dire, taire } from '../voix.js';
+import { creerPiste, finDeNiveau, gagner, etoilesPour } from '../jeu.js';
 
 const LETTRES = ['A', 'B', 'C', 'D'];
 
@@ -13,6 +14,7 @@ export function monterComprehension(zone, { texte, finir }) {
 
   const progression = el('div', { class: 'progression' });
   const etape = el('div', { class: 'compr-etape' });
+  const piste = creerPiste(questions.length);
   ajouter(zone, 
     el('div', { class: 'activite-entete' },
       el('h2', {}, 'Je comprends le texte'),
@@ -20,10 +22,12 @@ export function monterComprehension(zone, { texte, finir }) {
     el('div', { class: 'boutons-haut' },
       el('button', { class: 'btn-px', onclick: () => ouvrirTexte() }, '📖 Relire le texte')),
     progression,
+    piste.el,
     etape,
   );
 
   function majProgression() {
+    piste.avancer(i);
     remplir(progression, 
       el('span', { class: 'progression-texte' }, `Question ${Math.min(i + 1, questions.length)} / ${questions.length}`),
       el('span', { class: 'progression-barre' },
@@ -63,6 +67,7 @@ export function monterComprehension(zone, { texte, finir }) {
       if (bouton.disabled) return;
       taire();
       if (o.juste) {
+        gagner(erreurs === 0 ? 10 : 5, bouton);
         jouer('juste');
         resultats[i] = erreurs === 0;
         bouton.classList.add('juste');
@@ -128,14 +133,10 @@ export function monterComprehension(zone, { texte, finir }) {
     majProgression();
     vider(etape);
     const bons = resultats.filter(Boolean).length;
-    jouer(bons === questions.length ? 'victoire' : 'juste');
-    const { fermer } = fenetre(el('div', { class: 'bravo' },
-      iconePixel('etoile', { taille: 72, contour: '#1b1626', fond: '#ffd23f' }),
-      el('h2', {}, 'Questions terminées'),
-      el('p', {}, `${bons} bonne${bons > 1 ? 's' : ''} réponse${bons > 1 ? 's' : ''} du premier coup sur ${questions.length}.`),
-      el('div', { class: 'boutons' },
-        el('button', { class: 'btn-px', onclick: () => { fermer(); i = 0; resultats = []; afficherQuestion(); } }, 'Recommencer'),
-        el('button', { class: 'btn-px btn-principal', onclick: () => { fermer(); finir(); } }, 'Autre activité'))));
+    finDeNiveau({ texteId: texte.id, activite: 'comprehension', etoiles: etoilesPour(bons / questions.length), titre: 'Questions terminées !',
+      lignes: [`${bons} bonne${bons > 1 ? 's' : ''} réponse${bons > 1 ? 's' : ''} du premier coup sur ${questions.length}.`],
+      boutons: [{ texte: 'Recommencer', action: () => { i = 0; resultats = []; afficherQuestion(); } }, { texte: 'Autre activité', action: finir, principal: true }],
+    });
   }
 
   afficherQuestion();
