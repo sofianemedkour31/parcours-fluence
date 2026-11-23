@@ -361,7 +361,7 @@ button:disabled { cursor: not-allowed; }
 .activite-entete h2 { font-size: 14px; }
 .piste { margin-top: 10px; }
 .papier { margin: 12px; }
-.prompteur { max-height: max(260px, calc(100dvh - 450px)); }
+.lecture-effacement { max-height: max(260px, calc(100dvh - 450px)); }
 .aides-lecture { color: #ece6f8; }
 .maze-choix button { color-scheme: light; }
 .compteur, .mm-zoom-valeur { color: #ece6f8; }

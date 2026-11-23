@@ -256,10 +256,14 @@ export async function monterStudio(racine) {
           el('ul', {}, t._alertes.map((x) => el('li', {}, x))),
           el('button', { class: 'st-lien', onclick: () => { delete t._alertes; sauver(); majEditeur(); } }, 'Masquer')) : null),
 
-      carte('lecture', 'Lecture au prompteur', a.lecture,
+      carte('lecture', 'Lecture avec effacement', a.lecture,
         el('label', { class: 'st-champ-court' }, 'Vitesse conseillée (mots/min)',
           el('input', { type: 'number', min: 20, max: 140, step: 5, value: a.lecture.vitesse || parcoursCourant().reglages.vitesse, onchange: (e) => { a.lecture.vitesse = Number(e.target.value); sauver(); } })),
-        el('p', { class: 'st-aide' }, 'L\'élève peut ensuite ralentir ou accélérer lui-même.'),
+        el('p', { class: 'st-aide' }, 'L\'élève peut régler sa vitesse. Le personnage efface les lettres à son passage.'),
+        el('label', { class: 'st-champ' }, 'GIF transparent (adresse HTTPS directe, facultatif)',
+          el('input', { type: 'url', value: a.lecture.gif || '', placeholder: 'Personnage Ryu par défaut', onchange: (e) => {
+            a.lecture.gif = e.target.value.trim(); sauver();
+          } })),
         editeurGroupes(t)),
 
       carte('dictee', `Dictée de mots (${a.dictee.mots.length})`, a.dictee, editeurDictee(t)),
@@ -391,7 +395,7 @@ export async function monterStudio(racine) {
       }, groupes.join('\n')),
       (t.activites.lecture.groupesDemandes || groupes.length) && !bornesGroupes(t.texte, groupes)
         ? el('em', { class: 'st-warn' }, 'Les groupes doivent reprendre tous les mots du texte, une seule fois et dans le même ordre.') : null,
-      el('small', {}, 'Albert propose le découpage. Le prompteur avance ensuite par groupe ; le mode mot à mot reste disponible.'));
+      el('small', {}, 'Ces groupes restent disponibles pour préparer la lecture orale. L’effacement suit chaque lettre à l’écran.'));
   }
 
   function editeurMaze(t) {

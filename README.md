@@ -13,9 +13,13 @@ Version dédiée au travail de fluence sur **un même texte pour tous les élèv
 4. Cliquez sur **Utiliser cette semaine**. Ce choix unique remplace le texte de la semaine précédent sans supprimer les textes de la réserve.
 5. Publiez, ou exportez `parcours.json` pour le déposer dans `public/contenu/`.
 
-L’accueil élève présente directement les cinq activités du texte commun, avec **Lire et relire** mis en avant. Tant qu’aucun texte n’est choisi et validé, il affiche un message d’attente. Les autres textes, même validés, restent réservés au studio ; ils ne sont pas proposés dans la navigation élève. Le fichier JSON public contient toujours la réserve : ce filtrage ne constitue pas un contrôle d’accès à des données confidentielles.
+L’accueil élève présente directement les cinq activités du texte commun, avec **Lecture avec effacement** mis en avant. Tant qu’aucun texte n’est choisi et validé, il affiche un message d’attente. Les autres textes, même validés, restent réservés au studio ; ils ne sont pas proposés dans la navigation élève. Le fichier JSON public contient toujours la réserve : ce filtrage ne constitue pas un contrôle d’accès à des données confidentielles.
 
-**Mes aides de lecture** regroupe la vitesse, la taille, les groupes de souffle, le suivi d’une ligne et l’espacement des mots. La taille, l’espacement et les modes d’aide sont conservés dans l’onglet pendant la session, sans profil élève. Le modèle audio reste disponible. La durée affichée est celle du guide ; elle ne mesure pas les mots correctement lus par l’élève.
+**Lecture avec effacement** affiche tout le texte au départ. Le bord avant de Ryu efface chaque lettre franchie avec `visibility: hidden`, sans modifier sa place. Une seule boucle `requestAnimationFrame` anime le personnage et l’effacement. Les positions réelles des lettres sont mesurées après un changement de taille, de police ou de largeur ; chaque nouvelle ligne commence par un saut direct du repère. Le GIF reste dans la hauteur de sa ligne, derrière son bord avant, pour dégager les lettres à lire.
+
+Les commandes **Démarrer**, **Pause**, **Reprendre** et **Tout réafficher** contrôlent la séance. La vitesse est réglable de 10 à 300 mots/min, y compris pendant la lecture ; la durée théorique est le nombre de mots divisé par cette vitesse. La taille et l’espacement restent réglables, et le modèle audio est conservé. Le chronomètre mesure le temps d’animation, sans compter les pauses ; il ne mesure pas les mots correctement lus. La lecture se met en pause lorsque l’onglet est masqué.
+
+**Texte et personnage** permet de remplacer le texte et le GIF (adresse HTTPS directe ou fichier GIF local) pour la séance. Le studio peut enregistrer une adresse dans `activites.lecture.gif` pour un texte publié. Sans adresse, le fichier transparent `public/images/ryu-lecture.gif` est utilisé, d’après le [sticker Tenor fourni](https://tenor.com/view/street-fighter-ryu-gif-21021314). Aucun script ou lecteur Tenor n’est chargé. Les groupes de souffle existants restent disponibles dans le studio comme support de préparation orale.
 
 Le choix est enregistré à la racine du contenu sous `texteSemaine: { parcoursId, texteId }` (ou `null` avant sélection). Si ce texte repasse en brouillon, la publication est bloquée jusqu’à sa nouvelle validation. Les brouillons ULIS utilisent leurs propres clés de stockage, distinctes de celles du projet d’origine.
 
@@ -27,7 +31,7 @@ Application de lecture au look de console rétro. Le studio organise les textes 
 
 | Activité | Ce que fait l'élève |
 |---|---|
-| **Lire** | Lecture au prompteur : progression mot à mot ou par groupes de souffle préparés par Albert. Vitesse réglable, mode « ligne », modèle lu à voix haute, chronomètre. |
+| **Lire** | Lecture avec effacement : le personnage efface les lettres à son passage. Vitesse, taille et espacement réglables, pause/reprise, réaffichage, texte et GIF remplaçables, modèle audio et chronomètre. |
 | **Dictée** | Il écoute un mot (normalement, lentement ou dans une phrase), puis l'écrit. Au 1er essai faux, il voit les lettres bien placées. Au 2e, le mot est montré et il le recopie. |
 | **Comprendre** | Questions à 3 choix, lues à voix haute sur demande. Après une erreur, il reçoit un indice et peut relire le texte avec le passage utile surligné. |
 | **Mots mêlés** | Grille générée à partir des mots choisis. Il glisse le doigt sur un mot, ou touche la première puis la dernière lettre. Un mode agrandi permet de zoomer, avec la liste des mots toujours affichée. |
@@ -134,3 +138,7 @@ src/lib/                 traitement du texte, génération de la grille
 La clé JSON `parcours` et les identifiants existants sont conservés pour que les anciens fichiers et liens restent utilisables ; l’interface présente uniquement des périodes. La réserve issue des livrets conserve ses textes, ses listes de syllabes et ses activités. Le rangement dans les périodes est modifiable depuis le studio.
 
 Pour les phrases à trou, `maze` utilise `mode: "phrases"` et un tableau `phrases` d'objets `{ "phrase": "La ___ tourne.", "choix": ["roue", "lune", "jupe"], "bonne": 0 }`. Les trois choix doivent figurer dans le support ; le premier est la bonne réponse avant le mélange affiché à l'élève.
+
+## Vérifier la lecture avec effacement
+
+`npm test` vérifie la géométrie, les sauts de ligne, les commandes, le redimensionnement et les mots/minute. Avec `npm run dev`, ouvrez `/tests/effacement.html` pour contrôler visuellement le mode sur grand écran et en largeur téléphone. Cette page de test ne fait pas partie du build publié.

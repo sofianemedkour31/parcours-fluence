@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vérification de la lecture avec effacement</title>
+<link rel="stylesheet" href="/src/styles.css">
+<link rel="stylesheet" href="/src/retro.css">
+<style>
+  body { display: block; padding: 20px; background: #24213a; color: #fff; }
+  #zone { width: min(100%, 950px); margin: auto; --p-fond: #5dbb63; --p-clair: #c9efc0; }
+  .taille-test { display: block; margin: 16px auto; max-width: 950px; font-size: 20px; }
+</style>
+<label class="taille-test">Largeur de test
+  <select id="largeur"><option value="950">Grand écran</option><option value="360">Téléphone</option></select>
+</label>
+<main id="zone"></main>
+<script type="module">
+  import { monterLecture } from '/src/activites/lecture.js';
+  const zone = document.getElementById('zone');
+  document.getElementById('largeur').addEventListener('change', (e) => zone.style.width = `min(100%, ${e.target.value}px)`);
+  monterLecture(zone, {
+    texte: { id: 'verification-effacement', titre: 'Le jardin des lettres',
+      texte: 'Le petit chat regarde les oiseaux dans le jardin. Il avance doucement entre les fleurs et les arbres.\nPuis il retrouve son amie près de la maison. Ensemble, ils lisent une histoire et regardent les nuages.\nÀ bientôt, les amis !',
+      activites: { lecture: { vitesse: 60 } } },
+    parcours: { reglages: { vitesse: 60 } }, finir: () => {},
+  });
+</script>
+</html>

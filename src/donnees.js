@@ -19,7 +19,7 @@ export const COULEURS = {
 };
 
 export const ACTIVITES = [
-  { cle: 'lecture', nom: 'Lire et relire', aide: 'Entraîne-toi à lire à voix haute, à ton rythme.' },
+  { cle: 'lecture', nom: 'Lecture avec effacement', aide: 'Lis avant que le personnage efface les lettres.' },
   { cle: 'dictee', nom: 'Dictée', aide: 'Écoute les mots et écris-les.' },
   { cle: 'comprehension', nom: 'Comprendre', aide: 'Réponds aux questions sur le texte.' },
   { cle: 'motsMeles', nom: 'Mots mêlés', aide: 'Retrouve les mots cachés dans la grille.' },
